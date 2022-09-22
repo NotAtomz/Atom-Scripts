@@ -1,0 +1,30 @@
+local old = getChar().HumanoidRootPart.CFrame
+	if target then
+		local root = target.Character:FindFirstChild("HumanoidRootPart") or target.Character:FindFirstChild("Torso")
+		if root then
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = root.CFrame
+		end
+	end
+
+	wait()
+game.Players.LocalPlayer.Character.Humanoid.Name = 1
+local l = game.Players.LocalPlayer.Character["1"]:Clone()
+l.Parent = game.Players.LocalPlayer.Character
+l.Name = "Humanoid"
+wait()
+game.Players.LocalPlayer.Character["1"]:Destroy()
+game.Workspace.CurrentCamera.CameraSubject = game.Players.LocalPlayer.Character
+game.Players.LocalPlayer.Character.Animate.Disabled = true
+wait()
+game.Players.LocalPlayer.Character.Animate.Disabled = false
+game.Players.LocalPlayer.Character.Humanoid.DisplayDistanceType = "None"
+for i,v in pairs(game:GetService'Players'.LocalPlayer.Backpack:GetChildren())do
+game.Players.LocalPlayer.Character.Humanoid:EquipTool(v)
+end
+wait(0.2)
+game.Players.LocalPlayer.Character.Humanoid.Health = -60000
+local prt=Instance.new("Model", workspace);
+Instance.new("Humanoid", prt).Name="Humanoid";
+game.Players.LocalPlayer.Character=prt
+	plr.CharacterAdded:Wait()
+        getChar():WaitForChild("HumanoidRootPart").CFrame = old
