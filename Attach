@@ -1,10 +1,3 @@
-local old = getChar().HumanoidRootPart.CFrame
-	if target then
-		local root = target.Character:FindFirstChild("HumanoidRootPart") or target.Character:FindFirstChild("Torso")
-		if root then
-			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = root.CFrame
-		end
-	end
 
 	wait()
 game.Players.LocalPlayer.Character.Humanoid.Name = 1
