@@ -1,10 +1,4 @@
-local old = getChar().HumanoidRootPart.CFrame
-	if target then
-		local root = target.Character:FindFirstChild("HumanoidRootPart") or target.Character:FindFirstChild("Torso")
-		if root then
-			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = root.CFrame
-		end
-	end
+
 
 	wait()
 game.Players.LocalPlayer.Character.Humanoid.Name = 1
@@ -26,5 +20,5 @@ game.Players.LocalPlayer.Character.Humanoid.Health = -60000
 local prt=Instance.new("Model", workspace);
 Instance.new("Humanoid", prt).Name="Humanoid";
 game.Players.LocalPlayer.Character=prt
-	plr.CharacterAdded:Wait()
-        getChar():WaitForChild("HumanoidRootPart").CFrame = old
+
+        
