@@ -1,0 +1,28 @@
+local HttpService = game:GetService("HttpService")
+
+local function fetchScript()
+    local url = "http://localhost:3000/script"
+    local success, response = pcall(function()
+        return HttpService:GetAsync(url)
+    end)
+
+    if success and response ~= "" then
+        print("Script received:", response)
+        local success, err = pcall(function()
+            local scriptFunction = loadstring(response)
+            scriptFunction()
+        end)
+
+        if not success then
+            warn("Error executing script:", err)
+        end
+    else
+        warn("No script received or failed to fetch.")
+    end
+end
+
+-- Fetch every 5 seconds
+while true do
+    fetchScript()
+    wait(5)
+end
