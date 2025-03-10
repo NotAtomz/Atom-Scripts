@@ -1,1 +1,2576 @@
--- Script Is Currently Being Uploaded
+function chatmessage(message, color)
+	game.StarterGui:SetCore("ChatMakeSystemMessage", {
+		Text = message;
+		Font = Enum.Font.Code;
+		Color = color;
+	})
+end
+local str = tostring(game:HttpGet("https://pastebin.com/raw/E9DAeMuE"))
+if str ~= "CL_1" then chatmessage("You are currently on version CL_1 You Need To Update To "..str, Color3.fromRGB(255,0,0)) end
+function firesound(soundid)
+	local sound = Instance.new("Sound")
+	sound.SoundId = "rbxassetid://"..soundid..""
+	sound.Parent = game:GetService("SoundService")
+	sound:Play()
+end
+function notice(msg)
+	game:GetService("StarterGui"):SetCore("SendNotification", {
+		Title = "Notice",
+		Text = msg,
+		Duration = 15,
+	})
+    firesound(17208372272)
+	task.wait()
+	local noticgui
+	repeat wait()
+        noticgui = game:GetService("CoreGui"):FindFirstChild("RobloxGui"):FindFirstChild("NotificationFrame"):FindFirstChild("Notification") or nil
+    until noticgui
+    noticgui.BackgroundColor3 = Color3.fromRGB(100, 100, 100) --.BackgroundColor3 = Color3.fromRGB(150, 150, 150)
+	noticgui.BackgroundTransparency = 0 --.BackgroundTransparency = 0.300
+	noticgui.BorderColor3 = Color3.fromRGB(24, 24, 24)
+	noticgui.BorderSizePixel = 3
+	noticgui:FindFirstChild("NotificationTitle").Position = UDim2.new(0, 8, 0.5, -28)
+	noticgui:FindFirstChild("NotificationText").Position = UDim2.new(0, 8, 0.5, -10)
+	noticgui:FindFirstChild("NotificationText").Font = Enum.Font.Code
+	noticgui:FindFirstChild("NotificationText").TextSize = 12.000
+	local uig = Instance.new("UIGradient",noticgui)
+	uig.Color = ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.fromRGB(0, 0, 0)), ColorSequenceKeypoint.new(0.50, Color3.fromRGB(43, 0, 65)), ColorSequenceKeypoint.new(1.00, Color3.fromRGB(15, 15, 15))}
+	uig.Rotation = 45
+	local uisss34ss = Instance.new("UIStroke",noticgui)
+	uisss34ss.ApplyStrokeMode = "Border"
+	uisss34ss.Color = Color3.fromRGB(135,37,255)
+	uisss34ss.LineJoinMode = "Round"
+	uisss34ss.Thickness = 1.6
+	uisss34ss.Transparency = 0.2
+	local uic = Instance.new("UICorner",noticgui)
+	noticgui.Name = "Noticed"
+end
+if not game.Players.LocalPlayer:FindFirstChild("PlayerGui"):FindFirstChild("Loadscreen") then
+	local Loadscreen = Instance.new("ScreenGui")
+	local Barthing = Instance.new("Frame")
+	local linee = Instance.new("TextLabel")
+	local consolee = Instance.new("TextLabel")
+	local versionn = Instance.new("TextLabel")
+	local UIDFS = Instance.new("UIGradient")
+	local uuic = Instance.new("UICorner")
+
+	Loadscreen.Name = "Loadscreen"
+	Loadscreen.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+	Loadscreen.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+	Loadscreen.ResetOnSpawn = false
+
+	Barthing.Name = "Barthing"
+	Barthing.Parent = Loadscreen
+	Barthing.AnchorPoint = Vector2.new(1, 1)
+	Barthing.BackgroundColor3 = Color3.fromRGB(31, 31, 31)
+	Barthing.BackgroundTransparency = 0.250
+	Barthing.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	Barthing.BorderSizePixel = 0
+	Barthing.Position = UDim2.new(0.9, 0, 0.548638105, 0)
+	Barthing.Size = UDim2.new(0.500568748, 439, 0, 50)
+
+	linee.Name = "linee"
+	linee.Parent = Barthing
+	linee.AnchorPoint = Vector2.new(1, 1)
+	linee.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	linee.BackgroundTransparency = 1.000
+	linee.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	linee.BorderSizePixel = 0
+	linee.Position = UDim2.new(0.58, 0, 0.691361666, 0)
+	linee.Size = UDim2.new(0, 55, 0, 31)
+	linee.Font = Enum.Font.SourceSansBold
+	linee.Text = "Line"
+	linee.TextColor3 = Color3.fromRGB(255, 255, 255)
+	linee.TextSize = 34.000
+	linee.TextTransparency = 1
+
+	consolee.Name = "consolee"
+	consolee.Parent = Barthing
+	consolee.AnchorPoint = Vector2.new(1, 1)
+	consolee.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	consolee.BackgroundTransparency = 1.000
+	consolee.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	consolee.BorderSizePixel = 0
+	consolee.Position = UDim2.new(0.53, 0, 0.691361666, 0)
+	consolee.Size = UDim2.new(0, 100, 0, 31)
+	consolee.Font = Enum.Font.SourceSansBold
+	consolee.Text = "Console"
+	consolee.TextColor3 = Color3.fromRGB(85, 0, 255)
+	consolee.TextSize = 34.000
+	consolee.TextTransparency = 1
+
+	versionn.Name = "versionn"
+	versionn.Parent = Barthing
+	versionn.AnchorPoint = Vector2.new(1, 1)
+	versionn.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	versionn.BackgroundTransparency = 1.000
+	versionn.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	versionn.BorderSizePixel = 0
+	versionn.Position = UDim2.new(0.590632021, 0, 0.891361713, 0)
+	versionn.Size = UDim2.new(0, 154, 0, 17)
+	versionn.Font = Enum.Font.SourceSansBold
+	versionn.Text = "Version: "..str
+	versionn.TextColor3 = Color3.fromRGB(255, 255, 255)
+	versionn.TextSize = 14.000
+	versionn.TextTransparency = 1
+
+	UIDFS.Color = ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.fromRGB(85, 0, 255)), ColorSequenceKeypoint.new(0.35, Color3.fromRGB(0, 0, 127)), ColorSequenceKeypoint.new(0.65, Color3.fromRGB(0, 0, 127)), ColorSequenceKeypoint.new(1.00, Color3.fromRGB(85, 85, 255))}
+	UIDFS.Rotation = 45
+	UIDFS.Transparency = NumberSequence.new{NumberSequenceKeypoint.new(0.00, 0.05), NumberSequenceKeypoint.new(1.00, 0.05)}
+	UIDFS.Name = "UIDFS"
+	UIDFS.Parent = Barthing
+
+	uuic.Name = "uuic"
+	uuic.CornerRadius = UDim.new(0,8)
+	uuic.Parent = Barthing
+
+	local blureffect = Instance.new("BlurEffect")
+	blureffect.Name = "blureffect"
+	blureffect.Parent = game:GetService("Lighting")
+	blureffect.Enabled = true
+	blureffect.Size = 0 
+    local ctcc = game:GetService("Lighting").ClockTime
+
+	--start
+	local info = TweenInfo.new(1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
+	firesound(14006215368)
+    local tt15 = game:GetService("TweenService"):Create(blureffect, info, {Size = 15})
+	tt15:Play()
+	for i = 1,0.25,-0.05 do
+		Barthing.BackgroundTransparency = i
+		task.wait()
+	end
+    for i = ctcc,0,-0.1 do
+        game:GetService("Lighting").ClockTime = i
+        task.wait()
+    end
+	firesound(8486683243)
+	for i = 1,0,-0.1 do
+		linee.TextTransparency = i
+		consolee.TextTransparency = i
+		versionn.TextTransparency = i
+		task.wait()
+	end
+	wait(3)
+    firesound(14006215368)
+	for i = 0,1,0.1 do
+		linee.TextTransparency = i
+		consolee.TextTransparency = i
+		versionn.TextTransparency = i
+		task.wait()
+	end
+	-- end
+	for i = 0.25,1,0.05 do
+		Barthing.BackgroundTransparency = i
+		task.wait()
+	end
+    for i = 0,ctcc,0.1 do
+    game:GetService("Lighting").ClockTime = i
+    task.wait()
+    end
+	local tt0 = game:GetService("TweenService"):Create(blureffect, info, {Size = 0})
+	tt0:Play()
+    wait(1)
+	Loadscreen:Destroy()	
+	blureffect:Destroy()
+end
+if not game.Players.LocalPlayer:FindFirstChild("PlayerGui"):FindFirstChild("cmdllogo") then
+	game.StarterGui:SetCore("ChatMakeSystemMessage", {
+		Text = ("Console Line Admin");
+		Font = Enum.Font.Code;
+		Color = Color3.fromRGB(85, 0, 255);
+	})
+	game.StarterGui:SetCore("ChatMakeSystemMessage", {
+		Text = ("Click \\ To Open Command Bar");
+		Font = Enum.Font.Code;
+		Color = Color3.fromRGB(255, 255, 255);
+	})
+	game.StarterGui:SetCore("ChatMakeSystemMessage", {
+		Text = ("Enjoy The Script, Made By Atom Scripts");
+		Font = Enum.Font.Code;
+		Color = Color3.fromRGB(0, 255, 255);
+	})
+	local cmdllogo = Instance.new("ScreenGui")
+	local tl = Instance.new("TextLabel")
+	local tl1 = Instance.new("TextLabel")
+	cmdllogo.Name = "cmdllogo"
+	cmdllogo.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+	cmdllogo.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+	cmdllogo.ResetOnSpawn = false
+
+	tl.Name = "tl"
+	tl.Parent = cmdllogo
+	tl.AnchorPoint = Vector2.new(1, 1)
+	tl.BackgroundTransparency = 1
+	tl.Position = UDim2.new(0.06, 0, 1.01, 0)
+	tl.TextColor3 = Color3.fromRGB(85, 0, 255)
+	tl.TextSize = 15.000
+	tl.Size = UDim2.new(0, 50, 0, 50)
+	tl.RichText = true
+	tl.Text = "<b>Console</b>"
+
+	tl1.Name = "tl1"
+	tl1.Parent = cmdllogo
+	tl1.AnchorPoint = Vector2.new(1, 1)
+	tl1.BackgroundTransparency = 1
+	tl1.Position = UDim2.new(0.172, 0, 1.01, 0)
+	tl1.TextColor3 = Color3.fromRGB(255, 255, 255)
+	tl1.TextSize = 15.000
+	tl1.Size = UDim2.new(0, 100, 0, 50)
+	tl1.RichText = true
+	tl1.Text = "<b>Line Admin v0.01</b>"
+end
+if game:GetService("CoreGui"):FindFirstChild("TopBarApp"):FindFirstChild("MenuIconHolder"):FindFirstChild("Line") then notice("The script is already loaded try running the command stopc and re run the script") return end
+firesound(6366788549)
+local players = game:GetService("Players")
+local plr = players.LocalPlayer
+local tws = game:GetService('TweenService')
+local tweeninfo = TweenInfo.new(1,Enum.EasingStyle.Linear)
+local connections = {} 
+local protected = {}
+local clickkillmove = nil
+local killonclick = nil
+local autorefresh = false
+local loopkilling = false
+local ccdfsdf
+local plradd 
+local plrremove 
+RunService = game:GetService("RunService")
+lplayer = game:GetService("Players").LocalPlayer
+prefix = ";"
+ssworks = false
+inmicup = false
+autoro = false
+rbb = false
+Lagging = false
+invisRunning = false
+scriptunloaded = false
+local killaurapart = nil
+local kafollowplr = nil
+local partinka = {}
+local ranremotecheck = false
+local foundremote = nil
+local foundremotename = "None"
+local nc = false
+local ncLoop
+ncLoop = game:GetService("RunService").Stepped:Connect(function()
+	if nc and game.Players.LocalPlayer.Character ~= nil then
+		for _, v in pairs(game.Players.LocalPlayer.Character:GetDescendants()) do
+			if v:IsA("BasePart") and v.CanCollide == true then
+				v.CanCollide = false
+			end
+		end
+	end
+end)
+-- Roblox Patches --
+game:GetService("CoreGui"):FindFirstChild("RobloxGui"):FindFirstChild("NotificationFrame").Position = UDim2.new(1, -215, 0.5, 0)
+game:GetService("TextChatService"):FindFirstChild("BubbleChatConfiguration").BackgroundTransparency = 1
+game:GetService("TextChatService"):FindFirstChild("BubbleChatConfiguration").TextSize = 24
+game:GetService("TextChatService"):FindFirstChild("BubbleChatConfiguration").TextColor3 = Color3.fromRGB(255,255,255)
+-- End Of Roblox Patches
+-- Functions --
+function tpbypass(v)
+	if plr.Character and plr.Character:FindFirstChild('HumanoidRootPart') then
+		local cf = v.Character.Humanoid.RootPart.CFrame
+		local a = tws:Create(plr.Character.HumanoidRootPart,tweeninfo,{CFrame=cf})
+		a:Play()
+	end
+end
+function setCharTrans(value)
+    for i,v in ipairs(plr.Character:GetDescendants()) do
+        if v:IsA("BasePart") and v.Name ~= "HumanoidRootPart" then
+            v.Transparency = value
+        end
+    end
+end
+local lastobjplace
+local lastobjcollisionvalue
+function Firetouchinterest(object1, object2, touch)
+    if touch == 0 then 
+        lastobjplace = object1.CFrame
+        lastobjcollisionvalue = object1.CanCollide
+        object1.CFrame = object2.CFrame
+        object1.CanCollide = false
+        task.wait() return
+    elseif touch == 1 then
+        object1.CFrame = lastobjplace
+        object1.CanCollide = lastobjcollisionvalue
+        task.wait() return
+    else 
+    error("Sending A firetouchinterest With A Invalid Number: "..touch)
+    task.wait() return 
+    end
+end
+function touch(Toucher,TouchThis)
+	local lastthispos = TouchThis.Position
+	local lastthisrot = TouchThis.Rotation
+	firetouchinterest(Toucher,TouchThis,0) 
+	firetouchinterest(Toucher,TouchThis,1)
+	--task.wait() --0.2
+	TouchThis.Position = lastthispos
+	TouchThis.Rotation = lastthisrot
+end
+local function getChar()
+	return plr.Character
+end
+local function getBp()
+	return plr.Backpack
+end
+local function replacechar()
+	local c = plr.Character
+	plr.Character = nil
+	plr.Character = c
+end
+
+local function getPlr(str)
+	local targetss = {}
+	str = str:lower()
+
+	for _, v in pairs(players:GetPlayers()) do
+		if v.Name:lower():match(str) or v.DisplayName:lower():match(str) then
+			return {v} -- Return as a table
+		end
+	end
+
+	if str == "me" or str == "self" then
+		return {plr} -- Return as a table
+	end
+	if str == "all" or str == "everyone" then
+		return players:GetPlayers() -- Return all players
+	end
+	if str == "others" then
+		for _, v in pairs(players:GetPlayers()) do
+			if v ~= plr then
+				table.insert(targetss, v)
+			end
+		end
+		return targetss
+	end
+	if str == "random" then
+		local allPlayers = players:GetPlayers()
+		if #allPlayers > 0 then
+			return {allPlayers[math.random(1, #allPlayers)]} -- Return as a table
+		end
+	end
+
+	return {} -- Return empty table if no match
+end
+function anchor()
+	local cr = plr.Character
+	for _, part in next, cr:GetDescendants() do
+		if part:IsA("Part") then
+			part.Anchored = true
+		end
+	end
+end
+function disableatoolnim()
+	plr.Character.Animate.PlayEmote:Destroy()
+	plr.Character.Animate.Disabled = true
+	plr.Character.Animate.Disabled = false
+end
+function enabletoolanim()
+	local PlayEmote = Instance.new("BindableFunction")
+	PlayEmote.Name = "PlayEmote"
+	PlayEmote.Parent = plr.Character.Animate
+	plr.Character.Animate.Disabled = true
+	plr.Character.Animate.Disabled = false
+end
+function reset()
+	local HumanoidBackUp = Instance.new("Humanoid")
+	HumanoidBackUp.Parent = plr.Character
+	HumanoidBackUp.Name = "Humanoid"
+	wait()
+	plr.Character["Humanoid"].Health = -10000
+	wait()
+	plr.Character["Humanoid"].Health = 10000
+	wait()
+	plr.Character["Humanoid"].Health = -10000
+end
+local function replacehum()
+	local h = plr.Character:FindFirstChild("Humanoid"):Clone()
+	plr.Character:FindFirstChild("Humanoid"):Destroy()
+	h.Parent = plr.Character
+end
+for _, v in pairs(game:GetDescendants()) do
+	if v:IsA("RemoteEvent") or v:IsA("RemoteFuntion") then
+		if v.Name == "DeleteCar" or v.Name == "GuiHandler" or v.Name == "DestroySegway" then
+			foundremote = v
+			foundremotename = v.Name
+			ssworks = true
+            task.wait()
+		end
+	end
+end
+if plr.Character:FindFirstChild("Building Tools") or plr.Backpack:FindFirstChild("Building Tools") then
+	foundremotename = "Building Tools"
+	ssworks = true
+end
+for _, v in pairs(game:GetDescendants()) do
+	if v:IsA("RemoteEvent") or v:IsA("RemoteFuntion") then
+		if v.Name == "UpdateBoothText" or v.Name == "DeleteBoothOwnership" then
+			inmicup = true
+            task.wait()
+		end
+	end
+end
+function Chat(Message)
+	if game:GetService("ReplicatedStorage"):FindFirstChild("DefaultChatSystemChatEvents") then
+		game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(Message, "All")
+	else
+		game:GetService("TextChatService"):FindFirstChild("TextChannels"):FindFirstChild("RBXGeneral"):SendAsync(Message)
+	end
+end
+function Destroy(instance)
+	spawn(function()
+		if foundremotename == "DeleteCar" then
+			foundremote:FireServer(instance)
+
+		elseif foundremotename == "DestroySegway" then
+			foundremote:FireServer(instance, {Value = instance})
+
+		elseif foundremotename == "GuiHandler" then
+			foundremote:FireServer(false, instance)
+
+		elseif foundremotename == "Building Tools" then
+			local args = {
+				[1] = "Remove",
+				[2] = {
+					[1] = instance
+				}
+			}
+            if plr.Backpack:FindFirstChild("Building Tools") then
+                plr.Backpack:FindFirstChild("Building Tools").SyncAPI.ServerEndpoint:InvokeServer(unpack(args))
+            elseif plr.Character:FindFirstChild("Building Tools") then
+                plr.Character:FindFirstChild("Building Tools").SyncAPI.ServerEndpoint:InvokeServer(unpack(args))
+            end
+		end
+        notice("Used "..foundremotename..".")
+	end)
+end
+function FindInTable(tbl,val)
+	if tbl == nil then return false end
+	for _,v in pairs(tbl) do
+		if v == val then return true end
+	end 
+	return false
+end
+local slockk = false
+local banned = {}
+players.PlayerAdded:connect(function(target)
+	if slockk then
+		Destroy(target)
+		game.StarterGui:SetCore("ChatMakeSystemMessage", {
+			Text = ("A Player Attempted To Join While Slocked / Server Locked Name: "..target.Name.."");
+			Font = Enum.Font.SourceSansBold;
+			Color = Color3.fromRGB(25, 25, 25);
+		})
+	end
+	if FindInTable(banned, target.UserId) then
+		Destroy(target)
+		game.StarterGui:SetCore("ChatMakeSystemMessage", {
+			Text = ("A Player Attempted To Join While Banned Name: "..target.Name.."");
+			Font = Enum.Font.SourceSansBold;
+			Color = Color3.fromRGB(255, 0, 0);
+		})
+	end
+end)
+function stopsoundinobj(obje)
+	for _, v in pairs(obje:GetDescendants()) do
+		if v:IsA("Sound") then
+			v.Playing = false
+		end
+	end
+end
+
+function noticenotbutton(msg)
+	notice(msg)
+end
+local topbar = game:GetService("CoreGui"):FindFirstChild("TopBarApp"):FindFirstChild("MenuIconHolder")
+local Line = Instance.new("TextBox",topbar)
+local TextLabel = Instance.new("TextLabel",topbar)
+Line.Visible = false
+Line.Name = "Line"
+Line.BackgroundColor3 = Color3.fromRGB(18, 18, 21)
+Line.BackgroundTransparency = 0.08
+Line.BorderSizePixel = 0
+Line.AnchorPoint = Vector2.new(1, 1)
+Line.Position = UDim2.new(0.49, 0, 0.79, 0)
+Line.Font = Enum.Font.Cartoon
+Line.Text = ""
+Line.TextColor3 = Color3.fromRGB(255, 255, 255)
+Line.TextSize = 16.000
+Line.TextXAlignment = Enum.TextXAlignment.Left
+local LineUIS = Instance.new("UIStroke",Line)
+LineUIS.ApplyStrokeMode = "Border"
+LineUIS.Color = Color3.fromRGB(18, 18, 21)
+LineUIS.LineJoinMode = "Round"
+LineUIS.Thickness = 6
+LineUIS.Transparency = 0.08
+local LineUIC = Instance.new("UICorner",Line)
+LineUIC.CornerRadius = UDim.new(1,0)
+Line:GetPropertyChangedSignal("Text"):Connect(function()
+	firesound(15675032796) -- 9113873548
+end)
+TextLabel.Name = "LineInfoText"
+TextLabel.BackgroundTransparency = 1
+TextLabel.BorderSizePixel = 0
+TextLabel.AnchorPoint = Vector2.new(1, 1)
+TextLabel.Position = UDim2.new(0.87, 0, 0.79, 0)
+TextLabel.Font = Enum.Font.Cartoon
+TextLabel.Text = ""
+TextLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+TextLabel.TextSize = 12.000
+TextLabel.TextXAlignment = Enum.TextXAlignment.Left
+TextLabel.Size = UDim2.new(0, 500, 0, 30)
+TextLabel.Visible = false
+function openline()
+    Line.Visible = true
+    for i = 0,500,25 do 
+        Line.Size = UDim2.new(0, i, 0, 30)
+        task.wait()
+    end
+end
+function closeline()
+    for i = 500,0,-25 do 
+        Line.Size = UDim2.new(0, i, 0, 30)
+        task.wait()
+    end
+    Line.Visible = false
+end
+
+local cmds = {
+	-- event commands
+	"kick", "remove",
+	"ban", "permremove",
+	"kill",
+    "killaura",
+    "unkillaura",
+    "loopkill", "lk",
+    "unloopkill", "unlk",
+    "autorefresh", "autore",
+    "unautorefresh", "unautore",
+	"punish", "banish",
+	"removelimbs", "nolimbs",
+	"removearms", "noarms",
+	"removelegs", "nolegs",
+	"bald",
+	"naked",
+	"blank",
+	"explode", "boom",
+	"shutdown",
+	"deletegame",
+	"serverlock", "slock",
+	"unserverlock", "unslock",
+	-- regular commands
+	"fly",
+	"unfly",
+    "clickkill",
+    "unclickkill",
+	"invisible", "invis",
+	"visible", "vis",
+	"antifling",
+	"unvoiceban", "unvcb",
+	"btools", "f3x",
+    "protect",
+    "unprotect",
+	"breakchat",
+	"noclip",
+	"clip",
+	"fling", "throw",
+	"toolfling",
+    "givetools",
+    "touchfling",
+	"view", "watch",
+	"unview", "unwatch",
+	"hiphight",
+	"jumppower",
+	"walkspeed",
+	"goto", "tpto", "to",
+	"rejoin",
+    "jump",
+	"refresh", "re",
+	"mbring",
+    "outline",
+	"bang",
+	"unbang",
+	"clickmove",
+	"clicktp",
+	"reach", "hitbox",
+	"rkill",
+    "dupetools", "dupe",
+	"commands", "cmds",
+	"stopc"
+}
+print("Commands")
+for _, cmd in ipairs(cmds) do
+	print(cmd)
+end
+local function checkCMD(input)
+	for _, cmd in ipairs(cmds) do
+		if string.match(input, "^".. cmd .. "%s") or input == cmd then
+			return cmd
+		end
+	end
+	return nil
+end
+local function checkCMD2(input)
+	for _, cmd in ipairs(cmds) do
+		if input == cmd then
+			return cmd
+		end
+	end
+	return nil
+end
+function fling(target, power, timef)
+	if target.Character.Humanoid.Sit then notice("Failed Player Is Sitting") return end
+	setCharTrans(1)
+    local flingTime = timef
+	local fTime = os.clock()
+	local cr = getChar()
+	local old = cr:FindFirstChild("HumanoidRootPart").CFrame
+	local rot = power
+	local tool = getBp():FindFirstChildOfClass("Tool") or getChar():FindFirstChildOfClass("Tool")
+	local originalGrip = nil
+	if tool then
+		originalGrip = tool.Grip
+	end
+	local hum = getChar():FindFirstChildOfClass("Humanoid")
+	local root = hum.RootPart
+	local tRoot = target.Character:FindFirstChild("Torso") or target.Character:FindFirstChild("UpperTorso")
+	local origCF = root.CFrame
+	local origState = hum:GetState()
+	local origFpdh = workspace.FallenPartsDestroyHeight
+    local colplren = false
+    if target.Character.Head.CanCollide then colplren = true end
+    if colplren then
+        for i,gh in ipairs(target.Character:GetDescendants()) do
+			if gh:IsA("BasePart") then
+				gh.CanCollide = false
+			end
+		end
+    end
+	workspace.FallenPartsDestroyHeight = 0 / 0
+	hum:ChangeState(Enum.HumanoidStateType.Physics)
+	hum:UnequipTools()
+	if tool then
+		tool.Handle.Massless = true
+		tool.Grip = CFrame.new(5773, 5774, 5773)
+		tool.Parent = getChar()
+	end
+	local bv = Instance.new("BodyVelocity")
+	bv.MaxForce = Vector3.new(math.huge, math.huge, math.huge)
+	bv.Velocity = Vector3.new(9e30, 9e30, 9e30)
+	bv.Parent = root
+	local bav = Instance.new("BodyAngularVelocity")
+	bav.AngularVelocity = Vector3.new(9e30, 9e30, 9e30)
+	bav.MaxTorque = Vector3.new(math.huge, math.huge, math.huge)
+	bav.Parent = root
+	while true do
+		if os.clock() - fTime >= flingTime then
+			break
+		else
+			rot = power
+			root.CFrame = tRoot.CFrame * CFrame.Angles(math.rad(rot), 0, 0) + target.Character:FindFirstChildOfClass("Humanoid").MoveDirection * target.Character:FindFirstChildOfClass("Humanoid").WalkSpeed * .4
+		end
+		task.wait()
+	end
+	hum:ChangeState(origState)
+	bav:Destroy()
+	bv:Destroy()
+	root.Velocity = Vector3.new()
+	root.RotVelocity = Vector3.new()
+	root.CFrame = origCF
+	workspace.FallenPartsDestroyHeight = origFpdh
+	if tool then
+		tool.Grip = originalGrip
+	end
+	hum:UnequipTools()
+	getChar():WaitForChild("HumanoidRootPart").CFrame = old
+    setCharTrans(0)
+    if colplren then
+        for i,gh in ipairs(target.Character:GetDescendants()) do
+			if gh:IsA("BasePart") then
+				gh.CanCollide = true
+			end
+		end
+    end
+    notice("Flinged "..target.Name..".")
+end
+function bang(target, speed)
+	if bangDied then
+		bangDied:Disconnect()
+		bang:Stop()
+		bangAnim:Destroy()
+		bangLoop:Disconnect()
+	end
+	local humanoid = plr.Character:FindFirstChildWhichIsA("Humanoid")
+	bangAnim = Instance.new("Animation")
+	if plr.Character.Humanoid.RigType == Enum.HumanoidRigType.R15 then
+		bangAnim.AnimationId = "rbxassetid://14849662872" -- 5918726674, 104661990001870, 
+	else
+		bangAnim.AnimationId = "rbxassetid://148840371" -- 148840371
+	end
+	bang = humanoid:LoadAnimation(bangAnim)
+	bang:Play(0.1, 1, 1)
+	bang:AdjustSpeed(speed or 3)-- or 3)
+	bangDied = humanoid.Died:Connect(function()
+		bang:Stop()
+		bangAnim:Destroy()
+		bangDied:Disconnect()
+		bangLoop:Disconnect()
+	end)
+	local bangOffet = CFrame.new(0, 0, 1.1)
+    notice("Banging "..target.Name..".")
+	bangLoop = RunService.Stepped:Connect(function()
+		pcall(function()
+			if target.Character.Humanoid.RigType == Enum.HumanoidRigType.R15 then
+				local otherRoot = target.Character.UpperTorso
+				plr.Character.HumanoidRootPart.CFrame = otherRoot.CFrame * bangOffet
+			else
+				local otherRoot = target.Character.Torso
+				plr.Character.HumanoidRootPart.CFrame = otherRoot.CFrame * bangOffet
+			end
+		end)
+	end)
+end
+function switchteam(Team)
+local args = {
+    [1] = Team
+}
+workspace:WaitForChild("Remote"):WaitForChild("TeamEvent"):FireServer(unpack(args))
+end
+function GetGun(Item)
+local saved = plr.Character:FindFirstChild("HumanoidRootPart").CFrame
+		
+		if workspace.Prison_ITEMS.giver:FindFirstChild(Item) and workspace.Prison_ITEMS.giver:FindFirstChild(Item):FindFirstChild("ITEMPICKUP") then
+			Item =workspace.Prison_ITEMS.giver:FindFirstChild(Item)
+			local ohInstance1 = Item:FindFirstChildOfClass("Part")
+			plr.Character:FindFirstChild("HumanoidRootPart").CFrame = CFrame.new(ohInstance1.Position)
+			repeat
+				local ohInstance1 = Item:FindFirstChildOfClass("Part")
+				plr.Character:FindFirstChild("HumanoidRootPart").CFrame = CFrame.new(ohInstance1.Position)
+				workspace.Remote.ItemHandler:InvokeServer(Item:FindFirstChildOfClass("Part"))
+				task.wait()
+			until plr.Backpack:FindFirstChild(Item.Name) or plr.Character:FindFirstChild(Item.Name)
+		end
+		
+	end
+    function ReturnGun()
+		for i,v in pairs(plr.Backpack:GetChildren()) do
+			if v and v:IsA("Tool") and v:FindFirstChildOfClass("ModuleScript") then
+				return v
+			end
+		end
+		return nil
+	end
+function kill(target)
+	if ssworks == true and game.PlaceId ~= 155615604 then
+		if target.Character:FindFirstChildOfClass("Humanoid").RigType == Enum.HumanoidRigType.R6 then
+			Destroy(target.Character.Torso.Neck)
+		else
+			Destroy(target.Character.Head.Neck)
+		end
+        return
+	elseif ssworks == false and game.PlaceId ~= 155615604 then
+        repeat wait() until not target.Character:FindFirstChild("ForceField")
+		local tool = getBp():FindFirstChildOfClass("Tool") or getChar():FindFirstChildOfClass("Tool")
+		if not tool or not tool:FindFirstChild("Handle") then notice("Failed Your Player Has No Tool") return end
+        if plr.Character.Humanoid.Sit then notice("Failed Your Player Is Sitting") return end
+        if plr.Character.Humanoid.Health <= 0 then notice("Failed Your Player Is Dead") return end
+		local originalGrip = tool.Grip
+        local originalShape = tool.Handle.Shape
+        local originalSize = tool.Handle.Size
+        local toolGUI
+        for _, v in pairs(game:GetService("CoreGui"):FindFirstChild("RobloxGui"):FindFirstChild("Backpack"):FindFirstChild("Hotbar"):GetDescendants()) do
+            if v:FindFirstChild("ToolName") and v:FindFirstChild("ToolName") ~= nil and v:FindFirstChild("ToolName").Text == tool.Name then
+                toolGUI = v
+            end
+        end
+		tool.Handle.Massless = true
+		tool.Grip = CFrame.new(0, 5774, 0)
+        tool.Handle.Shape = "Ball"
+        tool.Handle.Size = Vector3.new(10,10,10)
+		disableatoolnim()
+		tool.Parent = plr.Character
+        toolGUI:FindFirstChild("Equipped").Visible = false
+		stopsoundinobj(tool.Handle)
+        tool.Enabled = false
+		repeat 
+			Firetouchinterest(target.Character.Humanoid.RootPart, tool.Handle, 0)
+            Firetouchinterest(target.Character.Humanoid.RootPart, tool.Handle, 1)
+		until target.Character.Humanoid.Health <= 0 or plr.Character.Humanoid.Health <= 0
+		tool.Enabled = true
+        stopsoundinobj(tool.Handle)
+        tool.Handle.Shape = originalShape
+        tool.Handle.Size = originalSize
+		enabletoolanim()
+        stopsoundinobj(tool.Handle)
+        toolGUI:FindFirstChild("Equipped").Visible = true
+		getChar():FindFirstChildOfClass("Humanoid"):UnequipTools()
+		tool.Grip = originalGrip
+        return
+    elseif game.PlaceId == 155615604 then
+        repeat wait() until not target.Character:FindFirstChild("ForceField")
+        if plr.Backpack:FindFirstChild("M9") or plr.Character:FindFirstChild("M9") then
+        wait(0.01)
+        local Gun = ReturnGun()
+		
+		if Gun and plr.Team ~= target.Team then
+			local Gen = {}
+			for i =1,15 do
+				Gen[#Gen+1]={
+					["RayObject"] = Ray.new(Vector3.new(0,0,0), Vector3.new(0,0,0)),
+					["Distance"] = .1,
+					["Cframe"] = CFrame.new(),
+					["Hit"] = target.Character:WaitForChild("Head")
+				}
+			end
+
+			game:GetService("ReplicatedStorage").ShootEvent:FireServer(Gen, Gun)
+		end
+        return
+	else
+	    local old = plr.Character:FindFirstChild("HumanoidRootPart").CFrame
+        GetGun("M9")
+        getChar():WaitForChild("HumanoidRootPart").CFrame = old
+        wait(0.01)
+        local Gun = ReturnGun()
+		
+		if Gun and plr.Team ~= target.Team then
+			local Gen = {}
+			for i =1,15 do
+				Gen[#Gen+1]={
+					["RayObject"] = Ray.new(Vector3.new(0,0,0), Vector3.new(0,0,0)),
+					["Distance"] = .1,
+					["Cframe"] = CFrame.new(),
+					["Hit"] = target.Character:WaitForChild("Head")
+				}
+			end
+
+			game:GetService("ReplicatedStorage").ShootEvent:FireServer(Gen, Gun)
+		    end
+            return
+		end
+	end
+end
+function sendCMD(msg)
+	local spaceSplit = msg:split(" ")
+    local getPlayer = getPlr(tostring(spaceSplit[2]):lower())
+    for i,v in pairs(getPlayer)do
+		if protected[v.UserId] then 
+            if spaceSplit[1] ~= "unprotect" then
+                return 
+            end
+        end
+	end
+	if spaceSplit[1] == "kick" or spaceSplit[1] == "remove" then
+		if ssworks == true then
+			local target = getPlr(tostring(spaceSplit[2]):lower())
+			for i,v in pairs(target)do
+				if #target == 0 then return end
+				Destroy(v)
+				chatmessage("A Player Was Kicked By "..plr.Name.." Name: "..v.Name, Color3.fromRGB(255, 255, 255))
+			end
+		elseif ssworks == false then
+			notice("Error Game Requires Remotes For This To Work")
+		end
+
+	elseif spaceSplit[1] == "ban" or spaceSplit[1] == "permremove" then
+		if ssworks == true then
+			local target = getPlr(tostring(spaceSplit[2]):lower())
+			for i,v in pairs(target)do
+				if #target == 0 then return end
+				table.insert(banned, v.UserId)
+				Destroy(v)
+				chatmessage("A Player Was Banned By "..plr.Name.." Name: "..v.Name, Color3.fromRGB(255, 255, 255))
+			end
+		elseif ssworks == false then
+			notice("Error Game Requires Remotes For This To Work")
+		end
+
+	elseif spaceSplit[1] == "kill" then
+		local target = getPlr(tostring(spaceSplit[2]):lower())
+		for i,v in pairs(target)do
+			if #target == 0 then return end
+			kill(v)
+            if v.Character.Humanoid.Health <= 0 then 
+                notice("Killed "..v.Name..".")
+            elseif v.Character.Humanoid.Health >= 1 then
+                notice("Failed "..v.Name.." Did Not Die")
+            end
+		end
+
+    elseif spaceSplit[1] == "killaura" then
+        if killaurapart ~= nil then return end
+		local aurarange = tonumber(spaceSplit[2]) or 10
+        killaurapart = Instance.new("Part", workspace)
+        killaurapart.CanCollide = false
+        killaurapart.Size = Vector3.new(aurarange,aurarange,aurarange)
+        killaurapart.Transparency = 0.75
+        killaurapart.CFrame = plr.Character.HumanoidRootPart.CFrame
+        local weld = Instance.new("WeldConstraint")
+        weld.Part0 = plr.Character.HumanoidRootPart
+        weld.Part1 = killaurapart
+        weld.Parent = killaurapart
+
+        local function onTouchKA(otherPart)
+            local char = otherPart.Parent
+            if char and char:FindFirstChild("Humanoid") and not partinka[char] and char:FindFirstChild("Humanoid").Health >= 1 then
+                if char.Name == plr.Name then return end
+                partinka[char] = {partinka = partinka}
+                print(char.Name.."Touched Kill Aura")
+                local target = getPlr(char.Name:lower())
+                for i,v in pairs(target)do
+			        if #target == 0 then return end
+                    kill(v)
+                    if v.Character.Health <=0 then partinka[char] = nil end
+                end
+            end
+        end
+        killaurapart.Touched:Connect(onTouchKA)
+        
+	
+    elseif spaceSplit[1] == "unkillaura" then
+        if killaurapart then
+            killaurapart:Destroy()
+            killaurapart = nil
+        end
+
+    elseif spaceSplit[1] == "loopkill" or spaceSplit[1] == "lk" then
+		local target = getPlr(tostring(spaceSplit[2]):lower())
+		for i,v in pairs(target)do
+			if #target == 0 then return end
+            loopkilling = true
+            notice("Loopkilling "..v.Name)
+            repeat 
+                if v.Character.Humanoid.Health > 1 then
+			        kill(v)
+                end
+                task.wait()
+            until loopkilling == false
+		end
+    elseif spaceSplit[1] == "unloopkill" or spaceSplit[1] == "unlk" then
+        loopkilling = false
+        notice("Stopped All Loop Kills")
+    elseif spaceSplit[1] == "autorefresh" or spaceSplit[1] == "autore" then
+        if game.PlaceId == 155615604 then
+            autorefresh = true
+            repeat wait()
+            if getChar().Humanoid.Health <= 0 then
+            local old = plr.Character:FindFirstChild("HumanoidRootPart").CFrame
+	        if plr.Team == game.Teams.Inmates then
+				switchteam("Bright orange")
+			elseif plr.Team == game.Teams.Guards then
+                switchteam("Bright blue")
+			elseif plr.Team == game.Teams.Criminals then
+				switchteam("Bright orange")
+                task.wait(1)
+				Firetouchinterest(workspace["Criminals Spawn"].SpawnLocation, getChar().HumanoidRootPart,0)
+                Firetouchinterest(workspace["Criminals Spawn"].SpawnLocation, getChar().HumanoidRootPart,1)
+			end
+            plr.CharacterAdded:Wait()
+            getChar():WaitForChild("HumanoidRootPart").CFrame = old
+            wait(1)
+            end
+            until autorefresh == false
+            return
+        end
+        autorefresh = true
+        repeat wait()
+        if getChar().Humanoid.Health <= 0 then
+            if not getChar() and not getChar().HumanoidRootPart then return end
+            local cr = getChar()
+		    local old = cr:FindFirstChild("HumanoidRootPart").CFrame
+		    cr.Humanoid.BreakJointsOnDeath = false
+		    cr.Humanoid.RequiresNeck = false
+            for i,v in pairs(cr:GetDescendants())do
+			    if v:IsA("BasePart") and v.Name ~= "HumanoidRootPart" then
+				    local weld = Instance.new("WeldConstraint", v)
+				    weld.Part0 = weld.Parent
+				    weld.Part1 = cr.HumanoidRootPart
+                    local bgras = Instance.new("BodyGyro")
+				    bgras.P = 9e4
+				    bgras.MaxTorque = Vector3.new(9e9, 9e9, 9e9)
+				    bgras.Parent = v
+				    bgras.Name = "bodyGryro"
+                    local bvolas = Instance.new("BodyVelocity")
+				    bvolas.MaxForce = Vector3.new(9e9, 9e9, 9e9)
+				    bvolas.Velocity = Vector3.zero
+				    bvolas.Parent = v
+				    bvolas.Name = "bodyVelocity"
+			    end
+		    end
+		
+		    plr.CharacterAdded:Wait()
+		    getChar():WaitForChild("HumanoidRootPart").CFrame = old
+            wait(1)
+        end
+        until autorefresh == false
+
+    elseif spaceSplit[1] == "unautorefresh" or spaceSplit[1] == "unautore" then
+        autorefresh = false
+
+	elseif spaceSplit[1] == "punish" or spaceSplit[1] == "banish" then
+		if ssworks == true then
+			local target = getPlr(tostring(spaceSplit[2]):lower())
+			for i,v in pairs(target)do
+				if #target == 0 then return end
+				Destroy(v.Character)
+			end
+		elseif ssworks == false then
+			notice("Error Game Requires Remotes For This To Work")
+		end
+
+	elseif spaceSplit[1] == "removelimbs" or spaceSplit[1] == "nolimbs" then
+		if ssworks == true then
+			local target = getPlr(tostring(spaceSplit[2]):lower())
+			for i,v in pairs(target)do
+				if #target == 0 then return end
+				if v.Character.Humanoid.RigType == Enum.HumanoidRigType.R15 then
+					Destroy(v.Character.LeftUpperArm)
+					Destroy(v.Character.RightUpperArm)
+					Destroy(v.Character.LeftUpperLeg)
+					Destroy(v.Character.RightUpperLeg)
+				else
+					Destroy(v.Character:FindFirstChild("Left Arm"))
+					Destroy(v.Character:FindFirstChild("Righ Arm"))
+					Destroy(v.Character:FindFirstChild("Left Leg"))
+					Destroy(v.Character:FindFirstChild("Righ Leg"))
+				end
+			end
+		elseif ssworks == false then
+			notice("Error Game Requires Remotes For This To Work")
+		end
+
+	elseif spaceSplit[1] == "removearms" or spaceSplit[1] == "noarms" then
+		if ssworks == true then
+			local target = getPlr(tostring(spaceSplit[2]):lower())
+			for i,v in pairs(target)do
+				if #target == 0 then return end
+				if v.Character.Humanoid.RigType == Enum.HumanoidRigType.R15 then
+					Destroy(v.Character.LeftUpperArm)
+					Destroy(v.Character.RightUpperArm)
+				else
+					Destroy(v.Character:FindFirstChild("Left Arm"))
+					Destroy(v.Character:FindFirstChild("Righ Arm"))
+				end
+			end
+		elseif ssworks == false then
+			notice("Error Game Requires Remotes For This To Work")
+		end
+
+	elseif spaceSplit[1] == "removelegs" or spaceSplit[1] == "nolegs" then
+		if ssworks == true then
+			local target = getPlr(tostring(spaceSplit[2]):lower())
+			for i,v in pairs(target)do
+				if #target == 0 then return end
+				if v.Character.Humanoid.RigType == Enum.HumanoidRigType.R15 then
+					Destroy(v.Character.LeftUpperLeg)
+					Destroy(v.Character.RightUpperLeg)
+				else
+					Destroy(v.Character:FindFirstChild("Left Leg"))
+					Destroy(v.Character:FindFirstChild("Righ Leg"))
+				end
+			end
+		elseif ssworks == false then
+			notice("Error Game Requires Remotes For This To Work")
+		end
+
+	elseif spaceSplit[1] == "bald" then
+		if ssworks == true then
+			local target = getPlr(tostring(spaceSplit[2]):lower())
+			for i,vv in pairs(target)do
+				if #target == 0 then return end
+				for _, v in pairs(vv.Character:GetDescendants()) do
+					if v:IsA("Accessory") then
+						Destroy(v)
+					end
+				end
+			end
+		elseif ssworks == false then
+			notice("Error Game Requires Remotes For This To Work")
+		end
+
+	elseif spaceSplit[1] == "naked" then
+		if ssworks == true then
+			local target = getPlr(tostring(spaceSplit[2]):lower())
+			for i,v in pairs(target)do
+				if #target == 0 then return end
+				Destroy(v.Character.Shirt)
+				Destroy(v.Character.Pants)
+			end
+		elseif ssworks == false then
+			notice("Error Game Requires Remotes For This To Work")
+		end
+
+	elseif spaceSplit[1] == "blank" then
+		if ssworks == true then
+			local target = getPlr(tostring(spaceSplit[2]):lower())
+			for i,vv in pairs(target)do
+				if #target == 0 then return end
+				for _, v in pairs(vv.Character:GetDescendants()) do
+					if v:IsA("Accessory") then
+						Destroy(v)
+					end
+				end
+				Destroy(vv.Character:FindFirstChild("Body Colors"))
+				Destroy(vv.Character.Head.face)
+				Destroy(vv.Character.Shirt)
+				Destroy(vv.Character.Pants)
+			end
+		elseif ssworks == false then
+			notice("Error Game Requires Remotes For This To Work")
+		end
+
+	elseif spaceSplit[1] == "explode" or spaceSplit[1] == "boom" then
+		local target = getPlr(tostring(spaceSplit[2]):lower())
+		for i,v in pairs(target)do
+			if #target == 0 then return end
+			kill(v)
+            wait()
+			local exp = Instance.new("Explosion")
+			exp.Position = v.Character.HumanoidRootPart.Position
+            exp.BlastRadius = 50
+            exp.Parent = game.Workspace
+		end
+	elseif spaceSplit[1] == "shutdown" then
+		if ssworks == true then
+			for i,v in pairs(game:GetService("Players"):GetPlayers()) do
+				if v.Name ~= lplayer.Name then
+					Destroy(v)
+				end
+			end 
+			Destroy(plr)
+		elseif ssworks == false then
+			notice("Error Game Requires Remotes For This To Work")
+		end
+	elseif spaceSplit[1] == "deletegame" then
+		if ssworks == true then
+			for _, parts in next, game.Workspace:GetDescendants() do
+				if parts:IsA("Part") then
+					Destroy(parts)
+				end
+			end
+		elseif ssworks == false then
+			notice("Error Game Requires Remotes For This To Work")
+		end
+	elseif spaceSplit[1] == "serverlock" or spaceSplit[1] == "slock" then
+		if ssworks == true then
+			slockk = true
+		elseif ssworks == false then
+			notice("Error Game Requires Remotes For This To Work")
+		end
+	elseif spaceSplit[1] == "clicktp" then
+		local TpTool = Instance.new("Tool")
+		TpTool.Name = "Teleport Tool"
+		TpTool.RequiresHandle = false
+		TpTool.Parent = plr.Backpack
+		TpTool.Activated:Connect(function()
+			local Char = plr.Character or workspace:FindFirstChild(plr.Name)
+			local HRP = Char and Char:FindFirstChild("HumanoidRootPart")
+			if not Char or not HRP then
+				return warn("Failed to find HumanoidRootPart")
+			end
+            for i = 0,10 do 
+                HRP.CFrame = HRP.CFrame + Vector3.new(math.random(-1,1),math.random(-1,1),math.random(-1,1))
+                task.wait()
+            end
+            HRP.CFrame = CFrame.new(plr:GetMouse().Hit.X, plr:GetMouse().Hit.Y + 3, plr:GetMouse().Hit.Z, select(4, HRP.CFrame:components()))
+		end)
+	elseif spaceSplit[1] == "clickmove" then
+		local UserInputService = game:GetService("UserInputService")
+		local Mouse = plr:GetMouse()
+
+		-- Create the tool
+		local tool = Instance.new("Tool")
+		tool.Name = "ObjectMover"
+		tool.RequiresHandle = false
+		tool.Parent = plr:FindFirstChildOfClass("Backpack")
+
+		local highlightedObject = nil
+		local highlightInstance = nil
+		local movingObject = nil
+		local moveConnection = nil
+		local holdingMouse = false
+
+		-- Function to create a highlight effect
+		local function createHighlight(part)
+			if highlightInstance then
+				highlightInstance:Destroy()
+			end
+			highlightInstance = Instance.new("Highlight")
+			--highlightInstance.FillColor = Color3.fromRGB(255, 255, 0) -- Yellow glow
+			highlightInstance.FillTransparency = 0.75
+			highlightInstance.OutlineTransparency = 0
+			highlightInstance.Parent = part
+		end
+
+		-- Function to remove highlight effect
+		local function removeHighlight()
+			if highlightInstance then
+				highlightInstance:Destroy()
+				highlightInstance = nil
+			end
+		end
+
+		-- Function to move object smoothly
+		local function moveObject(target)
+			if movingObject then return end -- Prevent moving multiple objects
+
+			movingObject = target
+			movingObject.Anchored = true
+			holdingMouse = true
+
+			moveConnection = RunService.RenderStepped:Connect(function()
+				if movingObject and holdingMouse then
+					local targetPosition = Mouse.Hit.Position + Vector3.new(0, 2, 0) -- Lift object slightly
+					movingObject.Position = movingObject.Position:Lerp(targetPosition, 0.3)
+				elseif movingObject and not holdingMouse then
+					movingObject.Anchored = false
+					movingObject = nil
+					moveConnection:Disconnect()
+				end
+			end)
+		end
+
+		-- Highlight objects when hovering
+		Mouse.Move:Connect(function()
+			if tool.Parent == plr.Character then
+				local target = Mouse.Target
+				if target and target:IsA("BasePart") and not target.Anchored then
+					if target ~= highlightedObject then
+						highlightedObject = target
+						createHighlight(target)
+					end
+				else
+					highlightedObject = nil
+					removeHighlight()
+				end
+			else
+				removeHighlight()
+			end
+		end)
+
+		UserInputService.InputBegan:Connect(function(input, processed)
+			if processed then return end
+			if input.UserInputType == Enum.UserInputType.MouseButton1 then
+				if highlightedObject then
+					moveObject(highlightedObject)
+				end
+			end
+		end)
+
+		UserInputService.InputEnded:Connect(function(input)
+			if input.UserInputType == Enum.UserInputType.MouseButton1 then
+				holdingMouse = false
+			end
+		end)
+	elseif spaceSplit[1] == "antifling" then
+		local Services = setmetatable({}, {__index = function(Self, Index)
+			local NewService = game.GetService(game, Index)
+			if NewService then
+				Self[Index] = NewService
+			end
+			return NewService
+		end})
+
+		-- [ LocalPlayer ] --
+		local LocalPlayer = Services.Players.LocalPlayer
+
+		-- // Functions  --
+		local function PlayerAdded(Player)
+			local Detected = false
+			local Character;
+			local PrimaryPart;
+
+			local function CharacterAdded(NewCharacter)
+				Character = NewCharacter
+				repeat
+					wait()
+					PrimaryPart = NewCharacter:FindFirstChild("HumanoidRootPart")
+				until PrimaryPart
+				Detected = false
+			end
+
+			CharacterAdded(Player.Character or Player.CharacterAdded:Wait())
+			Player.CharacterAdded:Connect(CharacterAdded)
+			Services.RunService.Heartbeat:Connect(function()
+				if (Character and Character:IsDescendantOf(workspace)) and (PrimaryPart and PrimaryPart:IsDescendantOf(Character)) then
+					if PrimaryPart.AssemblyAngularVelocity.Magnitude > 50 or PrimaryPart.AssemblyLinearVelocity.Magnitude > 100 then
+						Detected = true
+						for i,v in ipairs(Character:GetDescendants()) do
+							if v:IsA("BasePart") then
+								v.CanCollide = false
+								v.AssemblyAngularVelocity = Vector3.new(0, 0, 0)
+								v.AssemblyLinearVelocity = Vector3.new(0, 0, 0)
+								v.CustomPhysicalProperties = PhysicalProperties.new(0, 0, 0)
+							end
+						end
+						PrimaryPart.CanCollide = false
+						PrimaryPart.AssemblyAngularVelocity = Vector3.new(0, 0, 0)
+						PrimaryPart.AssemblyLinearVelocity = Vector3.new(0, 0, 0)
+						PrimaryPart.CustomPhysicalProperties = PhysicalProperties.new(0, 0, 0)
+					end
+				end
+			end)
+		end
+
+		-- // Event Listeners  --
+		for i,v in ipairs(Services.Players:GetPlayers()) do
+			if v ~= LocalPlayer then
+				PlayerAdded(v)
+			end
+		end
+		Services.Players.PlayerAdded:Connect(PlayerAdded)
+
+		local LastPosition = nil
+		Services.RunService.Heartbeat:Connect(function()
+			pcall(function()
+				local PrimaryPart = LocalPlayer.Character.PrimaryPart
+				if PrimaryPart.AssemblyLinearVelocity.Magnitude > 150 or PrimaryPart.AssemblyAngularVelocity.Magnitude > 150 then
+					PrimaryPart.AssemblyAngularVelocity = Vector3.new(0, 0, 0)
+					PrimaryPart.AssemblyLinearVelocity = Vector3.new(0, 0, 0)
+					PrimaryPart.CFrame = LastPosition
+				elseif PrimaryPart.AssemblyLinearVelocity.Magnitude < 50 or PrimaryPart.AssemblyAngularVelocity.Magnitude > 50 then
+					LastPosition = PrimaryPart.CFrame
+				end
+			end)
+		end)
+
+	elseif spaceSplit[1] == "unserverlock" or spaceSplit[1] == "unslock" then
+		if ssworks == true then
+			slockk = false
+		elseif ssworks == false then
+			notice("Error Game Requires Remotes For This To Work")
+		end
+	elseif spaceSplit[1] == "fly" then
+		local Players = game:GetService("Players")
+		local RunService = game:GetService("RunService")
+
+		local player = Players.LocalPlayer
+		local character = player.Character or player.CharacterAdded:Wait()
+		local humanoid = character:FindFirstChildOfClass("Humanoid")
+		local rootPart = character:FindFirstChild("HumanoidRootPart") or character:FindFirstChild("Torso")
+
+		if not rootPart then return end
+		local flying = false
+		local speed = tonumber(spaceSplit[2]) or 60
+		local smoothFactor = 0.025
+		local currentSpeed = 0
+		local flightVector = Vector3.new()
+		local bodyGyro, bodyVelocity
+		local movement = { forward = 0, backward = 0, left = 0, right = 0 }
+		function StartFlying()
+			if flying then return end
+			flying = true
+			bodyGyro = Instance.new("BodyGyro")
+			bodyGyro.P = 9e4
+			bodyGyro.MaxTorque = Vector3.new(9e9, 9e9, 9e9)
+			bodyGyro.CFrame = rootPart.CFrame
+			bodyGyro.Parent = rootPart
+
+			bodyVelocity = Instance.new("BodyVelocity")
+			bodyVelocity.Velocity = Vector3.new(0, 0, 0)
+			bodyVelocity.MaxForce = Vector3.new(9e9, 9e9, 9e9)
+			bodyVelocity.Parent = rootPart
+
+			if humanoid then
+				humanoid.PlatformStand = true
+			end
+
+			-- Flight Loop
+			local lastVelocity = Vector3.new()
+			local function FlyStep()
+				if not flying then return end
+				local cameraCF = workspace.CurrentCamera.CFrame
+				local targetVector = ((cameraCF.LookVector * (movement.forward + movement.backward)) + 
+					(cameraCF.RightVector * (movement.right + movement.left)))
+
+				currentSpeed = currentSpeed + (speed - currentSpeed) * smoothFactor
+				flightVector = lastVelocity:Lerp(targetVector * currentSpeed, smoothFactor)
+				bodyVelocity.Velocity = flightVector
+				lastVelocity = flightVector
+
+				bodyGyro.CFrame = bodyGyro.CFrame:Lerp(cameraCF, smoothFactor)
+
+				RunService.RenderStepped:Wait()
+                bodyVelocity.Velocity = Vector3.zero
+				FlyStep()
+			end
+
+			FlyStep()
+		end
+
+		-- Function to Stop Flying
+		function StopFlying()
+			if not flying then return end
+			flying = false
+
+			if bodyGyro then bodyGyro:Destroy() end
+			if bodyVelocity then bodyVelocity:Destroy() end
+			if rootPart:FindFirstChild("BodyGyro") then rootPart:FindFirstChild("BodyGyro"):Destroy() end
+			if rootPart:FindFirstChild("BodyVelocity") then rootPart:FindFirstChild("BodyVelocity"):Destroy() end
+
+			if humanoid then
+				humanoid.PlatformStand = false
+			end
+		end
+
+		-- Key Input Handling
+		local UserInputService = game:GetService("UserInputService")
+
+		UserInputService.InputBegan:Connect(function(input, processed)
+			if processed then return end
+			local key = input.KeyCode
+
+			if key == Enum.KeyCode.W then movement.forward = 1 end
+			if key == Enum.KeyCode.S then movement.backward = -1 end
+			if key == Enum.KeyCode.A then movement.left = -1 end
+			if key == Enum.KeyCode.D then movement.right = 1 end
+		end)
+
+		UserInputService.InputEnded:Connect(function(input)
+			local key = input.KeyCode
+
+			if key == Enum.KeyCode.W then movement.forward = 0 end
+			if key == Enum.KeyCode.S then movement.backward = 0 end
+			if key == Enum.KeyCode.A then movement.left = 0 end
+			if key == Enum.KeyCode.D then movement.right = 0 end
+		end)
+		StartFlying()
+	elseif spaceSplit[1] == "unfly" then
+		StopFlying()
+    elseif spaceSplit[1] == "clickkill" then
+		local UserInputService = game:GetService("UserInputService")
+		local Mouse = plr:GetMouse()
+
+		local currentSelPlr = nil
+		local highlightInstance = nil
+        local cspn = nil
+
+		-- Function to create a highlight effect
+		local function createHighlight(part)
+			if highlightInstance then
+				highlightInstance:Destroy()
+			end
+			highlightInstance = Instance.new("Highlight")
+			--highlightInstance.FillColor = Color3.fromRGB(255, 255, 0) -- Yellow glow
+			highlightInstance.FillTransparency = 0.75
+			highlightInstance.OutlineTransparency = 0
+			highlightInstance.Parent = part
+		end
+
+		-- Function to remove highlight effect
+		local function removeHighlight()
+			if highlightInstance then
+				highlightInstance:Destroy()
+				highlightInstance = nil
+			end
+		end
+
+		-- Highlight objects when hovering
+		clickkillmove = Mouse.Move:Connect(function()
+			local target = Mouse.Target
+			if target and target.Parent:FindFirstChild("Humanoid") and target.Parent:FindFirstChild("HumanoidRootPart") then
+                if currentSelPlr == nil then
+                    currentSelPlr = target.Parent
+                    cspn = currentSelPlr.Name
+				    createHighlight(currentSelPlr)
+                end
+			else
+				currentSelPlr = nil
+				removeHighlight()
+			end
+		end)
+
+		killonclick = UserInputService.InputBegan:Connect(function(input, processed)
+			if processed then return end
+			if input.UserInputType == Enum.UserInputType.MouseButton1 then
+				if currentSelPlr then
+                    local target = getPlr(cspn:lower())
+                    for i,v in pairs(target)do
+			            if #target == 0 then return end
+					    kill(v)
+                    end
+				end
+			end
+		end)
+    elseif spaceSplit[1] == "unclickkill" then
+        if clickkillmove then
+			clickkillmove:Disconnect()
+			clickkillmove = nil
+		end
+        if killonclick then
+			killonclick:Disconnect()
+			killonclick = nil
+		end
+
+	elseif spaceSplit[1] == "invisible" or spaceSplit[1] == "invis" then
+		if invisRunning then return end
+		invisRunning = true
+		-- Full credit to AmokahFox @V3rmillion
+		local Player = plr
+		repeat wait(.1) until Player.Character
+		local Character = Player.Character
+		Character.Archivable = true
+		local IsInvis = false
+		local IsRunning = true
+		local InvisibleCharacter = Character:Clone()
+		InvisibleCharacter.Parent = game:GetService("Lighting")
+		local Void = workspace.FallenPartsDestroyHeight
+		InvisibleCharacter.Name = ""
+		local CF
+
+		local invisFix = RunService.Stepped:Connect(function()
+			pcall(function()
+				local IsInteger
+				if tostring(Void):find'-' then
+					IsInteger = true
+				else
+					IsInteger = false
+				end
+				local Pos = Player.Character.HumanoidRootPart.Position
+				local Pos_String = tostring(Pos)
+				local Pos_Seperate = Pos_String:split(', ')
+				local X = tonumber(Pos_Seperate[1])
+				local Y = tonumber(Pos_Seperate[2])
+				local Z = tonumber(Pos_Seperate[3])
+				if IsInteger == true then
+					if Y <= Void then
+						Respawn()
+					end
+				elseif IsInteger == false then
+					if Y >= Void then
+						Respawn()
+					end
+				end
+			end)
+		end)
+
+		for i,v in pairs(InvisibleCharacter:GetDescendants())do
+			if v:IsA("BasePart") then
+				if v.Name == "HumanoidRootPart" then
+					v.Transparency = 1
+				else
+					v.Transparency = .5
+				end
+			end
+		end
+
+		function Respawn()
+			IsRunning = false
+			if IsInvis == true then
+				pcall(function()
+					Player.Character = Character
+					wait()
+					Character.Parent = workspace
+					--Character:FindFirstChildWhichIsA'Humanoid':Destroy()
+					IsInvis = false
+					InvisibleCharacter.Parent = nil
+					invisRunning = false
+				end)
+			elseif IsInvis == false then
+				pcall(function()
+					Player.Character = Character
+					wait()
+					Character.Parent = workspace
+					--Character:FindFirstChildWhichIsA'Humanoid':Destroy()
+					TurnVisible()
+				end)
+			end
+		end
+
+		local invisDied
+		invisDied = InvisibleCharacter:FindFirstChildOfClass'Humanoid'.Died:Connect(function()
+			Respawn()
+			invisDied:Disconnect()
+		end)
+
+		if IsInvis == true then return end
+		IsInvis = true
+		CF = workspace.CurrentCamera.CFrame
+		local CF_1 = Player.Character.HumanoidRootPart.CFrame
+		Character:MoveTo(Vector3.new(0,math.pi*1000000,0))
+		workspace.CurrentCamera.CameraType = Enum.CameraType.Scriptable
+		wait(.2)
+		workspace.CurrentCamera.CameraType = Enum.CameraType.Custom
+		InvisibleCharacter = InvisibleCharacter
+		Character.Parent = game:GetService("Lighting")
+		InvisibleCharacter.Parent = workspace
+		InvisibleCharacter.HumanoidRootPart.CFrame = CF_1
+		Player.Character = InvisibleCharacter
+
+		workspace.CurrentCamera:remove()
+		wait(.1)
+		repeat wait() until plr.Character ~= nil
+		workspace.CurrentCamera.CameraSubject = plr.Character:FindFirstChildWhichIsA('Humanoid')
+		workspace.CurrentCamera.CameraType = "Custom"
+		plr.CameraMinZoomDistance = 0.5
+		plr.CameraMaxZoomDistance = 400
+		plr.CameraMode = "Classic"
+		plr.Character.Head.Anchored = false
+
+		Player.Character.Animate.Disabled = true
+		Player.Character.Animate.Disabled = false
+
+		function TurnVisible()
+			if IsInvis == false then return end
+			invisFix:Disconnect()
+			invisDied:Disconnect()
+			CF = workspace.CurrentCamera.CFrame
+			Character = Character
+			local CF_1 = Player.Character.HumanoidRootPart.CFrame
+			Character.HumanoidRootPart.CFrame = CF_1
+			InvisibleCharacter:Destroy()
+			Player.Character = Character
+			Character.Parent = workspace
+			IsInvis = false
+			Player.Character.Animate.Disabled = true
+			Player.Character.Animate.Disabled = false
+			invisDied = Character:FindFirstChildOfClass'Humanoid'.Died:Connect(function()
+				Respawn()
+				invisDied:Disconnect()
+			end)
+			invisRunning = false
+		end
+	elseif spaceSplit[1] == "visible" or spaceSplit[1] == "vis" then
+		TurnVisible()
+	elseif spaceSplit[1] == "unvoiceban" or spaceSplit[1] == "unvcb" then
+		game:GetService("VoiceChatService"):joinVoice()
+	elseif spaceSplit[1] == "btools" or spaceSplit[1] == "f3x" then
+		loadstring(game:GetObjects("rbxassetid://6695644299")[1].Source)()
+	
+	elseif spaceSplit[1] == "mbring" then
+		local target = getPlr(tostring(spaceSplit[2]):lower())
+				for i,v in pairs(target)do
+			if #target == 0 then return end
+			local player = plr
+			local character = getChar()
+			local rootPart = character.HumanoidRootPart
+			local hum = character.Humanoid
+
+			local speed = 30
+			local smoothFactor = 0.01
+			local flying = false
+			local lastPosition
+			local bodyGryro, bodyVelocity
+
+            local targetCharacter = v.Character
+			if not targetCharacter then return end
+
+			local targetRoot = targetCharacter:FindFirstChild("HumanoidRootPart")
+			if not targetRoot then return end
+
+            local currcf = CFrame.new(targetRoot.Position)
+			local underPos = currcf.Position - Vector3.new(0,3,0)
+
+			local function enableFlight()
+				bodyGryro = Instance.new("BodyGyro")
+				bodyGryro.P = 9e4
+				bodyGryro.MaxTorque = Vector3.new(9e9, 9e9, 9e9)
+				bodyGryro.Parent = rootPart
+				bodyGryro.Name = "bodyGryro"
+
+				bodyVelocity = Instance.new("BodyVelocity")
+				bodyVelocity.MaxForce = Vector3.new(9e9, 9e9, 9e9)
+				bodyVelocity.Velocity = Vector3.zero
+				bodyVelocity.Parent = rootPart
+				bodyVelocity.Name = "bodyVelocity"
+			end
+			local function disableFlight()
+				if bodyGryro then bodyGryro:Destroy() end
+				if bodyVelocity then bodyVelocity:Destroy() end
+
+				if rootPart:FindFirstChild("bodyGryro") then rootPart:FindFirstChild("bodyGryro"):Destroy() end
+				if rootPart:FindFirstChild("bodyVelocity") then rootPart:FindFirstChild("bodyVelocity"):Destroy() end
+			end
+			local function smoothMove(destination)
+				while flying and (rootPart.Position - destination.Position).Magnitude > 2 do
+                    if targetCharacter.Humanoid.Health <= 0 or getChar().Humanoid.Health <= 0 then flying = false return end
+                    if (targetRoot.Position - rootPart.Position).Magnitude > 15 then
+                        currcf = CFrame.new(targetRoot.Position)
+                        underPos = currcf.Position - Vector3.new(0,3,0) - (targetRoot.CFrame.LookVector *7)
+                        rootPart.CFrame = CFrame.new(underPos)
+                    end
+                    local direction = (destination.Position - rootPart.Position).unit
+					bodyVelocity.Velocity = direction * speed
+					bodyGryro.CFrame = CFrame.new(rootPart.Position, destination.Position) * CFrame.Angles(math.rad(65),0,0)
+                    wait(smoothFactor)
+                    bodyVelocity.Velocity = Vector3.zero
+				end
+			end
+
+			-- Function to start the carpet ride
+			local function startCarpetRide(targetPlayer)
+				if flying or not targetPlayer then return end
+                local colplren = false
+                if targetCharacter.Head.CanCollide then colplren = true end
+                if colplren then
+                    for i,gh in ipairs(targetCharacter:GetDescendants()) do
+					    if gh:IsA("BasePart") then
+						    gh.CanCollide = false
+					    end
+				    end
+                end
+                nc = true
+				flying = true
+                setCharTrans(1)
+				lastPosition = rootPart.CFrame
+				enableFlight()
+				-- Move under the target player
+				local currcf = CFrame.new(targetRoot.Position)
+				local underPos = currcf.Position - Vector3.new(0,3,0) - (targetRoot.CFrame.LookVector *7)
+				--smoothMove(CFrame.new(underPos))
+				rootPart.CFrame = CFrame.new(underPos)
+				bodyVelocity.Velocity = Vector3.zero
+				wait(0.1)
+				smoothMove(lastPosition - Vector3.new(0,2,0))
+                nc = false
+				-- Stop flying
+				flying = false
+				disableFlight()
+                if colplren then
+                    for i,gh in ipairs(targetCharacter:GetDescendants()) do
+					    if gh:IsA("BasePart") then
+						    gh.CanCollide = true
+					    end
+				    end
+                end
+                setCharTrans(0)
+			end
+
+			startCarpetRide(v)
+		end
+
+    	elseif spaceSplit[1] == "jump" then
+		local target = getPlr(tostring(spaceSplit[2]):lower())
+				for i,v in pairs(target)do
+			if #target == 0 then return end
+			local player = plr
+			local character = getChar()
+            local lasthrppos = character:FindFirstChild("HumanoidRootPart").CFrame
+			local rootPart = character.HumanoidRootPart
+			local hum = character.Humanoid
+
+			local speed = 45
+			local smoothFactor = 0.02
+			local flying = false
+			local lastPosition
+			local bodyGryro, bodyVelocity
+
+			local function enableFlight()
+				bodyGryro = Instance.new("BodyGyro")
+				bodyGryro.P = 9e4
+				bodyGryro.MaxTorque = Vector3.new(9e9, 9e9, 9e9)
+				bodyGryro.Parent = rootPart
+				bodyGryro.Name = "bodyGryro"
+
+				bodyVelocity = Instance.new("BodyVelocity")
+				bodyVelocity.MaxForce = Vector3.new(9e9, 9e9, 9e9)
+				bodyVelocity.Velocity = Vector3.zero
+				bodyVelocity.Parent = rootPart
+				bodyVelocity.Name = "bodyVelocity"
+                hum.PlatformStand = true
+                hum.Sit = true
+			end
+			local function disableFlight()
+				if bodyGryro then bodyGryro:Destroy() end
+				if bodyVelocity then bodyVelocity:Destroy() end
+
+				if rootPart:FindFirstChild("bodyGryro") then rootPart:FindFirstChild("bodyGryro"):Destroy() end
+				if rootPart:FindFirstChild("bodyVelocity") then rootPart:FindFirstChild("bodyVelocity"):Destroy() end
+			    hum.PlatformStand = false
+                hum.Sit = false
+            end
+			local function startCarpetRide(targetPlayer)
+				if flying or not targetPlayer then return end
+				local targetCharacter = targetPlayer.Character
+				if not targetCharacter then return end
+
+				local targetRoot = targetCharacter:FindFirstChild("HumanoidRootPart")
+				if not targetRoot then return end
+                local colplren = false
+                if targetCharacter.Head.CanCollide then colplren = true end
+                if colplren then
+                    for i,gh in ipairs(targetCharacter:GetDescendants()) do
+					    if gh:IsA("BasePart") then
+						    gh.CanCollide = false
+					    end
+				    end
+                end
+                nc = false
+				flying = true
+                setCharTrans(1)
+				lastPosition = rootPart.CFrame
+				enableFlight()
+				-- Move under the target player
+				currcf = CFrame.new(targetRoot.Position)
+				underPos = currcf.Position - Vector3.new(0,3,0)
+				rootPart.CFrame = CFrame.new(underPos)
+				bodyVelocity.Velocity = Vector3.zero
+				task.wait(0.149)
+                currcf = CFrame.new(targetRoot.Position)
+                for aa = 0,10 do
+                    rootPart.CFrame = CFrame.new(currcf.Position + Vector3.new(0,aa,0))
+                    bodyVelocity.Velocity = Vector3.zero
+                    task.wait()
+                end
+                bodyVelocity.Velocity = Vector3.zero
+                task.wait(0.1495)
+                bodyVelocity.Velocity = Vector3.zero
+                nc = true
+				flying = false
+				disableFlight()
+                if colplren then
+                    for i,gh in ipairs(targetCharacter:GetDescendants()) do
+					    if gh:IsA("BasePart") then
+						    gh.CanCollide = true
+					    end
+				    end
+                end
+                getChar():WaitForChild("HumanoidRootPart").CFrame = lasthrppos
+			setCharTrans(0)
+            end
+
+			startCarpetRide(v)
+		end
+	
+    elseif spaceSplit[1] == "protect" then
+		local target = getPlr(tostring(spaceSplit[2]):lower())
+		for i,v in pairs(target)do
+			if #target == 0 then return end
+			protected[v.UserId] = {v = v}
+			chatmessage("Now Protecting Player: ".. v.Name, Color3.fromRGB(255, 255, 0))
+		end
+    elseif spaceSplit[1] == "unprotect" then
+		local target = getPlr(tostring(spaceSplit[2]):lower())
+		for i,v in pairs(target)do
+			if #target == 0 then return end
+			if protected[v.UserId] then
+				protected[v.UserId] = nil
+			end
+			chatmessage(v.Name.." Is No Longer Protected", Color3.fromRGB(255, 255, 0))
+		end
+	elseif spaceSplit[1] == "breakchat" then
+		wait(0.5)
+		for i=1,6 do
+			Chat(" ")
+		end
+	elseif spaceSplit[1] == "noclip" then
+		nc = true
+	elseif spaceSplit[1] == "clip" then
+		nc = false
+	elseif spaceSplit[1] == "fling" or spaceSplit[1] == "throw" then
+		local target = getPlr(tostring(spaceSplit[2]):lower())
+		for i,v in pairs(target)do
+			if #target == 0 then return end
+			fling(v, 10, 0.288)
+		end
+	elseif spaceSplit[1] == "toolfling" then
+		local olddh = workspace.FallenPartsDestroyHeight
+		workspace.FallenPartsDestroyHeight = 0/0
+		local tool = getBp():FindFirstChildOfClass("Tool") or getChar():FindFirstChildOfClass("Tool")
+        if not tool then return end
+		tool.Handle.Massless = true
+		repeat wait()
+			tool.GripPos = Vector3.new(-999999999, 999999999999999999, -999999999)
+			tool.GripPos = Vector3.new(-5000, 6000, -5000)
+		until getChar().Humanoid.Health >= 0
+        workspace.FallenPartsDestroyHeight = olddh
+
+    elseif spaceSplit[1] == "touchfling" then
+		local olddh = workspace.FallenPartsDestroyHeight
+		workspace.FallenPartsDestroyHeight = 0/0
+		local tool = getBp():FindFirstChildOfClass("Tool") or getChar():FindFirstChildOfClass("Tool")
+		if not tool then return end
+        disableatoolnim()
+		tool.Handle.Massless = true
+        local doonce = false
+		repeat wait()
+			tool.GripPos = Vector3.new(-999999999, 999999999999999999, -999999999)
+			tool.GripPos = Vector3.new(-5000, 6000, -5000)
+            if doonce == false then
+                tool.Parent = getChar()
+                doonce = true
+            end
+		until getChar().Humanoid.Health >= 0
+        workspace.FallenPartsDestroyHeight = olddh
+
+	elseif spaceSplit[1] == "reach" or spaceSplit[1] == "hitbox" then
+		local target = getPlr(tostring(spaceSplit[2]):lower())
+		for i,v in pairs(target)do
+			local setsize = tonumber(spaceSplit[3]) or 10
+			if #target == 0 then return end
+            if not v.Character.HumanoidRootPart:FindFirstChild("Highlight") then 
+                local HLI = Instance.new("Highlight")
+                HLI.DepthMode = "Occluded"
+                HLI.FillColor = Color3.fromRGB(85,0,255)
+                HLI.FillTransparency = 0.5
+                HLI.Parent = v.Character.HumanoidRootPart
+            end
+			v.Character.HumanoidRootPart.Size = Vector3.new(setsize, setsize, setsize)
+			--v.Character.HumanoidRootPart.Color = Color3.fromRGB(0, 0, 255)
+			v.Character.HumanoidRootPart.Transparency = 0.75
+		end
+
+    elseif spaceSplit[1] == "outline" then
+		local target = getPlr(tostring(spaceSplit[2]):lower())
+		for i,v in pairs(target)do
+			if #target == 0 then return end
+            if v.Character:FindFirstChild("Highlight") then return end
+            local HLI = Instance.new("Highlight")
+            HLI.FillColor = Color3.fromRGB(0,255,255)
+            HLI.FillTransparency = 0.75
+			HLI.Parent = v.Character
+		end
+
+	elseif spaceSplit[1] == "rkill" then
+		local target = getPlr(tostring(spaceSplit[2]):lower())
+		for i,v in pairs(target)do
+			if #target == 0 then return end
+			local tool = getBp():FindFirstChildOfClass("Tool") or getChar():FindFirstChildOfClass("Tool")
+			if not tool then notice("No Tool Found") return end
+			v.Character.HumanoidRootPart.Size = Vector3.new(2000, 2000, 2000)
+			tool.Parent = plr.Character
+			repeat 
+				tool:Activate()
+                task.wait()
+			until v.Character.Humanoid.Health <= 0 or plr.Character.Humanoid.Health <= 0
+			getChar().HumanoidRootPart.Anchored = true
+			v.Character.HumanoidRootPart.CanCollide = false
+			v.Character.HumanoidRootPart.CollisionGroup = "None"
+			getChar():FindFirstChildOfClass("Humanoid"):UnequipTools()
+			wait(5)
+			getChar().HumanoidRootPart.Anchored = false
+		end
+	elseif spaceSplit[1] == "view" or spaceSplit[1] == "watch" then
+		local target = getPlr(tostring(spaceSplit[2]):lower())
+		for i,v in pairs(target)do
+			if #target == 0 then return end
+			workspace.CurrentCamera.CameraSubject = v.Character.Humanoid
+		end
+	elseif spaceSplit[1] == "unview" or spaceSplit[1] == "unwatch" then
+		workspace.CurrentCamera.CameraSubject = plr.Character.Humanoid
+	elseif spaceSplit[1] == "hiphight" then
+		local val = tonumber(spaceSplit[2])
+		if val == nil then return end 
+		getChar().Humanoid.HipHeight = val
+	elseif spaceSplit[1] == "jumppower" then
+		local val = tonumber(spaceSplit[2])
+		if val == nil then return end 
+		getChar().Humanoid.JumpPower = val
+	elseif spaceSplit[1] == "walkspeed" then
+		local val = tonumber(spaceSplit[2])
+		if val == nil then return end 
+		getChar().Humanoid.WalkSpeed = val 
+	elseif spaceSplit[1] == "goto" or spaceSplit[1] == "tpto" or spaceSplit[1] == "to" then
+		local target = getPlr(tostring(spaceSplit[2]):lower())
+		for i,v in pairs(target)do
+			if #target == 0 then return end
+			tpbypass(v)
+		end
+	elseif spaceSplit[1] == "rejoin" then
+		game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId, game.JobId, plr)
+	elseif spaceSplit[1] == "refresh" or spaceSplit[1] == "re" then
+        if game.PlaceId == 155615604 then
+            local old = plr.Character:FindFirstChild("HumanoidRootPart").CFrame
+	        if plr.Team == game.Teams.Inmates then
+				switchteam("Bright orange")
+			elseif plr.Team == game.Teams.Guards then
+                switchteam("Bright blue")
+			elseif plr.Team == game.Teams.Criminals then
+                switchteam("Bright orange")
+                task.wait(1)
+				Firetouchinterest(workspace["Criminals Spawn"].SpawnLocation, getChar().HumanoidRootPart,0)
+                Firetouchinterest(workspace["Criminals Spawn"].SpawnLocation, getChar().HumanoidRootPart,1)
+			end
+            plr.CharacterAdded:Wait()
+            getChar():WaitForChild("HumanoidRootPart").CFrame = old
+            return
+        end
+		local cr = getChar()
+		local old = cr:FindFirstChild("HumanoidRootPart").CFrame
+		cr.Humanoid.BreakJointsOnDeath = false
+		cr.Humanoid.RequiresNeck = false
+		cr:FindFirstChildOfClass("Humanoid"):ChangeState(15)
+        for i,v in pairs(cr:GetDescendants())do
+			if v:IsA("BasePart") and v.Name ~= "HumanoidRootPart" then
+				local weld = Instance.new("WeldConstraint", v)
+				weld.Part0 = weld.Parent
+				weld.Part1 = cr.HumanoidRootPart
+                local bgras = Instance.new("BodyGyro")
+				bgras.P = 9e4
+				bgras.MaxTorque = Vector3.new(9e9, 9e9, 9e9)
+				bgras.Parent = v
+				bgras.Name = "bodyGryro"
+                local bvolas = Instance.new("BodyVelocity")
+				bvolas.MaxForce = Vector3.new(9e9, 9e9, 9e9)
+				bvolas.Velocity = Vector3.zero
+				bvolas.Parent = v
+				bvolas.Name = "bodyVelocity"
+			end
+		end
+		
+		plr.CharacterAdded:Wait()
+		getChar():WaitForChild("HumanoidRootPart").CFrame = old
+    elseif spaceSplit[1] == "dupetools" or spaceSplit[1] == "dupe" then
+        local val = tonumber(spaceSplit[2])
+		if val == nil then notice("You Need A Value Amount To Dupe Your Tools Try dupetools 1") return end 
+        val = val-1
+        for i = 0,val,1 do
+            local cr = getChar()
+            local old = cr:FindFirstChild("HumanoidRootPart").CFrame
+            for i,v in pairs(getBp():GetChildren()) do
+                if v:IsA("Tool") then
+                    v.Name = "DupedTool"
+                    v.Parent = getChar()
+                end
+            end
+            for i,v in pairs(getChar():GetChildren()) do
+                if v:IsA("Tool") then
+                    v.Name = "DupedTool"
+                end
+            end
+            cr.HumanoidRootPart.CFrame = cr.HumanoidRootPart.CFrame + Vector3.new(0,999999999,0)
+            task.wait(0.1)
+            cr:FindFirstChildOfClass("Humanoid"):ChangeState(15)
+            for i,v in pairs(getChar():GetChildren()) do
+                if v:IsA("Tool") then
+                    v.Parent = workspace
+                end
+            end
+            plr.CharacterAdded:Wait()
+            getChar():WaitForChild("HumanoidRootPart").CFrame = old
+            for i,v in pairs(workspace:GetChildren()) do
+                if v:IsA("Tool") and v.Name == "DupedTool" then
+                    Firetouchinterest(v.Handle, getChar().Humanoid.RootPart,0)
+                    task.wait()
+                    Firetouchinterest(v.Handle, getChar().Humanoid.RootPart,1)
+                end
+            end
+            wait(1)
+        end
+        local dupeditems = val
+        dupeditems = dupeditems+1
+        notice("Duped "..dupeditems.." Tools!")
+
+    elseif spaceSplit[1] == "givetools" then
+        local target = getPlr(tostring(spaceSplit[2]):lower())
+        local plrgottool = false
+		for i,vv in pairs(target)do
+			if #target == 0 then return end
+            for i,v in pairs(getBp():GetChildren()) do
+                if v:IsA("Tool") then
+                    v.Name = "DroppedTool"
+                    v.Parent = getChar()
+                end
+            end
+            for i,v in pairs(getChar():GetChildren()) do
+                if v:IsA("Tool") then
+                    v.Name = "DroppedTool"
+                end
+            end
+            task.wait(0.1)
+            for i,v in pairs(getChar():GetChildren()) do
+                if v:IsA("Tool") then
+                    v.Parent = workspace
+                end
+            end
+            task.wait(0.5)
+            for i,v in pairs(workspace:GetChildren()) do
+                if v:IsA("Tool") and v.Name == "DroppedTool" then
+                    repeat
+                    touch(vv.Character.Humanoid.RootPart,v.Handle)
+                    task.wait()
+                    until v.Parent ~= workspace
+                    if v.Parent == vv then plrgottool = true end
+                end
+            end
+            if plrgottool then
+            notice("Gave Tools To "..vv.Name.."!")
+            else
+            notice("Failed To Give Tools To "..vv.Name.."!")
+            end
+        end
+	elseif spaceSplit[1] == "bang" then
+		local target = getPlr(tostring(spaceSplit[2]):lower())
+		for i,v in pairs(target)do
+			if #target == 0 then return end
+			bang(v, tonumber(spaceSplit[3]))
+		end
+	elseif spaceSplit[1] == "unbang" then
+		if bangDied then
+			bangDied:Disconnect()
+			bang:Stop()
+			bangAnim:Destroy()
+			bangLoop:Disconnect()
+		end
+	elseif spaceSplit[1] == "commands" or spaceSplit[1] == "cmds" then
+		plr:FindFirstChild("PlayerGui"):FindFirstChild("Commands").Enabled = true
+
+	elseif spaceSplit[1] == "stopc" then
+		Line:Destroy()
+        TextLabel:Destroy()
+		plr:FindFirstChild("PlayerGui"):FindFirstChild("Commands"):Destroy()
+		if ccdfsdf then
+			ccdfsdf:Disconnect()
+			ccdfsdf = nil
+		end
+		if plradd then
+			plradd:Disconnect()
+			plradd = nil
+		end
+		if plrremove then
+			plrremove:Disconnect()
+			plrremove = nil
+		end
+		scriptunloaded = true
+	end	
+end
+function typeoutWORDs(words)
+	TextLabel.Text = ""
+	for i = 1, #words do
+		TextLabel.Text = string.sub(words, 1, i)
+		firesound(133003979061644) --15675032796
+		task.wait()
+	end
+end
+function typeoutWORDS(words)
+	TextLabel.Text = ""
+	for i = 1, #words do
+		TextLabel.Text = string.sub(words, 1, i)
+		firesound(133003979061644) --15675032796
+		task.wait()
+	end
+end
+function getINFO(command)
+	local cmdfound = checkCMD(command)
+	local infotext = "Type a command to see information on it"
+	if cmdfound == "kick" or cmdfound == "remove" then
+		infotext = cmdfound.." allows you to remove a player from the server | requires: [Name]"
+	elseif cmdfound == "ban" or cmdfound == "permremove" then
+		infotext = cmdfound.." allows you to remove a player from the server until you leave | requires: [Name]"
+	elseif cmdfound == "antifling" then
+		infotext = cmdfound.." prevents people or skids from flinging or throwing you out the map"
+	elseif cmdfound == "kill" then
+		infotext = cmdfound.." allows you to kill a player without them knowing from what | requires: [Name]"
+	elseif cmdfound == "killaura" then
+		infotext = cmdfound.." allows you to kill a player within range them knowing from what"
+    elseif cmdfound == "unkillaura" then
+		infotext = cmdfound.." disables kill aura"
+    elseif cmdfound == "loopkill" or cmdfound == "lk" then
+		infotext = cmdfound.." allows you to kill a player in a loop without them knowing from what | requires: [Name]"
+	elseif cmdfound == "unloopkill" or cmdfound == "unlk" then
+		infotext = cmdfound.." stops all ongoing loop kills"
+	elseif cmdfound == "autorefresh" or cmdfound == "autore" then
+		infotext = cmdfound.." makes you refresh after you reset or killed by another player and spawn back to the same location"
+    elseif cmdfound == "autorefresh" or cmdfound == "autore" then 
+	    infotext = cmdfound.." stops you from spawning back to the same death location"
+    elseif cmdfound == "punish" or cmdfound == "banish" then
+		infotext = cmdfound.." allows you to remove a player but not from the server | requires: [Name]"
+	elseif cmdfound == "removelimbs" or cmdfound == "nolimbs" then
+		infotext = cmdfound.." allows you to remove a player but not from the server | requires: [Name]"
+	elseif cmdfound == "removearms" or cmdfound == "noarms" then
+		infotext = cmdfound.." allows you to remove a players arms leaving them armless | requires: [Name]"
+	elseif cmdfound == "removelegs" or cmdfound == "nolegs" then
+		infotext = cmdfound.." allows you to remove a players legs leaving them legless | requires: [Name]"
+	elseif cmdfound == "bald" then
+		infotext = cmdfound.." allows you to remove a players hats and hair leaving them bald | requires: [Name]"
+	elseif cmdfound == "naked" then
+		infotext = cmdfound.." allows you to remove a players clothes leaving them naked | requires: [Name]"
+	elseif cmdfound == "blank" then
+		infotext = cmdfound.." allows you to remove a players hats/hair/clothes/face leaving them blank | requires: [Name]"
+	elseif cmdfound == "explode" or cmdfound == "boom" then
+		infotext = cmdfound.." allows you to explode a player and making them go BOOM | requires: [Name]"
+	elseif cmdfound == "shutdown" then
+		infotext = cmdfound.." allows you to remove all players from the server including you"
+	elseif cmdfound == "deletegame" then
+		infotext = cmdfound.." allows you to remove every object that can be found in the game"
+	elseif cmdfound == "serverlock" or cmdfound == "slock" then
+		infotext = cmdfound.." allows you to lock the server and remove any new players that join"
+	elseif cmdfound == "unserverlock" or cmdfound == "unslock" then
+		infotext = cmdfound.." allows you to unlock the server and allow new players to join"
+	elseif cmdfound == "fly" then
+		infotext = cmdfound.." allows you to fly around like a bird"
+	elseif cmdfound == "unfly" then
+		infotext = cmdfound.." stops you from continuing flying around like a bird and fall from the sky"
+	elseif cmdfound == "invisible" or cmdfound == "invis" then
+		infotext = cmdfound.." allows your character to be hidden from other players but not from you"
+	elseif cmdfound == "visible" or cmdfound == "vis" then
+		infotext = cmdfound.." allows your character to be seen by other players"
+	elseif cmdfound == "unvoiceban" or cmdfound == "unvcb" then
+		infotext = cmdfound.." allows your voice chat suspension to go poof in a instant!"
+	elseif cmdfound == "btools" or cmdfound == "f3x" then
+		infotext = cmdfound.." gives you F3x btools allowing to move objects anchored clientside and unanchored objects serverside"
+	elseif cmdfound == "protect" then
+		infotext = cmdfound.." allows you to protect a player from harmful or abusive commands | requires: [Name]"
+	elseif cmdfound == "unprotect" then
+		infotext = cmdfound.." removes a player from protection list allowing them to be killed, banned, etc | requires: [Name]"
+    elseif cmdfound == "breakchat" then
+		infotext = cmdfound.." allows you to cause a chat error that can be seen in the server"
+	elseif cmdfound == "noclip" then
+		infotext = cmdfound.." allows you to go through walls and noclip through people"
+	elseif cmdfound == "clip" then
+		infotext = cmdfound.." disables the usage to go through walls and players"
+	elseif cmdfound == "fling" or cmdfound == "throw" then
+		infotext = cmdfound.." allows you to throw a player from the map with a 10% fail | requires: [Name]"
+	elseif cmdfound == "outline" then
+		infotext = cmdfound.." allows you to outline a player allowing you to see where they are from anywhere | requires: [Name]"
+    elseif cmdfound == "toolfling" then
+		infotext = cmdfound.." allows you to have a modded tool to throw players on touch when holding the tool"
+    elseif cmdfound == "touchfling" then
+        infotext = cmdfound.." allows you to have a modded tool to throw players on touch in secret"
+	elseif cmdfound == "view" or cmdfound == "watch" then
+		infotext = cmdfound.." allows you to watch a player without them knowing | requires: [Name]"
+	elseif cmdfound == "unview" or cmdfound == "unwatch" then
+		infotext = cmdfound.." stops you from watching a player going back to normal camera view"
+	elseif cmdfound == "hiphight" then
+		infotext = cmdfound.." allows you to set your players hiphight | requires: [Num]"
+	elseif cmdfound == "jumppower" then
+		infotext = cmdfound.." allows you to set your players jumppower | requires: [Num]"
+	elseif cmdfound == "walkspeed" then
+		infotext = cmdfound.." allows you to set your players walkspeed | requires: [Num]"
+	elseif cmdfound == "goto" or cmdfound == "tpto" or cmdfound == "to" then
+		infotext = cmdfound.." allows you to slowly be moved to a players CFrame position | requires: [Name]"
+	elseif cmdfound == "rejoin" then
+		infotext = cmdfound.." allows you to rejoin leaving and joining back the same server refreshed"
+	elseif cmdfound == "refresh" or cmdfound == "re" then
+		infotext = cmdfound.." allows you to reset and respawn back into the same death location"
+	elseif cmdfound == "mbring" then
+		infotext = cmdfound.." or move bring is a test bring that slowly brings a player to you | requires: [Name]"  
+	elseif cmdfound == "jump" then
+		infotext = cmdfound.." allows you to make a player jump up into the air | requires: [Name]"  
+    elseif cmdfound == "bang" then
+		infotext = cmdfound.." allows you to harrass and bang a player | requires: [Name]"
+	elseif cmdfound == "clicktp" then
+		infotext = cmdfound.." gives a tool that allows you to click and teleport to the clicked location"
+	elseif cmdfound == "clickmove" then
+		infotext = cmdfound.." gives a tool that allows you to move unanchored objects"
+	elseif cmdfound == "clickkill" then
+		infotext = cmdfound.." hover your mouse over a player then click on them to kill them!"
+    elseif cmdfound == "unclickkill" then
+		infotext = cmdfound.." stops the click kill"
+    elseif cmdfound == "unbang" then
+		infotext = cmdfound.." stops you from continuing harrassing a player"
+	elseif cmdfound == "reach" or cmdfound == "hitbox" then
+		infotext = cmdfound.." allows you to kill a player from a far distance | requires: [Name] [Num]"
+	elseif cmdfound == "rkill" then
+		infotext = cmdfound.." allows you to kill a player from a far distance with a sword | requires: [Name]"
+	elseif cmdfound == "dupetools" or cmdfound == "dupe" then
+        infotext = cmdfound.." allows you to dupe your tools a certain amount | requires: [Value]"
+    elseif cmdfound == "givetools" then
+        infotext = cmdfound.." allows you to give your tools to a certain player | requires: [Name]"
+    elseif cmdfound == "commands" or cmdfound == "cmds" then
+		infotext = cmdfound.." shows you a list of commands that the script has"
+	elseif cmdfound == "stopc" then
+		infotext = cmdfound.." stops the script and removes the commands line"
+	else
+		infotext = "Type a command to see information on it"
+	end
+	typeoutWORDs("[Info]: ".. infotext)
+end
+Line.Focused:connect(function()
+    TextLabel.Visible = true
+	openline()
+end)
+Line:GetPropertyChangedSignal("Text"):Connect(function()
+	local cmdChecked = checkCMD2(Line.Text)
+	if cmdChecked then
+		getINFO(Line.Text)
+	end
+	if Line.Text == "" then
+		typeoutWORDs("[Info]: Type a command to see information on it")
+	end
+	task.wait()
+end)
+Line.FocusLost:connect(function(enterPressed)
+	TextLabel.Visible = false
+    local msg = Line.Text
+	local cmdChecked = checkCMD(msg)
+	if cmdChecked then
+		sendCMD(msg)
+	end
+	closeline()
+end)
+game:GetService("Players").LocalPlayer:GetMouse().KeyDown:connect(function(input)
+	if (input == "\\") and not scriptunloaded then
+		Line:CaptureFocus()
+		wait()
+		Line.Text = ""
+	end
+end)
+local chatconnected = false
+
+if not chatconnected then
+    chatconnected = true
+    if game:GetService("TextChatService").ChatVersion == Enum.ChatVersion.TextChatService then
+        ccdfsdf = game:GetService("TextChatService").MessagePosted:Connect(function(messageObj)
+            if messageObj.TextSource and messageObj.TextSource.UserId == plr.UserId then
+                if scriptunloaded then return end
+	            local cmdChecked = checkCMD(messageObj.Text)
+	            if cmdChecked then
+		            sendCMD(messageObj.Text)
+	            end
+            end
+        end)
+    else
+        ccdfsdf = game:GetService("ReplicatedStorage"):FindFirstChild("DefaultChatSystemChatEvents"):FindFirstChild("OnNewMessage").OnClientEvent:Connect(function(msgData)
+            local sender = msgData.FromSpeaker
+            local msg = msgData.Message
+            if sender == plr.Name then
+                if scriptunloaded then return end
+	            local cmdChecked = checkCMD(msg)
+	            if cmdChecked then
+		            sendCMD(msg)
+	            end
+            end
+        end)
+    end
+end
+
+wait(3)
+notice("You are using Console Line Admin Click \\ To Open The Line Or Type The Command")
+
+plradd = players.PlayerAdded:Connect(function(player)
+	notice(player.DisplayName.." Has Joined!")
+end)
+plrremove = players.PlayerRemoving:Connect(function(player)
+	notice(player.DisplayName.." Has Left!")
+end)
+if not game.Players.LocalPlayer:FindFirstChild("PlayerGui"):FindFirstChild("Commands") then
+	local Commands = Instance.new("ScreenGui")
+	local CommandF = Instance.new("Frame")
+	local CUIC = Instance.new("UICorner")
+	local CUIG = Instance.new("UIGradient")
+	local CMDSTITTLE = Instance.new("TextLabel")
+	local CloseCMDS = Instance.new("TextButton")
+	local CCUIG = Instance.new("UICorner")
+	local CMDSCROLL = Instance.new("ScrollingFrame")
+	local CMDUIL = Instance.new("UIListLayout")
+
+	Commands.Name = "Commands"
+	Commands.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+	Commands.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+	Commands.ResetOnSpawn = false
+	Commands.Enabled = false
+
+	CommandF.Name = "CommandF"
+	CommandF.Parent = Commands
+	CommandF.AnchorPoint = Vector2.new(1, 1)
+	CommandF.BackgroundColor3 = Color3.fromRGB(100, 100, 100)
+	CommandF.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	CommandF.BorderSizePixel = 0
+	CommandF.Position = UDim2.new(0.575, 0, 0.75, 0)
+	CommandF.Size = UDim2.new(0, 215, 0, 249)
+
+	local uiss = Instance.new("UIStroke",CommandF)
+	uiss.ApplyStrokeMode = "Border"
+	uiss.Color = Color3.fromRGB(135,37,255)
+	uiss.LineJoinMode = "Round"
+	uiss.Thickness = 1.6
+	uiss.Transparency = 0.2
+	
+	CUIC.Name = "CUIC"
+	CUIC.Parent = CommandF
+
+	CUIG.Color = ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.fromRGB(0, 0, 0)), ColorSequenceKeypoint.new(0.50, Color3.fromRGB(43, 0, 65)), ColorSequenceKeypoint.new(1.00, Color3.fromRGB(15, 15, 15))}
+	CUIG.Rotation = 45
+	CUIG.Name = "CUIG"
+	CUIG.Parent = CommandF
+
+	CMDSTITTLE.Name = "CMDSTITTLE"
+	CMDSTITTLE.Parent = CommandF
+	CMDSTITTLE.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	CMDSTITTLE.BackgroundTransparency = 1.000
+	CMDSTITTLE.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	CMDSTITTLE.BorderSizePixel = 0
+	CMDSTITTLE.Position = UDim2.new(0.293000013, 0, 0.0199999996, 0)
+	CMDSTITTLE.Size = UDim2.new(0, 89, 0, 25)
+	CMDSTITTLE.Font = Enum.Font.SourceSansBold
+	CMDSTITTLE.Text = "Commands"
+	CMDSTITTLE.TextColor3 = Color3.fromRGB(255, 255, 255)
+	CMDSTITTLE.TextSize = 14.000
+
+	CloseCMDS.Name = "CloseCMDS"
+	CloseCMDS.Parent = CommandF
+	CloseCMDS.BackgroundColor3 = Color3.fromRGB(10, 10, 10)
+	CloseCMDS.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	CloseCMDS.BorderSizePixel = 0
+	CloseCMDS.Position = UDim2.new(0.786046505, 0, 0.036144577, 0)
+	CloseCMDS.Size = UDim2.new(0, 40, 0, 20)
+	CloseCMDS.Font = Enum.Font.SourceSansBold
+	CloseCMDS.Text = "Close"
+	CloseCMDS.TextColor3 = Color3.fromRGB(255, 255, 255)
+	CloseCMDS.TextSize = 10.000
+	
+	local CCUIS = Instance.new("UIStroke",CloseCMDS)
+	CCUIS.ApplyStrokeMode = "Border"
+	CCUIS.Color = Color3.fromRGB(255,255,255)
+	CCUIS.LineJoinMode = "Round"
+	CCUIS.Thickness = 1.9
+	CCUIS.Transparency = 0.7
+
+	CCUIG.Name = "CCUIG"
+	CCUIG.Parent = CloseCMDS
+
+	CMDSCROLL.Name = "CMDSCROLL"
+	CMDSCROLL.Parent = CommandF
+	CMDSCROLL.Active = true
+	CMDSCROLL.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	CMDSCROLL.BackgroundTransparency = 1.000
+	CMDSCROLL.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	CMDSCROLL.BorderSizePixel = 0
+	CMDSCROLL.Position = UDim2.new(0.0279069766, 0, 0.168674693, 0)
+	CMDSCROLL.Size = UDim2.new(0, 203, 0, 200)
+	CMDSCROLL.CanvasSize = UDim2.new(0, 0, 5.8, 0)
+	CMDSCROLL.ScrollBarThickness = 5
+
+	CMDUIL.Name = "CMDUIL"
+	CMDUIL.Parent = CMDSCROLL
+	CMDUIL.HorizontalAlignment = Enum.HorizontalAlignment.Center
+	CMDUIL.Padding = UDim.new(0, 4)
+
+	local function DMVZX_fake_script() -- closecmds.Script 
+		local script = Instance.new('Script', CloseCMDS)
+
+		function onClicked(GUI)
+			Commands.Enabled = false
+		end
+		script.Parent.MouseButton1Click:connect(onClicked)
+	end
+	coroutine.wrap(DMVZX_fake_script)()
+	local function BVFICE_fake_script() -- fadsfasf.DragScript 
+		local script = Instance.new('LocalScript', CommandF)
+
+		local frame = script.Parent
+		local userInput = game:GetService("UserInputService")
+
+		local dragging = false
+		local dragStart
+		local startPos
+
+		frame.InputBegan:Connect(function(input)
+			if input.UserInputType == Enum.UserInputType.MouseButton1 then
+				dragging = true
+				dragStart = input.Position
+				startPos = frame.Position
+			end
+		end)
+
+		frame.InputEnded:Connect(function(input)
+			if input.UserInputType == Enum.UserInputType.MouseButton1 then
+				dragging = false
+			end
+		end)
+
+		userInput.InputChanged:Connect(function(input)
+			if dragging and input.UserInputType == Enum.UserInputType.MouseMovement then
+				local delta = input.Position - dragStart
+				frame.Position = UDim2.new(
+					startPos.X.Scale,
+					startPos.X.Offset + delta.X,
+					startPos.Y.Scale,
+					startPos.Y.Offset + delta.Y
+				)
+			end
+		end)
+	end
+	coroutine.wrap(BVFICE_fake_script)()
+
+	local ccsds = {
+		"kick / remove [plr]",
+		"ban / permremove [plr]",
+		"kill [plr]",
+        "loopkill / lk [plr]",
+        "unloopkill / unlk",
+        "autorefresh / autore",
+        "unautorefresh / unautore",
+		"punish / banish [plr]",
+        "dupetools / dupe [Value]",
+		"removelimbs / nolimbs [plr]",
+		"removearms / noarms [plr]",
+		"removelegs / nolegs [plr]",
+		"bald [plr]",
+		"naked [plr]",
+		"blank [plr]",
+		"explode / boom [plr]",
+		"shutdown",
+		"deletegame",
+		"serverlock / slock",
+		"unserverlock / unslock",
+        "givetools [plr]",
+		"fly [Speed]",
+		"unfly",
+        "clickkill",
+        "unclickkill",
+		"invisible / invis",
+		"visible / vis",
+		"antifling",
+		"unvoiceban / unvcb",
+		"btools / f3x",
+        "protect [plr]",
+        "unprotect [plr]",
+		"breakchat",
+		"noclip",
+		"clip",
+		"fling / throw [plr]",
+		"toolfling",
+        "touchfling",
+		"view / watch [plr]",
+		"unview / unwatch",
+		"hiphight [Value]",
+		"jumppower [Value]",
+		"walkspeed [Value]",
+		"goto / tpto / to [plr]",
+		"rejoin",
+        "killaura",
+        "unkillaura",
+		"refresh / re",
+        "jump [plr]",
+		"mbring [plr]",
+		"bang [plr] [Speed]",
+		"unbang",
+		"clickmove",
+		"clicktp",
+		"reach / hitbox [plr] [Value]",
+		"rkill [plr]",
+        "outline [plr]",
+		"commands / cmds",
+		"stopc"
+	}
+	for i, cmdName in ipairs(ccsds) do
+		local COMMANDNAME = Instance.new("Frame")
+		local CMDCORN = Instance.new("UICorner")
+		local CMDTXT = Instance.new("TextLabel")
+		local CMDUIG = Instance.new("UIGradient")
+		
+		COMMANDNAME.Name = cmdName
+		COMMANDNAME.Parent = CMDSCROLL
+		COMMANDNAME.BackgroundColor3 = Color3.fromRGB(150, 150, 150)
+		COMMANDNAME.BorderColor3 = Color3.fromRGB(0, 0, 0)
+		COMMANDNAME.BorderSizePixel = 0
+		COMMANDNAME.Position = UDim2.new(0.253694594, 0, 0, 0)
+		COMMANDNAME.Size = UDim2.new(0, 185, 0, 20)
+
+		CMDCORN.CornerRadius = UDim.new(0, 4)
+		CMDCORN.Name = "CMDCORN"
+		CMDCORN.Parent = COMMANDNAME
+
+		CMDTXT.Name = "CMDTXT"
+		CMDTXT.Parent = COMMANDNAME
+		CMDTXT.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+		CMDTXT.BackgroundTransparency = 1.000
+		CMDTXT.BorderColor3 = Color3.fromRGB(0, 0, 0)
+		CMDTXT.BorderSizePixel = 0
+		CMDTXT.Size = UDim2.new(0, 185, 0, 20)
+		CMDTXT.Font = Enum.Font.SourceSans
+		CMDTXT.Text = cmdName
+		CMDTXT.TextColor3 = Color3.fromRGB(255, 255, 255)
+		CMDTXT.TextSize = 13.000
+
+		CMDUIG.Color = ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.fromRGB(43, 0, 65)), ColorSequenceKeypoint.new(0.50, Color3.fromRGB(85, 0, 127)), ColorSequenceKeypoint.new(1.00, Color3.fromRGB(43, 0, 65))}
+		CMDUIG.Rotation = 10
+		CMDUIG.Name = "CMDUIG"
+		CMDUIG.Parent = COMMANDNAME
+	end
+end
