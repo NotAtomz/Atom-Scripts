@@ -237,8 +237,15 @@ local function ButtonRuntimeWrap() -- MainFrame.FrameDrag
 	
 	button.MouseButton1Click:Connect(function()
 		local target = getPlr(TextInput.Text):lower()
-		if target == nil then return end
-		kill(target)
+		for i,v in pairs(target)do
+			if #target == 0 then return end
+			kill(v)
+			if v.Character.Humanoid.Health <= 0 then 
+				notice("Killed","Killed "..v.Name..".")
+			elseif v.Character.Humanoid.Health >= 1 then
+				notice("Failed","Failed "..v.Name.." Did Not Die")
+			end
+		end
 	end)
 end
 coroutine.wrap(ButtonRuntimeWrap)()
