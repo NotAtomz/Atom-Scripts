@@ -258,10 +258,9 @@ function kill(target)
 	stopsoundinobj(tool.Handle)
 	tool.Enabled = false
 	repeat 
-		if not target.Character or target.Character.Humanoid.Health <= 0 or getChar().Humanoid.Health <= 0 or not target.Character:FindFirstChild("HumanoidRootPart") then break end
 		Firetouchinterest(target.Character:FindFirstChild("HumanoidRootPart"), tool:FindFirstChild("Handle"), 0)
 		Firetouchinterest(target.Character:FindFirstChild("HumanoidRootPart"), tool:FindFirstChild("Handle"), 1)
-	until target.Character.Humanoid.Health <= 0 or getChar().Humanoid.Health <= 0
+	until not target.Character or target.Character.Humanoid.Health <= 0 or getChar().Humanoid.Health <= 0 or not target.Character:FindFirstChild("HumanoidRootPart")
 	tool.Enabled = true
 	stopsoundinobj(tool.Handle)
 	tool.Handle.Shape = originalShape
