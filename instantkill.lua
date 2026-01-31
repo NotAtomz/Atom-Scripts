@@ -626,9 +626,7 @@ local function C_24()
 		firesound(15675032796) 
 	end)
 	script.Parent.MouseButton1Click:Connect(function()
-		local a = tws:Create(script.Parent,tweeninfo,{BorderColor3=Color3.fromRGB(35, 35, 35)})
-		local b = tws:Create(script.Parent,tweeninfo,{BorderColor3=Color3.fromRGB(45, 45, 45)})
-		a:Play()
+			firesound(15675032796) 
 		local target = getPlr(G2L["2b"].Text:lower())
 		for i,v in pairs(target)do
 			if #target == 0 then return end
@@ -639,8 +637,6 @@ local function C_24()
 				notice("Failed","Failed "..v.Name.." Did Not Die")
 			end
 		end
-		a.Completed:Wait()
-		b:Play()
 	end)
 end;
 task.spawn(C_24);
