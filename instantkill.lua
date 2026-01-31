@@ -13,7 +13,7 @@ local KillButton_UIS = Instance.new("UIStroke")
 KillGui.Name = "KillGui"
 KillGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
 KillGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
---KillGui.ResetOnSpawn = false
+KillGui.ResetOnSpawn = false
 
 MainFrame.Name = "MainFrame"
 MainFrame.Parent = KillGui
