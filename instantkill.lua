@@ -1,14 +1,12 @@
--- Gui to Lua
--- Version: 3.2
-
--- Instances:
-
 local KillGui = Instance.new("ScreenGui")
 local MainFrame = Instance.new("Frame")
+local MainFrame_UIS = Instance.new("UIStroke")
 local TopBar = Instance.new("Frame")
 local Title = Instance.new("TextLabel")
 local TextInput = Instance.new("TextBox")
+local TextInput_UIS = Instance.new("UIStroke")
 local KillButton = Instance.new("TextButton")
+local KillButton_UIS = Instance.new("UIStroke")
 
 --Properties:
 
@@ -25,6 +23,13 @@ MainFrame.BorderColor3 = Color3.fromRGB(0, 0, 0)
 MainFrame.BorderSizePixel = 0
 MainFrame.Position = UDim2.new(0.5, 0, 0.5, 0)
 MainFrame.Size = UDim2.new(0, 225, 0, 100)
+
+MainFrame_UIS.Name = "MainFrame_UIS"
+MainFrame_UIS.Parent = MainFrame
+MainFrame_UIS.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+MainFrame_UIS.Color = Color3.fromRGB(0, 0, 0)
+MainFrame_UIS.Thickness = 3
+MainFrame_UIS.Transparency = 0.4
 
 TopBar.Name = "TopBar"
 TopBar.Parent = MainFrame
@@ -61,6 +66,13 @@ TextInput.Text = ""
 TextInput.TextColor3 = Color3.fromRGB(255, 255, 255)
 TextInput.TextSize = 14.000
 
+TextInput_UIS.Name = "TextInput_UIS"
+TextInput_UIS.Parent = TextInput
+TextInput_UIS.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+TextInput_UIS.Color = Color3.fromRGB(35, 35, 35)
+TextInput_UIS.Thickness = 3
+TextInput_UIS.Transparency = 0.4
+
 KillButton.Name = "KillButton"
 KillButton.Parent = MainFrame
 KillButton.AnchorPoint = Vector2.new(0.5, 0)
@@ -74,34 +86,55 @@ KillButton.Text = "Kill"
 KillButton.TextColor3 = Color3.fromRGB(255, 255, 255)
 KillButton.TextSize = 14.000
 
+KillButton_UIS.Name = "KillButton_UIS"
+KillButton_UIS.Parent = KillButton
+KillButton_UIS.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+KillButton_UIS.Color = Color3.fromRGB(255, 75, 75)
+KillButton_UIS.Thickness = 3
+KillButton_UIS.Transparency = 0.3
+
 -- Scripts:
 
 local function YMHKJ_fake_script() -- MainFrame.FrameDrag 
-	local script = Instance.new('LocalScript', MainFrame)
-
 	local frame = script.Parent
 	local userInput = game:GetService("UserInputService")
-	
+
 	local dragging = false
 	local dragStart
 	local startPos
-	
+
+	-- Combined input types for PC and Mobile
+	local inputTypes = {
+		Enum.UserInputType.MouseButton1,
+		Enum.UserInputType.Touch
+	}
+
+	local function isSupportedInput(input)
+		for _, inputType in pairs(inputTypes) do
+			if input.UserInputType == inputType then
+				return true
+			end
+		end
+		return false
+	end
+
 	frame.InputBegan:Connect(function(input)
-		if input.UserInputType == Enum.UserInputType.MouseButton1 then
+		if isSupportedInput(input) then
 			dragging = true
 			dragStart = input.Position
 			startPos = frame.Position
+
+			-- Handles touch state tracking to ensure it doesn't "stick"
+			input.Changed:Connect(function()
+				if input.UserInputState == Enum.UserInputState.End then
+					dragging = false
+				end
+			end)
 		end
 	end)
-	
-	frame.InputEnded:Connect(function(input)
-		if input.UserInputType == Enum.UserInputType.MouseButton1 then
-			dragging = false
-		end
-	end)
-	
+
 	userInput.InputChanged:Connect(function(input)
-		if dragging and input.UserInputType == Enum.UserInputType.MouseMovement then
+		if dragging and (input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch) then
 			local delta = input.Position - dragStart
 			frame.Position = UDim2.new(
 				startPos.X.Scale,
@@ -140,53 +173,86 @@ function getPlr(str)
 	end
 	return {} -- Return empty table if no match
 end
-local lastobjplace
-local lastobjcollisionvalue
+local objectStates = {}
+
 function Firetouchinterest(object1, object2, touch)
-	if object1 == nil then task.wait() error("Sending A firetouchinterest With A Invalid Value: object1") return end
-	if object2 == nil then task.wait() error("Sending A firetouchinterest With A Invalid Value: object2") return end
+	if not object1 then 
+		task.wait() 
+		error("Sending A firetouchinterest With An Invalid Value: object1") 
+		return 
+	end
+	if not object2 then 
+		task.wait() 
+		error("Sending A firetouchinterest With An Invalid Value: object2") 
+		return 
+	end
 	if touch == 0 then 
-		lastobjplace = object1.CFrame
-		lastobjcollisionvalue = object1.CanCollide
+		objectStates[object1] = {
+			CFrame = object1.CFrame,
+			CanCollide = object1.CanCollide
+		}
 		object1.CFrame = object2.CFrame
 		object1.CanCollide = false
-		task.wait() return
+		task.wait()
+		return
+
 	elseif touch == 1 then
-		object1.CFrame = lastobjplace
-		object1.CanCollide = lastobjcollisionvalue
-		task.wait() return
+		local savedState = objectStates[object1]
+		if savedState then
+			object1.CFrame = savedState.CFrame
+			object1.CanCollide = savedState.CanCollide
+			objectStates[object1] = nil 
+		end
+
+		task.wait()
+		return
+
 	else 
-		error("Sending A firetouchinterest With A Invalid Number: "..touch)
+		error("Sending A firetouchinterest With An Invalid Number: " .. tostring(touch))
 		return
 	end
 end
-function enabletoolanim()
-	local PlayEmote = Instance.new("BindableFunction")
-	PlayEmote.Name = "PlayEmote"
-	PlayEmote.Parent = plr.Character.Animate
-	plr.Character.Animate.Disabled = true
-	plr.Character.Animate.Disabled = false
+
+function enableToolAnim()
+	local animate = plr.Character.Animate
+	if not animate:FindFirstChild("PlayEmote") then
+		local PlayEmote = Instance.new("BindableFunction")
+		PlayEmote.Name = "PlayEmote"
+		PlayEmote.Parent = animate
+	end
+	animate.Disabled = true
+	animate.Disabled = false
 end
-function disableatoolnim()
-	if not plr.Character.Animate:FindFirstChild("PlayEmote") then enabletoolanim() wait()end
-	plr.Character.Animate.PlayEmote:Destroy()
-	plr.Character.Animate.Disabled = true
-	plr.Character.Animate.Disabled = false
+
+-- Disable tool animations
+function disableToolAnim()
+	local animate = plr.Character.Animate
+	if not animate:FindFirstChild("PlayEmote") then
+		enableToolAnim()
+	end
+	animate.PlayEmote:Destroy()
+	animate.Disabled = true
+	animate.Disabled = false
 end
+
 function stopsoundinobj(obje)
 	for _, v in pairs(obje:GetDescendants()) do
 		if v:IsA("Sound") then
 			v.Playing = false
+			v:Stop()
 		end
 	end
 end
+
 function kill(target)
-	repeat wait() until not target.Character:FindFirstChild("ForceField")
+	repeat task.wait() until target.Character and not target.Character:FindFirstChild("ForceField")
+	
 	local tool = getBp():FindFirstChildOfClass("Tool") or getChar():FindFirstChildOfClass("Tool")
 	if not tool or not tool:FindFirstChild("Handle") then notice("Warning", "Failed Your Player Has No Tool") task.wait() return end
-	if plr.Character:FindFirstChild("Humanoid").Sit then notice("Warning", "Failed Your Player Is Sitting") task.wait() return end
-	if target.Character:FindFirstChild("Humanoid").Health <= 0 or plr.Character:FindFirstChild("Humanoid").Health <= 0 or target.Character:FindFirstChild("HumanoidRootPart") == nil then task.wait() return end
-	if plr.Character:FindFirstChild("Humanoid").Health <= 0 then notice("Warning", "Failed Your Player Is Dead") task.wait() return end
+	
+	if getChar():FindFirstChild("Humanoid").Sit then notice("Warning", "Failed Your Player Is Sitting") task.wait() return end
+	if target.Character:FindFirstChild("Humanoid").Health <= 0 or getChar():FindFirstChild("Humanoid").Health <= 0 or target.Character:FindFirstChild("HumanoidRootPart") == nil then task.wait() return end
+	if getChar():FindFirstChild("Humanoid").Health <= 0 then notice("Warning", "Failed Your Player Is Dead") task.wait() return end
 	local originalGrip = tool.Grip
 	local originalShape = tool.Handle.Shape
 	local originalSize = tool.Handle.Size
@@ -200,22 +266,21 @@ function kill(target)
 	tool.Grip = CFrame.new(0, 5774, 0)
 	tool.Handle.Shape = "Ball"
 	tool.Handle.Size = Vector3.new(10,10,10)
-	disableatoolnim()
-	tool.Parent = plr.Character
+	disableToolAnim()
+	tool.Parent = getChar()
 	toolGUI:FindFirstChild("Equipped").Visible = false
 	stopsoundinobj(tool.Handle)
 	tool.Enabled = false
 	repeat 
-		if target.Character.Humanoid.Health <= 0 or plr.Character.Humanoid.Health <= 0 or target.Character:FindFirstChild("HumanoidRootPart") == nil then task.wait() return end
-		if not target.Character and target.Character:FindFirstChild("HumanoidRootPart") then task.wait() return end
+		if not target.Character or target.Character.Humanoid.Health <= 0 or getChar().Humanoid.Health <= 0 or not target.Character:FindFirstChild("HumanoidRootPart") then break end
 		Firetouchinterest(target.Character:FindFirstChild("HumanoidRootPart"), tool:FindFirstChild("Handle"), 0)
 		Firetouchinterest(target.Character:FindFirstChild("HumanoidRootPart"), tool:FindFirstChild("Handle"), 1)
-	until target.Character.Humanoid.Health <= 0 or plr.Character.Humanoid.Health <= 0
-		tool.Enabled = true
+	until target.Character.Humanoid.Health <= 0 or getChar().Humanoid.Health <= 0
+	tool.Enabled = true
 	stopsoundinobj(tool.Handle)
 	tool.Handle.Shape = originalShape
 	tool.Handle.Size = originalSize
-	enabletoolanim()
+	enableToolAnim()
 	toolGUI:FindFirstChild("Equipped").Visible = true
 	stopsoundinobj(tool.Handle)
 	getChar():FindFirstChildOfClass("Humanoid"):UnequipTools()
@@ -236,7 +301,7 @@ local function ButtonRuntimeWrap() -- MainFrame.FrameDrag
 	local button = script.Parent
 	
 	button.MouseButton1Click:Connect(function()
-		local target = getPlr(TextInput.Text:lower())
+		local target = getPlr(TextInput.Text):lower()
 		for i,v in pairs(target)do
 			if #target == 0 then return end
 			kill(v)
