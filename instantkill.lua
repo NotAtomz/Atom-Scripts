@@ -13,7 +13,7 @@ local KillButton_UIS = Instance.new("UIStroke")
 KillGui.Name = "KillGui"
 KillGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
 KillGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
-KillGui.ResetOnSpawn = false
+--KillGui.ResetOnSpawn = false
 
 MainFrame.Name = "MainFrame"
 MainFrame.Parent = KillGui
@@ -96,45 +96,31 @@ KillButton_UIS.Transparency = 0.3
 -- Scripts:
 
 local function YMHKJ_fake_script() -- MainFrame.FrameDrag 
+	local script = Instance.new('LocalScript', MainFrame)
+
 	local frame = script.Parent
 	local userInput = game:GetService("UserInputService")
-
+	
 	local dragging = false
 	local dragStart
 	local startPos
-
-	-- Combined input types for PC and Mobile
-	local inputTypes = {
-		Enum.UserInputType.MouseButton1,
-		Enum.UserInputType.Touch
-	}
-
-	local function isSupportedInput(input)
-		for _, inputType in pairs(inputTypes) do
-			if input.UserInputType == inputType then
-				return true
-			end
-		end
-		return false
-	end
-
+	
 	frame.InputBegan:Connect(function(input)
-		if isSupportedInput(input) then
+		if input.UserInputType == Enum.UserInputType.MouseButton1 then
 			dragging = true
 			dragStart = input.Position
 			startPos = frame.Position
-
-			-- Handles touch state tracking to ensure it doesn't "stick"
-			input.Changed:Connect(function()
-				if input.UserInputState == Enum.UserInputState.End then
-					dragging = false
-				end
-			end)
 		end
 	end)
-
+	
+	frame.InputEnded:Connect(function(input)
+		if input.UserInputType == Enum.UserInputType.MouseButton1 then
+			dragging = false
+		end
+	end)
+	
 	userInput.InputChanged:Connect(function(input)
-		if dragging and (input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch) then
+		if dragging and input.UserInputType == Enum.UserInputType.MouseMovement then
 			local delta = input.Position - dragStart
 			frame.Position = UDim2.new(
 				startPos.X.Scale,
