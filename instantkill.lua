@@ -287,7 +287,7 @@ local function ButtonRuntimeWrap() -- MainFrame.FrameDrag
 	local button = script.Parent
 	
 	button.MouseButton1Click:Connect(function()
-		local target = getPlr(TextInput.Text):lower()
+		local target = getPlr(TextInput.Text:lower())
 		for i,v in pairs(target)do
 			if #target == 0 then return end
 			kill(v)
