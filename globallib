@@ -1,0 +1,39 @@
+local lib = {}
+
+local lastState = {}
+function lib.firetouchinterest(object1, object2, touch)
+	if object1 == nil then error("Firetouchinterest: object1 is nil") return end
+	if object2 == nil then error("Firetouchinterest: object2 is nil") return end
+
+	if touch == 0 then
+        lastState = {
+			cframe = object1.CFrame,
+			canCollide = object1.CanCollide,
+			vel = object1.AssemblyLinearVelocity
+		}
+		local pingSeconds = game.Players.LocalPlayer:GetNetworkPing()
+		local pingMs = math.floor(pingSeconds * 1000)
+		local dividedPing = pingMs / 100000000000000
+		task.wait(dividedPing)
+		object1.CFrame = object2.CFrame
+		object1.CanCollide = false
+		object1.AssemblyLinearVelocity = Vector3.new(0, 100000, 0)
+		object1.AssemblyLinearVelocity = Vector3.new(0, -100000, 0)
+		object1.AssemblyLinearVelocity = lastobjcveloc
+		if object1.Parent and object1.Parent:FindFirstChild("Humanoid") then
+            object1.Parent:FindFirstChild("Humanoid"):SetStateEnabled(Enum.HumanoidStateType.Running, true)
+		end
+	elseif touch == 1 then
+		if not lastState.cframe then return end
+		game:GetService("RunService").PreRender:Wait()
+        object1.CFrame = lastState.cframe
+		object1.CanCollide = lastState.canCollide
+		object1.AssemblyLinearVelocity = lastState.vel
+
+		lastState = {}
+	else
+		error("firetouchinterest: invalid touch value: " .. tostring(touch))
+	end
+end
+
+return lib
