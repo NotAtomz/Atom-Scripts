@@ -36,4 +36,9 @@ function lib.firetouchinterest(object1, object2, touch)
 	end
 end
 
+function lib.fetchping()
+	local pingSeconds = game.Players.LocalPlayer:GetNetworkPing()
+	return math.floor(pingSeconds * 1000)
+end
+
 return lib
