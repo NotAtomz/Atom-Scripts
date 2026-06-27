@@ -19,7 +19,7 @@ function lib.firetouchinterest(object1, object2, touch)
 		object1.CanCollide = false
 		object1.AssemblyLinearVelocity = Vector3.new(0, 100000, 0)
 		object1.AssemblyLinearVelocity = Vector3.new(0, -100000, 0)
-		object1.AssemblyLinearVelocity = lastobjcveloc
+		object1.AssemblyLinearVelocity = lastState.vel
 		if object1.Parent and object1.Parent:FindFirstChild("Humanoid") then
             object1.Parent:FindFirstChild("Humanoid"):SetStateEnabled(Enum.HumanoidStateType.Running, true)
 		end
