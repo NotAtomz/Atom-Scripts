@@ -112,6 +112,27 @@ function lib.CreateUIGridLayout(name, cellPadding, cellSize, fillDirection, hori
 	return grid
 end
 
+function lib.CreateTextBox(name, text, placeholderText, anchorPoint, backgroundColor, backgroundTransparency, textColor, placeholderColor, textSize, font, position, size, clearTextOnFocus, multiLine, parent)
+	local textBox = Instance.new("TextBox")
+	textBox.Name = name or "TextBox"
+	textBox.Text = text or ""
+	textBox.PlaceholderText = placeholderText or ""
+	textBox.AnchorPoint = anchorPoint or Vector2.new(0, 0)
+	textBox.BackgroundColor3 = backgroundColor or Color3.fromRGB(255, 255, 255)
+	textBox.BackgroundTransparency = backgroundTransparency or 0
+	textBox.BorderSizePixel = 0
+	textBox.TextColor3 = textColor or Color3.fromRGB(255, 255, 255)
+	textBox.PlaceholderColor3 = placeholderColor or Color3.fromRGB(178, 178, 178)
+	textBox.TextSize = textSize or 14
+	textBox.Font = font or Enum.Font.SourceSans
+	textBox.Position = position or UDim2.new(0, 0, 0, 0)
+	textBox.Size = size or UDim2.new(0, 100, 0, 20)
+	textBox.ClearTextOnFocus = clearTextOnFocus or false
+	textBox.MultiLine = multiLine or false
+	textBox.Parent = parent
+	return textBox
+end
+
 function lib.CreateImageButton(name, image, anchorPoint, backgroundColor, backgroundTransparency, position, size, parent)
 	local button = Instance.new("ImageButton")
 	button.Name = name or "ImageButton"
