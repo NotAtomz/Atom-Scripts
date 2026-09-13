@@ -41,4 +41,88 @@ function lib.fetchping()
 	return math.floor(pingSeconds * 1000)
 end
 
+function lib.CreateScreenGui(name, resetOnSpawn, ignoreGuiInset, parent)
+	local gui = Instance.new("ScreenGui")
+	gui.Name = name or "ScreenGui"
+	gui.ResetOnSpawn = resetOnSpawn ~= false
+	gui.IgnoreGuiInset = ignoreGuiInset or false
+	gui.Parent = parent
+	return gui
+end
+
+function lib.CreateFrame(name, anchorPoint, backgroundColor, backgroundTransparency, borderColor, position, size, parent)
+	local frame = Instance.new("Frame")
+	frame.Name = name or "Frame"
+	frame.AnchorPoint = anchorPoint or Vector2.new(0, 0)
+	frame.BackgroundColor3 = backgroundColor or Color3.fromRGB(255, 255, 255)
+	frame.BackgroundTransparency = backgroundTransparency or 0
+	frame.BorderColor3 = borderColor or Color3.fromRGB(0, 0, 0)
+	frame.BorderSizePixel = 0
+	frame.Position = position or UDim2.new(0, 0, 0, 0)
+	frame.Size = size or UDim2.new(0, 100, 0, 100)
+	frame.Parent = parent
+	return frame
+end
+
+function lib.CreateTextLabel(name, text, anchorPoint, backgroundColor, backgroundTransparency, textColor, textSize, font, position, size, parent)
+	local label = Instance.new("TextLabel")
+	label.Name = name or "TextLabel"
+	label.Text = text or ""
+	label.AnchorPoint = anchorPoint or Vector2.new(0, 0)
+	label.BackgroundColor3 = backgroundColor or Color3.fromRGB(255, 255, 255)
+	label.BackgroundTransparency = backgroundTransparency or 0
+	label.BorderSizePixel = 0
+	label.TextColor3 = textColor or Color3.fromRGB(255, 255, 255)
+	label.TextSize = textSize or 14
+	label.Font = font or Enum.Font.SourceSans
+	label.Position = position or UDim2.new(0, 0, 0, 0)
+	label.Size = size or UDim2.new(0, 100, 0, 20)
+	label.Parent = parent
+	return label
+end
+
+function lib.CreateScrollingFrame(name, anchorPoint, backgroundColor, backgroundTransparency, borderColor, position, size, canvasSize, scrollBarThickness, parent)
+	local scrollingFrame = Instance.new("ScrollingFrame")
+	scrollingFrame.Name = name or "ScrollingFrame"
+	scrollingFrame.AnchorPoint = anchorPoint or Vector2.new(0, 0)
+	scrollingFrame.BackgroundColor3 = backgroundColor or Color3.fromRGB(255, 255, 255)
+	scrollingFrame.BackgroundTransparency = backgroundTransparency or 0
+	scrollingFrame.BorderColor3 = borderColor or Color3.fromRGB(0, 0, 0)
+	scrollingFrame.BorderSizePixel = 0
+	scrollingFrame.Position = position or UDim2.new(0, 0, 0, 0)
+	scrollingFrame.Size = size or UDim2.new(0, 100, 0, 100)
+	scrollingFrame.CanvasSize = canvasSize or UDim2.new(0, 0, 0, 0)
+	scrollingFrame.ScrollBarThickness = scrollBarThickness or 6
+	scrollingFrame.BottomImage = "rbxasset://textures/ui/Scroll/scroll-middle.png"
+	scrollingFrame.Parent = parent
+	scrollingFrame.TopImage = "rbxasset://textures/ui/Scroll/scroll-middle.png"
+	return scrollingFrame
+end
+
+function lib.CreateUIGridLayout(name, cellPadding, cellSize, fillDirection, horizontalAlignment, verticalAlignment, sortOrder, parent)
+	local grid = Instance.new("UIGridLayout")
+	grid.Name = name or "UIGridLayout"
+	grid.CellPadding = cellPadding or UDim2.new(0, 5, 0, 5)
+	grid.CellSize = cellSize or UDim2.new(0, 100, 0, 100)
+	grid.FillDirection = fillDirection or Enum.FillDirection.Horizontal
+	grid.HorizontalAlignment = horizontalAlignment or Enum.HorizontalAlignment.Left
+	grid.VerticalAlignment = verticalAlignment or Enum.VerticalAlignment.Top
+	grid.SortOrder = sortOrder or Enum.SortOrder.LayoutOrder
+	grid.Parent = parent
+	return grid
+end
+
+function lib.CreateImageButton(name, image, anchorPoint, backgroundColor, backgroundTransparency, position, size, parent)
+	local button = Instance.new("ImageButton")
+	button.Name = name or "ImageButton"
+	button.Image = image or ""
+	button.AnchorPoint = anchorPoint or Vector2.new(0, 0)
+	button.BackgroundColor3 = backgroundColor or Color3.fromRGB(255, 255, 255)
+	button.BackgroundTransparency = backgroundTransparency or 0
+	button.BorderSizePixel = 0
+	button.Position = position or UDim2.new(0, 0, 0, 0)
+	button.Size = size or UDim2.new(0, 100, 0, 100)
+	button.Parent = parent
+	return button
+end
 return lib
