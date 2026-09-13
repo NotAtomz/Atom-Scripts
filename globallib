@@ -133,6 +133,24 @@ function lib.CreateTextBox(name, text, placeholderText, anchorPoint, backgroundC
 	return textBox
 end
 
+function lib.CreateTextButton(name, text, anchorPoint, backgroundColor, backgroundTransparency, textColor, textSize, font, position, size, autoButtonColor, parent)
+	local button = Instance.new("TextButton")
+	button.Name = name or "TextButton"
+	button.Text = text or ""
+	button.AnchorPoint = anchorPoint or Vector2.new(0, 0)
+	button.BackgroundColor3 = backgroundColor or Color3.fromRGB(255, 255, 255)
+	button.BackgroundTransparency = backgroundTransparency or 0
+	button.BorderSizePixel = 0
+	button.TextColor3 = textColor or Color3.fromRGB(255, 255, 255)
+	button.TextSize = textSize or 14
+	button.Font = font or Enum.Font.SourceSans
+	button.Position = position or UDim2.new(0, 0, 0, 0)
+	button.Size = size or UDim2.new(0, 100, 0, 20)
+	button.AutoButtonColor = autoButtonColor or true
+	button.Parent = parent
+	return button
+end
+
 function lib.CreateImageButton(name, image, anchorPoint, backgroundColor, backgroundTransparency, position, size, parent)
 	local button = Instance.new("ImageButton")
 	button.Name = name or "ImageButton"
