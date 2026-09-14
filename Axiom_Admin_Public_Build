@@ -1,4 +1,8 @@
 --[[
+	Axiom Admin 1.0.b
+        Just Some Gui Changes
+]]
+--[[
 	Axiom Admin Public Build Open Source
 
 	THIS BUILD HAS ONLY BEEN TESTED ON MY SYSTEM
@@ -11,477 +15,424 @@
 	i actually made this script in just 2 days with functional gui and commands
 	hints why i update so quickly and make abunch of games and scripts.
 
+    ## Update Changed ##
+    Just a gui change and Mobile Support (RECOMMENED TO PLAY ON 1280x720 SCREEN)
+
 	Credits
 		- Zipi (Zinx) - Creator of Axiom Admin
 		- Fork - Helped with some code and ideas
 		- Claude - Helped with aimbot code, and the other client stuff (its obvious when you find the parts) and ideas
 ]]
 local globalLib
-local aaver = "INDEV"
+local AdminGUI
+local aaver = "1.0.b"
 if game.Players.LocalPlayer:FindFirstChild("PlayerGui"):FindFirstChild("AxiomsAdminThing") then
 	return 
 else
+    local cloudversion
+    globalLib = loadstring(game:HttpGet("https://raw.githubusercontent.com/NotAtomz/Atom-Scripts/refs/heads/main/globallib"))()
 	local Players = game:GetService("Players")
-	local TweenService = game:GetService("TweenService")
-
 	local player = Players.LocalPlayer
 	local playerGui = player:WaitForChild("PlayerGui")
-
-	local gui = Instance.new("ScreenGui")
-	gui.Name = "LoadingGui"
-	gui.IgnoreGuiInset = true
-	gui.ResetOnSpawn = false
-	gui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
-	gui.Parent = playerGui
-
-	local background = Instance.new("Frame")
-	background.Size = UDim2.fromScale(1,1)
-	background.Transparency = 1
-	background.BorderSizePixel = 0
-	background.Parent = gui
-
-	local panel = Instance.new("Frame")
-	panel.AnchorPoint = Vector2.new(0.5,0.5)
-	panel.Position = UDim2.fromScale(.5,.5)
-	panel.Size = UDim2.fromOffset(520,170)
-	panel.BackgroundColor3 = Color3.fromRGB(15,15,25)
-	panel.Transparency = 1
-	panel.BorderSizePixel = 0
-	panel.Parent = background
-
-	local corner = Instance.new("UICorner")
-	corner.CornerRadius = UDim.new(0,14)
-	corner.Parent = panel
-
-	local status = Instance.new("TextLabel")
-	status.BackgroundTransparency = 1
-	status.Size = UDim2.new(1,-40,0,30)
-	status.Position = UDim2.new(0,20,0,78)
-	status.TextXAlignment = Enum.TextXAlignment.Left
-	status.Font = Enum.Font.GothamMedium
-	status.Text = "Starting..."
-	status.TextSize = 18
-	status.TextColor3 = Color3.new(1,1,1)
-	status.Parent = panel
-
-	local barBG = Instance.new("Frame")
-	barBG.AnchorPoint = Vector2.new(.5,0)
-	barBG.Position = UDim2.new(.5,0,0,118)
-	barBG.Size = UDim2.new(1,-40,0,16)
-	barBG.BackgroundColor3 = Color3.fromRGB(45,45,55)
-	barBG.BorderSizePixel = 0
-	barBG.Parent = panel
-
-	local bgCorner = Instance.new("UICorner")
-	bgCorner.CornerRadius = UDim.new(1,0)
-	bgCorner.Parent = barBG
-
-	local bar = Instance.new("Frame")
-	bar.Size = UDim2.new(0,0,1,0)
-	bar.BackgroundColor3 = Color3.fromRGB(0,170,255)
-	bar.BorderSizePixel = 0
-	bar.Parent = barBG
-
-	local barCorner = Instance.new("UICorner")
-	barCorner.CornerRadius = UDim.new(1,0)
-	barCorner.Parent = bar
-
-	local gradient = Instance.new("UIGradient")
-	gradient.Color = ColorSequence.new{
-		ColorSequenceKeypoint.new(0,Color3.fromRGB(0,140,140)),
-		ColorSequenceKeypoint.new(.5,Color3.fromRGB(0,220,255)),
-		ColorSequenceKeypoint.new(1,Color3.fromRGB(0,140,255))
-	}
-	gradient.Parent = bar
-
-	local function setProgress(progress, text)
-		status.Text = text
-
-		TweenService:Create(
-			bar,
-			TweenInfo.new(.35, Enum.EasingStyle.Quint, Enum.EasingDirection.Out),
-			{Size = UDim2.new(progress,0,1,0)}
-		):Play()
-		gradient.Color = ColorSequence.new{
-			ColorSequenceKeypoint.new(0,Color3.fromRGB(math.random(1,255),math.random(1,255),math.random(1,255))),
-			ColorSequenceKeypoint.new(.5,Color3.fromRGB(math.random(1,255),math.random(1,255),math.random(1,255))),
-			ColorSequenceKeypoint.new(1,Color3.fromRGB(math.random(1,255),math.random(1,255),math.random(1,255)))
-		}
-	end
-	local cloudversion
-	setProgress(.05,"Initializing Client")
+    AdminGUI = globalLib.CreateScreenGui("Axiom Admin", false, false, playerGui)
+    local loadingtext = globalLib.CreateTextLabel("LoadingText", "Initializing Client", Vector2.new(0.5, 0), Color3.fromRGB(255, 255, 255), 1, Color3.fromRGB(255, 255, 255), 12, Enum.Font.Ubuntu, UDim2.new(0.5, 0, 0, 0), UDim2.new(0, 200, 0, 50), AdminGUI)
 	game:GetService("RunService").PreRender:Wait()
-
-	setProgress(.25,"Loading globallib")
-	globalLib = loadstring(game:HttpGet("https://raw.githubusercontent.com/NotAtomz/Atom-Scripts/refs/heads/main/globallib"))()
+    loadingtext.Text = "Loaded globallib"
 	task.wait(math.random(1,10)/10)
-
-	setProgress(.50,"Fetching Version")
+    loadingtext.Text = "Fetching Version"
 	cloudversion = tostring(game:HttpGet("https://pastebin.com/raw/uj8d35eA"))
 	task.wait(math.random(1,10)/10)
-
-	setProgress(.75,"Comparing Version")
+    loadingtext.Text = "Comparing Version"
 	if cloudversion == aaver then
 		print("Verified")
 	else
 		aaver = nil 
 	end
 	task.wait(math.random(1,10)/10)
-
-	setProgress(1,"Completed ✓")
+    loadingtext.Text = "Completed ✓"
 	task.wait(1)
-
-	TweenService:Create(background,TweenInfo.new(.5),{
-		BackgroundTransparency=1
-	}):Play()
-
-	TweenService:Create(panel,TweenInfo.new(.5),{
-		BackgroundTransparency=1
-	}):Play()
-
-	for _,v in ipairs(panel:GetDescendants()) do
-		if v:IsA("TextLabel") then
-			TweenService:Create(v,TweenInfo.new(.5),{
-				TextTransparency=1
-			}):Play()
-		elseif v:IsA("Frame") then
-			TweenService:Create(v,TweenInfo.new(.5),{
-				BackgroundTransparency=1
-			}):Play()
-		elseif v:IsA("UIStroke") then
-			TweenService:Create(v,TweenInfo.new(.5),{
-				Transparency=1
-			}):Play()
-		end
-	end
-
-	task.wait(.6)
-	gui:Destroy()
+    loadingtext:Destroy()
 end
 
 if aaver == nil then
 	return
 end
 
-local ScreenGui = Instance.new("ScreenGui")
-local CMDLINE = Instance.new("Folder")
-local Background = Instance.new("Frame")
-local TopLine = Instance.new("Frame")
-local Decor = Instance.new("TextLabel")
-local Input = Instance.new("TextBox")
-local Commands = Instance.new("ScrollingFrame")
-local UIGridLayout = Instance.new("UIGridLayout")
-local UICorner = Instance.new("UICorner")
 local adminConnections = {
 	keyconnectcheck = nil,
 	textchatconnect = true,
 	plrjoinconnect = nil
 }
 
-ScreenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
-ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
-ScreenGui.Name = "AxiomsAdminThing"
+local CommandLineBar = globalLib.CreateFrame("CommandLineBar", nil, nil, 1, nil, UDim2.new(0, 0, 0, 0), UDim2.new(1, 0, 0, 75), AdminGUI)
+local CMDLINEBackground = globalLib.CreateFrame("CMDLINEBackground", Vector2.new(0, 0.1), Color3.fromRGB(0, 0, 0), 0.75, nil, UDim2.new(0, 0, 0.1, 0), UDim2.new(1, 0, 0, 20), CommandLineBar)
+local Arrow = globalLib.CreateTextLabel("Arrow", ">", nil, nil, 1, Color3.fromRGB(255, 255, 255), 12, Enum.Font.Ubuntu, nil, UDim2.new(0, 20, 0, 20), CMDLINEBackground)
+local CMDLINE = globalLib.CreateTextBox("CMDLINE", "", "Axiom Command Line", Vector2.new(1, 0), nil, 1, Color3.fromRGB(255, 255, 255), nil, 12, Enum.Font.Ubuntu, UDim2.new(1, 0, 0, 0), UDim2.new(1, -20, 1, 0), nil, nil, CMDLINEBackground)
+CMDLINE.TextXAlignment = Enum.TextXAlignment.Left
+
+local CMDLINEsuggestions = globalLib.CreateScrollingFrame("CMDLINEsuggestions", Vector2.new(0, 1), nil, 1, nil, UDim2.new(0, 21, 1, 0), UDim2.new(1, -20, 1, -27), nil, 0, CommandLineBar)
+local CMDLINEUIG = globalLib.CreateUIGridLayout("CMDLINEUIG", UDim2.new(0, 0, 0, 0), UDim2.new(1, 0, 0, 12), nil, nil, nil, Enum.SortOrder.Name, CMDLINEsuggestions)
+local Commands = globalLib.CreateFrame("Commands", Vector2.new(0, 0.5), nil, 1, nil, UDim2.new(0, 0, 0.5, 0), UDim2.new(0, 175, 0, 200), AdminGUI)
+local CMDSBackground = globalLib.CreateFrame("CMDSBackground", Vector2.new(0.5, 0), Color3.fromRGB(0, 0, 0), 0.75, nil, UDim2.new(0.5, 0, 0, 0), UDim2.new(0, 150, 1, 0), Commands)
+local CMDStopBar = globalLib.CreateFrame("CMDStopBar", nil, nil, 1, nil, nil, UDim2.new(1, 0, 0, 20), CMDSBackground)
+local CMDSclose = globalLib.CreateTextButton("CMDSclose", "X", Vector2.new(1, 0), nil, 1, Color3.fromRGB(255, 255, 255), 12, Enum.Font.Ubuntu, UDim2.new(1, 0, 0, 0), UDim2.new(0, 20, 0, 20), nil, CMDStopBar)
+local CmdsTitle = globalLib.CreateTextLabel("CmdsTitle", "Commands", nil, nil, 1, Color3.fromRGB(255, 255, 255), 12, Enum.Font.Ubuntu, UDim2.new(0, 5, 0, 0), UDim2.new(0, 65, 0, 20), CMDStopBar)
+CmdsTitle.TextXAlignment = Enum.TextXAlignment.Left
+
+local CMDSscrollframe = globalLib.CreateScrollingFrame("CMDSscrollframe", nil, nil, 1, nil, UDim2.new(0, 5, 0, 20), UDim2.new(1, -10, 1, -20), nil, 5, CMDSBackground)
+local CMDSUIG = globalLib.CreateUIGridLayout("CMDSUIG", UDim2.new(0, 0, 0, 0), UDim2.new(1, 0, 0, 15), nil, nil, nil, Enum.SortOrder.Name, CMDSscrollframe)
+local MobileButton = globalLib.CreateImageButton("MobileButton", "rbxassetid://85232901600453", Vector2.new(0.5, 0), nil, 1, UDim2.new(0.5, 0, 0, 10), UDim2.new(0, 25, 0, 25), AdminGUI)
+Commands.Visible = false
+local TweenService = game:GetService("TweenService")
+
+local CommandsOpenPosition = UDim2.new(0, 0, 0.5, 0)
+local CommandsClosedPosition = UDim2.new(0, -190, 0.5, 0)
+
+function loadcmdsgui()
+	Commands.Visible = true
+	Commands.Position = CommandsClosedPosition
+
+	TweenService:Create(
+		Commands,
+		TweenInfo.new(
+			0.25,
+			Enum.EasingStyle.Quad,
+			Enum.EasingDirection.Out
+		),
+		{
+			Position = CommandsOpenPosition
+		}
+	):Play()
+end
+
+function closecmdsgui()
+	local tween = TweenService:Create(
+		Commands,
+		TweenInfo.new(
+			0.25,
+			Enum.EasingStyle.Quad,
+			Enum.EasingDirection.In
+		),
+		{
+			Position = CommandsClosedPosition
+		}
+	)
+
+	tween:Play()
+
+	tween.Completed:Once(function()
+		Commands.Visible = false
+	end)
+end
+CMDSclose.MouseButton1Down:Connect(function()
+    closecmdsgui()
+end)
+function firesound(soundid)
+	local sound = Instance.new("Sound")
+	sound.SoundId = "rbxassetid://"..soundid..""
+	sound.Parent = game:GetService("SoundService")
+	sound:Play()
+	sound.Ended:Connect(function()
+		sound:Destroy()
+	end)
+end
+local CoreGui = game:GetService("CoreGui")
+local TextService = game:GetService("TextService")
+local TweenService = game:GetService("TweenService")
+local Players = game:GetService("Players")
+
+local MAX_VISIBLE = 10
+local DEFAULT_DURATION = 15
+
+local NOTIF_WIDTH = 260
+local GAP = 6
+
+local PADDING_X = 8
+local PADDING_Y = 7
+
+local TITLE_HEIGHT = 16
+local MIN_HEIGHT = 45
+
+
+local ScreenGui = Instance.new("ScreenGui")
+ScreenGui.Name = "CustomNoticeGui"
 ScreenGui.ResetOnSpawn = false
+ScreenGui.IgnoreGuiInset = true
+ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+ScreenGui.DisplayOrder = 10000
 
-CMDLINE.Name = "CMDLINE"
-CMDLINE.Parent = ScreenGui
-
-Background.Name = "Background"
-Background.Parent = CMDLINE
-Background.AnchorPoint = Vector2.new(0.5, 0.899999976)
-Background.BackgroundColor3 = Color3.fromRGB(10, 10, 15)
-Background.BorderColor3 = Color3.fromRGB(0, 0, 0)
-Background.BorderSizePixel = 0
-Background.Position = UDim2.new(0.5, 0, 0.899999976, 0)
-Background.Size = UDim2.new(0.699999988, 0, 0, 40)
-
-UICorner.CornerRadius = UDim.new(0, 3)
-UICorner.Parent = Background
-
-TopLine.Name = "TopLine"
-TopLine.Parent = Background
-TopLine.BackgroundColor3 = Color3.fromRGB(0, 170, 0)
-TopLine.BorderColor3 = Color3.fromRGB(0, 0, 0)
-TopLine.Position = UDim2.new(0, 0, 1, 0)
-TopLine.BorderSizePixel = 0
-TopLine.Size = UDim2.new(1, 0, 0, 3)
-
-local toplinecorner = UICorner:Clone()
-toplinecorner.Parent = TopLine
-
-Decor.Name = "Decor"
-Decor.Parent = Background
-Decor.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-Decor.BackgroundTransparency = 1.000
-Decor.BorderColor3 = Color3.fromRGB(0, 0, 0)
-Decor.BorderSizePixel = 0
-Decor.Size = UDim2.new(0, 45, 1, 0)
-Decor.Font = Enum.Font.Code
-Decor.Text = ">"
-Decor.TextColor3 = Color3.fromRGB(255, 255, 255)
-Decor.TextSize = 17.000
-
-Input.Name = "Input"
-Input.Parent = Background
-Input.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-Input.BackgroundTransparency = 1.000
-Input.BorderColor3 = Color3.fromRGB(0, 0, 0)
-Input.BorderSizePixel = 0
-Input.Position = UDim2.new(0.03, 0, 0, 0)
-Input.Size = UDim2.new(1, 523, 1, 0)
-Input.Font = Enum.Font.Code
-Input.PlaceholderText = "Enter Command"
-Input.Text = ""
-Input.TextColor3 = Color3.fromRGB(255, 255, 255)
-Input.TextSize = 18.000
-Input.TextXAlignment = Enum.TextXAlignment.Left
-
-Commands.Name = "Commands"
-Commands.Parent = Background
-Commands.Active = true
-Commands.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-Commands.BackgroundTransparency = 1.000
-Commands.BorderColor3 = Color3.fromRGB(0, 0, 0)
-Commands.BorderSizePixel = 0
-Commands.Position = UDim2.new(-0.000348988309, 0, -14, 0)
-Commands.Size = UDim2.new(1, 0, 0, 550)
-
-UIGridLayout.CellSize = UDim2.new(1, 0, 0, 40)
-UIGridLayout.CellPadding = UDim2.new(0, 0, 0, 3)
-UIGridLayout.SortOrder = Enum.SortOrder.Name
-UIGridLayout.Parent = Commands
-
-local RunServicess = game:GetService("RunService")
-local hue = 0
-local rainbowconnection
-
-rainbowconnection = RunServicess.RenderStepped:Connect(function(dt)
-	if Background == nil or TopLine == nil then 
-		rainbowconnection:Disconnect()
-		rainbowconnection = nil
-		return 
-	end
-	if Background.Visible then
-		hue = (hue + dt * 0.25) % 1 
-
-		TopLine.BackgroundColor3 = Color3.fromHSV(hue, 1, 1)
-	end
+local parented = pcall(function()
+	ScreenGui.Parent = CoreGui
 end)
 
-local function LUFLUDB_fake_script() 
-	local script = Instance.new('LocalScript', ScreenGui)
-	function firesound(soundid)
-		local sound = Instance.new("Sound")
-		sound.SoundId = "rbxassetid://"..soundid..""
-		sound.Parent = game:GetService("SoundService")
-		sound:Play()
-		sound.Ended:Connect(function()
-			sound:Destroy()
-		end)
-	end
-	local CoreGui = game:GetService("CoreGui")
-	local TextService = game:GetService("TextService")
-	local TweenService = game:GetService("TweenService")
-	local RunService = game:GetService("RunService")
+if not parented then
+	ScreenGui.Parent = Players.LocalPlayer:WaitForChild("PlayerGui")
+end
 
-	local MAX_VISIBLE = 10  
-	local DEFAULT_DURATION = 15
-	local NOTIF_WIDTH = 260
-	local PADDING_LEFT = 16
-	local PADDING_X = 8
-	local TOP_PADDING = 8
-	local TITLE_HEIGHT = 18
-	local BOTTOM_PADDING = 10
-	local MIN_HEIGHT = 50
-	local GAP = 8
 
-	local ScreenGui = Instance.new("ScreenGui")
-	ScreenGui.Name = "CustomNoticeGui"
-	ScreenGui.ResetOnSpawn = false
-	ScreenGui.IgnoreGuiInset = true
-	ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
-	ScreenGui.DisplayOrder = 10000
+local Container = Instance.new("Frame")
+Container.Name = "NoticeContainer"
+Container.BackgroundTransparency = 1
+Container.AnchorPoint = Vector2.new(1, 1)
+Container.Position = UDim2.new(1, -10, 1, -10)
+Container.Size = UDim2.new(0, NOTIF_WIDTH, 1, -20)
+Container.Parent = ScreenGui
 
-	local parented = pcall(function()
-		ScreenGui.Parent = CoreGui
-	end)
-	if not parented then
-		ScreenGui.Parent = game:GetService("Players").LocalPlayer:WaitForChild("PlayerGui")
-	end
 
-	local Container = Instance.new("Frame")
-	Container.Name = "NoticeContainer"
-	Container.BackgroundTransparency = 1
-	Container.AnchorPoint = Vector2.new(1, 1)
-	Container.Position = UDim2.new(1, -16, 1, -16)
-	Container.Size = UDim2.new(0, NOTIF_WIDTH, 1, -32)
-	Container.Parent = ScreenGui
+local Layout = Instance.new("UIListLayout")
+Layout.SortOrder = Enum.SortOrder.LayoutOrder
+Layout.VerticalAlignment = Enum.VerticalAlignment.Bottom
+Layout.HorizontalAlignment = Enum.HorizontalAlignment.Right
+Layout.Padding = UDim.new(0, GAP)
+Layout.Parent = Container
 
-	local Layout = Instance.new("UIListLayout")
-	Layout.SortOrder = Enum.SortOrder.LayoutOrder
-	Layout.VerticalAlignment = Enum.VerticalAlignment.Bottom
-	Layout.HorizontalAlignment = Enum.HorizontalAlignment.Right
-	Layout.Padding = UDim.new(0, GAP)
-	Layout.Parent = Container
 
-	local ActiveNotices = {}
-	local OrderCounter = 0
+local ActiveNotices = {}
+local OrderCounter = 0
 
-	local function removeNotice(frame)
-		for i, f in ipairs(ActiveNotices) do
-			if f == frame then
-				table.remove(ActiveNotices, i)
-				break
-			end
+
+local function removeNotice(frame)
+	for i, noticeFrame in ipairs(ActiveNotices) do
+		if noticeFrame == frame then
+			table.remove(ActiveNotices, i)
+			break
 		end
+	end
 
-		local tween = TweenService:Create(frame, TweenInfo.new(0.5, Enum.EasingStyle.Quad), {
+	if frame:GetAttribute("Removing") then
+		return
+	end
+
+	frame:SetAttribute("Removing", true)
+
+	local titleLabel = frame:FindFirstChild("NoticeTitle")
+	local textLabel = frame:FindFirstChild("NoticeText")
+
+	local tweenInfo = TweenInfo.new(
+		0.22,
+		Enum.EasingStyle.Quad,
+		Enum.EasingDirection.In
+	)
+
+	local frameTween = TweenService:Create(
+		frame,
+		tweenInfo,
+		{
 			BackgroundTransparency = 1,
-			Position = frame.Position + UDim2.new(0, 40, 0, 0),
-		})
-		tween:Play()
-		tween.Completed:Connect(function()
-			frame:Destroy()
-		end)
+			Position = UDim2.new(0, 25, 0, 0)
+		}
+	)
+
+	if titleLabel then
+		TweenService:Create(
+			titleLabel,
+			tweenInfo,
+			{
+				TextTransparency = 1
+			}
+		):Play()
 	end
 
-	local function createNotice(msg, duration)
-		OrderCounter += 1
-		while #ActiveNotices >= MAX_VISIBLE do
-			removeNotice(ActiveNotices[1])
+	if textLabel then
+		TweenService:Create(
+			textLabel,
+			tweenInfo,
+			{
+				TextTransparency = 1
+			}
+		):Play()
+	end
+
+	frameTween:Play()
+
+	frameTween.Completed:Once(function()
+		frame:Destroy()
+	end)
+end
+
+
+local function createNotice(msg, duration)
+	OrderCounter += 1
+
+	while #ActiveNotices >= MAX_VISIBLE do
+		removeNotice(ActiveNotices[1])
+	end
+
+
+	local availableWidth = NOTIF_WIDTH - (PADDING_X * 2)
+
+	local textBounds = TextService:GetTextSize(
+		msg,
+		13,
+		Enum.Font.Ubuntu,
+		Vector2.new(availableWidth, math.huge)
+	)
+
+	local textHeight = textBounds.Y
+
+	local newHeight = math.max(
+		PADDING_Y
+			+ TITLE_HEIGHT
+			+ 2
+			+ textHeight
+			+ PADDING_Y,
+		MIN_HEIGHT
+	)
+
+
+	local frame = Instance.new("Frame")
+	frame.Name = "Notice"
+	frame.LayoutOrder = OrderCounter
+
+	frame.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+	frame.BackgroundTransparency = 1
+
+	frame.BorderSizePixel = 0
+
+	frame.Size = UDim2.new(1, 0, 0, newHeight)
+
+	frame.Position = UDim2.new(0, 25, 0, 0)
+
+	frame.Parent = Container
+
+
+	local titleLabel = Instance.new("TextLabel")
+	titleLabel.Name = "NoticeTitle"
+
+	titleLabel.BackgroundTransparency = 1
+
+	titleLabel.Text = "Notice"
+
+	titleLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+	titleLabel.TextTransparency = 1
+
+	titleLabel.Font = Enum.Font.Ubuntu
+	titleLabel.TextSize = 13
+
+	titleLabel.TextXAlignment = Enum.TextXAlignment.Left
+	titleLabel.TextYAlignment = Enum.TextYAlignment.Center
+
+	titleLabel.Position = UDim2.new(
+		0,
+		PADDING_X,
+		0,
+		PADDING_Y
+	)
+
+	titleLabel.Size = UDim2.new(
+		1,
+		-(PADDING_X * 2),
+		0,
+		TITLE_HEIGHT
+	)
+
+	titleLabel.Parent = frame
+
+
+	local textLabel = Instance.new("TextLabel")
+	textLabel.Name = "NoticeText"
+
+	textLabel.BackgroundTransparency = 1
+
+	textLabel.Text = msg
+
+	textLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+	textLabel.TextTransparency = 1
+
+	textLabel.Font = Enum.Font.Ubuntu
+	textLabel.TextSize = 13
+
+	textLabel.TextWrapped = true
+
+	textLabel.TextXAlignment = Enum.TextXAlignment.Left
+	textLabel.TextYAlignment = Enum.TextYAlignment.Top
+
+	textLabel.Position = UDim2.new(
+		0,
+		PADDING_X,
+		0,
+		PADDING_Y + TITLE_HEIGHT + 2
+	)
+
+	textLabel.Size = UDim2.new(
+		1,
+		-(PADDING_X * 2),
+		0,
+		textHeight
+	)
+
+	textLabel.Parent = frame
+
+
+	table.insert(ActiveNotices, frame)
+
+
+	local tweenInfo = TweenInfo.new(
+		0.22,
+		Enum.EasingStyle.Quad,
+		Enum.EasingDirection.Out
+	)
+
+
+	TweenService:Create(
+		frame,
+		tweenInfo,
+		{
+			BackgroundTransparency = 0.75,
+			Position = UDim2.new(0, 0, 0, 0)
+		}
+	):Play()
+
+
+	TweenService:Create(
+		titleLabel,
+		tweenInfo,
+		{
+			TextTransparency = 0
+		}
+	):Play()
+
+
+	TweenService:Create(
+		textLabel,
+		tweenInfo,
+		{
+			TextTransparency = 0
+		}
+	):Play()
+
+
+	task.delay(duration or DEFAULT_DURATION, function()
+		if frame.Parent then
+			removeNotice(frame)
 		end
+	end)
+end
 
-		local frame = Instance.new("Frame")
-		frame.Name = "Notice"
-		frame.LayoutOrder = OrderCounter
-		frame.BackgroundColor3 = Color3.fromRGB(15, 15, 18)
-		frame.BackgroundTransparency = 1
-		frame.BorderSizePixel = 0
-		frame.ClipsDescendants = true
-		frame.Parent = Container
 
-		local uiCorner = Instance.new("UICorner")
-		uiCorner.CornerRadius = UDim.new(0, 6)
-		uiCorner.Parent = frame
+function notice(msg)
+	pcall(function()
+		firesound(17208372272)
+	end)
 
-		local uiStroke = Instance.new("UIStroke")
-		uiStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
-		uiStroke.Color = Color3.fromRGB(40, 40, 45)
-		uiStroke.LineJoinMode = Enum.LineJoinMode.Round
-		uiStroke.Thickness = 1
-		uiStroke.Transparency = 0.2
-		uiStroke.Parent = frame
-
-		local accentBar = Instance.new("Frame")
-		accentBar.Name = "AccentBar"
-		accentBar.BackgroundColor3 = Color3.fromRGB(0, 170, 0)
-		accentBar.BorderSizePixel = 0
-		accentBar.Position = UDim2.new(0, 0, 0, 0)
-		accentBar.Size = UDim2.new(0, 4, 1, 0)
-		accentBar.Parent = frame
-
-		local accentCorner = Instance.new("UICorner")
-		accentCorner.CornerRadius = UDim.new(0, 6)
-		accentCorner.Parent = accentBar
-
-		local accentMask = Instance.new("Frame")
-		accentMask.BackgroundColor3 = accentBar.BackgroundColor3
-		accentMask.BorderSizePixel = 0
-		accentMask.AnchorPoint = Vector2.new(1, 0)
-		accentMask.Position = UDim2.new(1, 0, 0, 0)
-		accentMask.Size = UDim2.new(0, 3, 1, 0)
-		accentMask.Parent = accentBar
-
-		local titleLabel = Instance.new("TextLabel")
-		titleLabel.Name = "NoticeTitle"
-		titleLabel.BackgroundTransparency = 1
-		titleLabel.Font = Enum.Font.Code
-		titleLabel.TextSize = 14
-		titleLabel.TextColor3 = Color3.fromRGB(0, 200, 0)
-		titleLabel.Text = "Notice"
-		titleLabel.TextXAlignment = Enum.TextXAlignment.Left
-		titleLabel.TextYAlignment = Enum.TextYAlignment.Top
-		titleLabel.AnchorPoint = Vector2.new(0, 0)
-		titleLabel.Position = UDim2.new(0, PADDING_LEFT, 0, TOP_PADDING)
-		titleLabel.Size = UDim2.new(1, -(PADDING_LEFT + PADDING_X), 0, TITLE_HEIGHT)
-		titleLabel.Parent = frame
-
-		local availableWidth = NOTIF_WIDTH - (PADDING_LEFT + PADDING_X)
-		local textBounds = TextService:GetTextSize(msg, 14, Enum.Font.Code, Vector2.new(availableWidth, math.huge))
-		local textHeight = textBounds.Y
-
-		local textLabel = Instance.new("TextLabel")
-		textLabel.Name = "NoticeText"
-		textLabel.BackgroundTransparency = 1
-		textLabel.Font = Enum.Font.Code
-		textLabel.TextSize = 14
-		textLabel.TextColor3 = Color3.fromRGB(220, 220, 220)
-		textLabel.TextWrapped = true
-		textLabel.TextXAlignment = Enum.TextXAlignment.Left
-		textLabel.TextYAlignment = Enum.TextYAlignment.Top
-		textLabel.Text = msg
-		textLabel.AnchorPoint = Vector2.new(0, 0)
-		textLabel.Position = UDim2.new(0, PADDING_LEFT, 0, TOP_PADDING + TITLE_HEIGHT + 2)
-		textLabel.Size = UDim2.new(1, -(PADDING_LEFT + PADDING_X), 0, textHeight)
-		textLabel.Parent = frame
-
-		local newHeight = math.max(TOP_PADDING + TITLE_HEIGHT + 2 + textHeight + BOTTOM_PADDING, MIN_HEIGHT)
-
-		local hue = 0
-		local conn
-		conn = RunService.RenderStepped:Connect(function(dt)
-			if not accentBar.Parent then
-				conn:Disconnect()
-				return
-			end
-			hue = (hue + dt * 0.25) % 1
-			local color = Color3.fromHSV(hue, 1, 1)
-			accentBar.BackgroundColor3 = color
-			accentMask.BackgroundColor3 = color
-			titleLabel.TextColor3 = color
-		end)
-		frame.Size = UDim2.new(1, 0, 0, 0)
-		frame.Position = UDim2.new(0, 40, 0, 0)
-		TweenService:Create(frame, TweenInfo.new(0.25, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
-			BackgroundTransparency = 0,
-			Size = UDim2.new(1, 0, 0, newHeight),
-			Position = UDim2.new(0, 0, 0, 0),
-		}):Play()
-
-		table.insert(ActiveNotices, frame)
-
-		task.delay(duration or DEFAULT_DURATION, function()
-			if frame.Parent then
-				removeNotice(frame)
-			end
-		end)
-	end
-
-	function notice(msg)
-		pcall(function()
-			firesound(17208372272)
-		end)
-		createNotice(msg, 15)
-	end
-	print([[ 
-------------------------------------------------------------------
+	createNotice(msg, DEFAULT_DURATION)
+end
+	--[[ 
 		Axiom Admin Executable Line
 			Made with:
 				Console Line Admin
 				Console Line Admin Dark
 				Atom Admin v1-v6
 				Atomic Admin v1-v2
-				And some guy named fork
 			
 			Made By Zipi AKA Zinx
-			Version 1
+			Version 1.0
 			Chat Prefix !
 			Command Line Prefix ;
 		
-		Nameless admin skidded all this btw.
-		Homebrew admin V2 took my force idea ;(
-------------------------------------------------------------------
-	]])
+		Nameless admin skidded all this btw, and abunch of old admins
+		Homebrew admin V2 Didnt give any credits for my ideas (proof of him saying if he can copy my creation)
+	]]
 	local players = game:GetService("Players")
 	local UserInputService = game:GetService("UserInputService")
 	local plr = players.LocalPlayer
@@ -581,13 +532,14 @@ local function LUFLUDB_fake_script()
 
 			print("START")
 
+			-- DO NOT block logic flow on this
 			task.spawn(function()
 				pcall(function()
 					TextChatService.TextChannels.RBXGeneral:SendAsync("/w "..user.DisplayName)
 				end)
 			end)
 
-			print("reached here") 
+			print("reached here") -- now guaranteed
 
 			local whisperChannel
 
@@ -635,15 +587,18 @@ local function LUFLUDB_fake_script()
 		if chara == nil then return false end
 		if not chara:IsDescendantOf(workspace) then return false end
 
+		-- // Humanoid checks //
 		local humanoid = chara:FindFirstChildOfClass("Humanoid")
 		if not humanoid then return false end
 		if humanoid.Health <= 0 then return false end
 		if humanoid:GetState() == Enum.HumanoidStateType.Dead then return false end
 
+		-- // Root part checks //
 		local root = chara:FindFirstChild("HumanoidRootPart")
 		if not root then return false end
 		if not root:IsDescendantOf(workspace) then return false end
 
+		-- // Required body parts (R6 + R15) //
 		local R6Parts = {"Head", "Torso", "Left Arm", "Right Arm", "Left Leg", "Right Leg"}
 		local R15Parts = {"Head", "UpperTorso", "LowerTorso", "LeftUpperArm", "RightUpperArm",
 						"LeftLowerArm", "RightLowerArm", "LeftHand", "RightHand",
@@ -659,13 +614,17 @@ local function LUFLUDB_fake_script()
 			if not part:IsDescendantOf(workspace) then return false end
 		end
 
+		-- // Animate script check (present on living characters) //
 		if not chara:FindFirstChild("Animate") then return false end
 
+		-- // Animator check //
 		local animator = humanoid:FindFirstChildOfClass("Animator")
 		if not animator then return false end
 
+		-- // Make sure root isn't frozen in place (dead chars sometimes get anchored) //
 		if root.Anchored then return false end
 
+		-- // Check root isnt at some void/dead position //
 		if root.Position.Y < -1000 then return false end
 
 		return true
@@ -706,8 +665,10 @@ local function LUFLUDB_fake_script()
 			conn:Disconnect()
 		end)
 
+		-- destroy humanoid client side
 		humanoid:Destroy()
 
+		-- wait for either a respawn or the timeout
 		local elapsed = 0
 		while elapsed < waitTime and not respawned do
 			task.wait(0.1)
@@ -717,10 +678,13 @@ local function LUFLUDB_fake_script()
 		conn:Disconnect()
 
 		if respawned then
+			-- RCD is off, respawn happened normally
 			return false
 		else
+			-- RCD is on, fix broken client state
 			local hrp = character:FindFirstChild("HumanoidRootPart")
 			if hrp then
+				-- destroy any body movers that might resist movement
 				for _, obj in ipairs(hrp:GetChildren()) do
 					if obj:IsA("BodyMover") or obj:IsA("BodyVelocity")
 					or obj:IsA("BodyGyro") or obj:IsA("BodyPosition")
@@ -730,6 +694,7 @@ local function LUFLUDB_fake_script()
 					end
 				end
 
+				-- unanchor everything so nothing resists the fall
 				for _, part in ipairs(character:GetDescendants()) do
 					if part:IsA("BasePart") then
 						part.Anchored = false
@@ -753,12 +718,14 @@ local function LUFLUDB_fake_script()
 						return
 					end
 
+					-- step down aggressively every frame
 					hrp.CFrame = CFrame.new(
 						hrp.Position.X,
 						hrp.Position.Y - 50,
 						hrp.Position.Z
 					)
 
+					-- also slam velocity downward so nothing fights it
 					hrp.AssemblyLinearVelocity = Vector3.new(0, -500, 0)
 
 					if hrp.Position.Y <= targetY then
@@ -820,17 +787,17 @@ local function LUFLUDB_fake_script()
 		for _, v in pairs(players:GetPlayers()) do
 			if v.Name:lower():match(str) or v.DisplayName:lower():match(str) then
 				foundtarget = true
-				return {v} 
+				return {v} -- Return as a table
 			end
 		end
 
 		if str == "me" or str == "self" then
 			foundtarget = true
-			return {plr} 
+			return {plr} -- Return as a table
 		end
 		if str == "all" or str == "everyone" then
 			foundtarget = true
-			return players:GetPlayers() 
+			return players:GetPlayers() -- Return all players
 		end
 		if str == "others" then
 			for _, v in pairs(players:GetPlayers()) do
@@ -845,13 +812,13 @@ local function LUFLUDB_fake_script()
 			local allPlayers = players:GetPlayers()
 			if #allPlayers > 0 then
 				foundtarget = true
-				return {allPlayers[math.random(1, #allPlayers)]} 
+				return {allPlayers[math.random(1, #allPlayers)]} -- Return as a table
 			end
 		end
 		if foundtarget == false then
 			notice("Failed to find target: "..str)
 		end
-		return {} 
+		return {} -- Return empty table if no match
 	end
 	function respawn()
 		getChar().Humanoid.Health = 0
@@ -863,12 +830,12 @@ local function LUFLUDB_fake_script()
 			cf = p.CFrame
 		end
 		respawn()
-		plr.CharacterAdded:Wait(); 
+		plr.CharacterAdded:Wait(); --task.wait(0.2);
 		getChar():WaitForChild("HumanoidRootPart").AssemblyLinearVelocity = Vector3.zero
 		getChar():WaitForChild("HumanoidRootPart").AssemblyAngularVelocity = Vector3.zero
 		getChar():WaitForChild("HumanoidRootPart").CFrame = cf
 	end
-	function fling(target, power, timef)
+	function fling(target, power, timef) -- needs fix
 		if chechifalive(target.Character) == false then notice("Axiom prevent a command from running due to: Target Is Dead") return end
 		if target.Character.Humanoid.Sit then notice("Axiom prevent a command from running due to: Your Player Is Sitting") return end
 		tempdisableantifling = true
@@ -1042,7 +1009,7 @@ local function LUFLUDB_fake_script()
 			local desiredTorsoCFrame = anchor.CFrame
 			hrp.CFrame = desiredTorsoCFrame * torsoOffsetFromHRP:Inverse()
 			hrp.AssemblyLinearVelocity = velocity
-			if allowautoeject and anchor.AssemblyLinearVelocity.Magnitude > (velocity.Magnitude / 2) then 
+			if allowautoeject and anchor.AssemblyLinearVelocity.Magnitude > (velocity.Magnitude / 2) then -- .Parent:FindFirstChild("HumanoidRootPart")
 				StopWeldFling()
 			end
 		end)
@@ -1066,6 +1033,7 @@ local function LUFLUDB_fake_script()
 		game:GetService("RunService").PreRender:Wait()
 		game.Players.LocalPlayer.Character["1"]:Destroy()
 		game.Workspace.CurrentCamera.CameraSubject = game.Players.LocalPlayer.Character
+		--game.Players.LocalPlayer.Character.Animate.Disabled = true
 		game:GetService("RunService").PreRender:Wait()
 		local removeParts = {
 			LeftUpperArm = true,
@@ -1090,11 +1058,14 @@ local function LUFLUDB_fake_script()
 				)
 			end
 		end
+		--game.Players.LocalPlayer.Character.Animate.Disabled = false
 		disableatoolnim()
 		game.Players.LocalPlayer.Character.Humanoid.DisplayDistanceType = "None"
-		setHumState(game.Players.LocalPlayer.Character.Humanoid, Enum.HumanoidStateType.GettingUp, true)
-		setHumState(game.Players.LocalPlayer.Character.Humanoid, Enum.HumanoidStateType.Landed, true)
-		setHumState(game.Players.LocalPlayer.Character.Humanoid, Enum.HumanoidStateType.Running, true)
+		--for i = 1, 5 do -- this allows the server to hear: Your character is my character
+			setHumState(game.Players.LocalPlayer.Character.Humanoid, Enum.HumanoidStateType.GettingUp, true)
+			setHumState(game.Players.LocalPlayer.Character.Humanoid, Enum.HumanoidStateType.Landed, true)
+			setHumState(game.Players.LocalPlayer.Character.Humanoid, Enum.HumanoidStateType.Running, true)
+		--end
 		local gyro = Instance.new("BodyGyro")
 		gyro.MaxTorque = Vector3.new(1e9,1e9,1e9)
 		gyro.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
@@ -1142,7 +1113,7 @@ local function LUFLUDB_fake_script()
 		end
 		game.Players.LocalPlayer.Character.Animate.Disabled = false
 		game.Players.LocalPlayer.Character.Humanoid.DisplayDistanceType = "None"
-		for i = 1, 15 do 
+		for i = 1, 15 do -- this allows the server to hear: Your character is my character
 			game.Players.LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.GettingUp, true)
 			game.Players.LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Landed, true)
 			game.Players.LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Running, true)
@@ -1203,7 +1174,7 @@ local function LUFLUDB_fake_script()
 		end
 		bang = humanoid:LoadAnimation(bangAnim)
 		bang:Play(0.1, 1, 1)
-		bang:AdjustSpeed(speed or 3)
+		bang:AdjustSpeed(speed or 3)-- or 3)
 		bangDied = humanoid.Died:Connect(function()
 			bang:Stop()
 			bangAnim:Destroy()
@@ -1226,8 +1197,13 @@ local function LUFLUDB_fake_script()
 		end)
 	end
 	function kill(target)
+		-- Wait for forcefield to drop
 		repeat game:GetService("RunService").PreRender:Wait() until not target.Character:FindFirstChild("ForceField")
+
+		-- Grab tool from backpack or character
 		local tool = getBp():FindFirstChildOfClass("Tool") or getChar():FindFirstChildOfClass("Tool")
+
+		-- Validate tool
 		if not tool or not tool:FindFirstChild("Handle") then
 			notice("Axiom prevent a command from running due to: No tool found on your player")
 			return
@@ -1239,6 +1215,7 @@ local function LUFLUDB_fake_script()
 		local targetHum = targetChar and targetChar:FindFirstChild("Humanoid")
 		local targetRoot = targetChar and targetChar:FindFirstChild("HumanoidRootPart")
 
+		-- Pre-flight checks
 		if chechifalive(getChar()) == false then notice("Axiom prevent a command from running due to: You Are Dead") return end
 		if hum.Sit then
 			notice("Axiom prevent a command from running due to: Your player is sitting")
@@ -1246,10 +1223,12 @@ local function LUFLUDB_fake_script()
 		end
 		if chechifalive(target.Character) == false then notice("Axiom prevent a command from running due to: Target Is Dead") return end
 
+		-- Save original tool state
 		local originalGrip   = tool.Grip
 		local originalShape  = tool.Handle.Shape
 		local originalSize   = tool.Handle.Size
 
+		-- Find toolGUI in hotbar
 		local toolGUI
 		local hotbar = game:GetService("CoreGui")
 			:FindFirstChild("RobloxGui")
@@ -1268,12 +1247,13 @@ local function LUFLUDB_fake_script()
 			end
 		end
 
+		-- Set up tool for FTI
 		tool.Handle.Massless = true
-		tool.Grip = CFrame.new(0, 9900, 0)
-		tool.Handle.Shape = Enum.PartType.Ball
-		tool.Handle.Size = Vector3.new(10, 10, 10)
-		tool.Enabled = false
-		tool.Parent = char
+		tool.Grip            = CFrame.new(0, 9900, 0)
+		tool.Handle.Shape    = Enum.PartType.Ball
+		tool.Handle.Size     = Vector3.new(10, 10, 10)
+		tool.Enabled         = false
+		tool.Parent          = char
 
 		disableatoolnim()
 
@@ -1282,7 +1262,9 @@ local function LUFLUDB_fake_script()
 			if eq then eq.Visible = false end
 		end
 
+		-- Main kill loop
 		repeat
+			-- Re-validate every frame before firing
 			targetChar = target.Character
 			targetHum  = targetChar and targetChar:FindFirstChild("Humanoid")
 			targetRoot = targetChar and targetChar:FindFirstChild("HumanoidRootPart")
@@ -1297,9 +1279,10 @@ local function LUFLUDB_fake_script()
 			globalLib.firetouchinterest(targetRoot, handle, 1)
 			globalLib.firetouchinterest(targetRoot, handle, 0)
 
-			game:GetService("RunService").PreRender:Wait()
+			game:GetService("RunService").PreRender:Wait() -- yield once per cycle to avoid script timeout
 		until (targetHum and targetHum.Health <= 0) or hum.Health <= 0
 
+		-- Restore everything
 		tool.Enabled         = true
 		tool.Handle.Shape    = originalShape
 		tool.Handle.Size     = originalSize
@@ -1315,6 +1298,7 @@ local function LUFLUDB_fake_script()
 
 		getChar():FindFirstChildOfClass("Humanoid"):UnequipTools()
 	end
+	-- [[ FLY MANAGER ]] -- 
 	local RunService = game:GetService("RunService")
 
 	local flying = false
@@ -1358,6 +1342,9 @@ local function LUFLUDB_fake_script()
 		bodyGyro.Parent = root
 	end
 
+	------------------------------------------------
+	-- START FLY
+	------------------------------------------------
 	function StartFly(newSpeed)
 		if flying then return end
 		flying = true
@@ -1366,6 +1353,7 @@ local function LUFLUDB_fake_script()
 
 		local char, root, hum = getCharst()
 		if hum then hum.PlatformStand = true end
+		-- DO NOT anchor — anchoring breaks replication
 
 		createMotors(root)
 
@@ -1390,16 +1378,21 @@ local function LUFLUDB_fake_script()
 			local targetVel = direction * speed
 			currentVel = currentVel:Lerp(targetVel, smooth)
 
+			-- replicated to server via physics, not CFrame
 			if bodyVelocity then
 				bodyVelocity.Velocity = currentVel
 			end
 
+			-- rotate character to face camera direction
 			if bodyGyro then
 				bodyGyro.CFrame = CFrame.new(root.Position, root.Position + cam.CFrame.LookVector)
 			end
 		end)
 	end
 
+	------------------------------------------------
+	-- STOP FLY
+	------------------------------------------------
 	function StopFly()
 		if not flying then return end
 		flying = false
@@ -1415,7 +1408,10 @@ local function LUFLUDB_fake_script()
 
 		movement = {W = 0, S = 0, A = 0, D = 0}
 	end
-	
+
+	------------------------------------------------
+	-- INPUT
+	------------------------------------------------
 	UserInputService.InputBegan:Connect(function(input, gp)
 		if gp then return end
 		if input.KeyCode == Enum.KeyCode.W then movement.W = 1 end
@@ -1430,7 +1426,7 @@ local function LUFLUDB_fake_script()
 		if input.KeyCode == Enum.KeyCode.A then movement.A = 0 end
 		if input.KeyCode == Enum.KeyCode.D then movement.D = 0 end
 	end)
-
+	-- [[ Just a backdoor thing ]] --
 	local backdoor = nil
 	function runRemote(r, ...)
 		if r:IsA("RemoteEvent") then
@@ -1474,14 +1470,14 @@ local function LUFLUDB_fake_script()
 			if workspace:FindFirstChild("Axiom") then
 				backdoor=r
 				print("checked "..r.Parent.Name.."/"..r.Name.." returned true")
-				runRemote(r, "workspace:FindFirstChild('Axiom'):Destroy()")
+				runRemote(r, "workspace:FindFirstChild('Axiom'):Destroy()")-- so the next batch of exploiters dont get left out
 				return true
 			end
 			print("checked "..r.Parent.Name.."/"..r.Name.." returned false")
 		end
 		return false
 	end
-
+	-- [[ INVISIBLE MANAGER ]] -- 
 	local camera = workspace.CurrentCamera
 
 	local realChar
@@ -1502,6 +1498,7 @@ local function LUFLUDB_fake_script()
 		end
 	end
 
+	-- 3. HELPER FUNCTION: CREATE THE GHOST
 	local function makeFakeCharacter(charToClone, targetCFrame)
 		charToClone.Archivable = true
 		local clone = charToClone:Clone()
@@ -1523,6 +1520,7 @@ local function LUFLUDB_fake_script()
 		return clone
 	end
 
+	-- 4. THE INVISIBLE FUNCTION
 	local function invisible()
 		if isInvisible then return end
 
@@ -1532,6 +1530,7 @@ local function LUFLUDB_fake_script()
 		local realRoot = realChar:FindFirstChild("HumanoidRootPart")
 		if not realRoot then return end
 
+		-- Save current position and make the clone
 		local savedCFrame = realRoot.CFrame
 		
 		skyPlatform = Instance.new("Part")
@@ -1543,20 +1542,24 @@ local function LUFLUDB_fake_script()
 		skyPlatform.CanCollide = true
 		skyPlatform.Parent = workspace
 
+		-- Teleport the real character to the sky platform (slightly above it so they don't clip)
 		local teleportCFrame = CFrame.new(skyPosition + Vector3.new(0, 5, 0))
-		realChar.HumanoidRootPart.CFrame = teleportCFrame 
+		realChar.HumanoidRootPart.CFrame = teleportCFrame --:PivotTo(teleportCFrame)
 		sethiddenproperty(realChar.HumanoidRootPart, "PhysicsRepRootPart", realChar.HumanoidRootPart)
 		task.wait(0.15)
 		fakeChar = makeFakeCharacter(realChar, savedCFrame)
 
+		-- Anchor them so they don't accidentally walk off the platform while we control the ghost
 		realRoot.Anchored = true
 
+		-- Give client control to the ghost
 		plr.Character = fakeChar
 		camera.CameraSubject = fakeChar:FindFirstChildOfClass("Humanoid")
 
 		isInvisible = true
 	end
 
+	-- 5. THE VISIBLE FUNCTION
 	local function visible()
 		if not isInvisible then return end
 		if not realChar or not fakeChar then return end
@@ -1564,12 +1567,17 @@ local function LUFLUDB_fake_script()
 		local realRoot = realChar:FindFirstChild("HumanoidRootPart")
 		if not realRoot then return end
 
+		-- Find out where the ghost ended up
 		local currentGhostCFrame = fakeChar:GetPivot()
 
+		-- Bring the real character back and make them visible
 		realChar:PivotTo(currentGhostCFrame)
+		--setCharacterVisibility(realChar, true)
 		
+		-- Unanchor them so they can move
 		realRoot.Anchored = false
 
+		-- Give control back to the real player
 		plr.Character = realChar
 		
 		local realHum = realChar:FindFirstChildOfClass("Humanoid")
@@ -1577,6 +1585,7 @@ local function LUFLUDB_fake_script()
 			camera.CameraSubject = realHum
 		end
 
+		-- Clean up the ghost
 		fakeChar:Destroy()
 		fakeChar = nil
 
@@ -1598,8 +1607,7 @@ local function LUFLUDB_fake_script()
 		end
 		isInvisible = false
 	end
-
-	local Commands = {
+local Commands = {
 		{
 			Name = "Kill",
 			Aliases = {"kill"},
@@ -1624,7 +1632,7 @@ local function LUFLUDB_fake_script()
 			Run = function(args)
 				local target = getPlr(args[1])
 				for _, plr in ipairs(target) do
-					if LoopKills[plr] then return end 
+					if LoopKills[plr] then return end -- already looping
 
 					local running = true
 					LoopKills[plr] = function()
@@ -1707,16 +1715,19 @@ local function LUFLUDB_fake_script()
 				local highlightInstance = nil
 				local cspn = nil
 
+				-- Function to create a highlight effect
 				local function createHighlight(part)
 					if highlightInstance then
 						highlightInstance:Destroy()
 					end
 					highlightInstance = Instance.new("Highlight")
+					--highlightInstance.FillColor = Color3.fromRGB(255, 255, 0) -- Yellow glow
 					highlightInstance.FillTransparency = 0.75
 					highlightInstance.OutlineTransparency = 0
 					highlightInstance.Parent = part
 				end
 
+				-- Function to remove highlight effect
 				local function removeHighlight()
 					if highlightInstance then
 						highlightInstance:Destroy()
@@ -1724,6 +1735,7 @@ local function LUFLUDB_fake_script()
 					end
 				end
 
+				-- Highlight objects when hovering
 				clickkillmove = Mouse.Move:Connect(function()
 					local target = Mouse.Target
 					if target and target.Parent:FindFirstChild("Humanoid") and target.Parent:FindFirstChild("HumanoidRootPart") then
@@ -1814,10 +1826,12 @@ local function LUFLUDB_fake_script()
 				moveTool.BinType = Enum.BinType.GameTool
 				moveTool.Parent = getBp()
 
+				-- CLONE TOOL
 				local cloneTool = Instance.new("HopperBin")
 				cloneTool.BinType = Enum.BinType.Clone
 				cloneTool.Parent = getBp()
 
+				-- DELETE TOOL
 				local deleteTool = Instance.new("HopperBin")
 				deleteTool.BinType = Enum.BinType.Hammer
 				deleteTool.Parent = getBp()
@@ -2093,6 +2107,7 @@ local function LUFLUDB_fake_script()
 						flying = true
 						lastPosition = rootPart.CFrame
 						enableFlight()
+						-- Move under the target player
 						local currcf = CFrame.new(targetRoot.Position)
 						local underPos = currcf.Position - Vector3.new(0,3,0)
 						rootPart.CFrame = CFrame.new(underPos)
@@ -2142,10 +2157,10 @@ local function LUFLUDB_fake_script()
 					if not Char or not HRP then
 						return warn("Failed to find HumanoidRootPart")
 					end
-					for i = 0,10 do 
-						HRP.CFrame = HRP.CFrame + Vector3.new(math.random(-1,1),math.random(-1,1),math.random(-1,1))
-						task.wait()
-					end
+					--for i = 0,10 do 
+					--	HRP.CFrame = HRP.CFrame + Vector3.new(math.random(-1,1),math.random(-1,1),math.random(-1,1))
+					--	task.wait()
+					--end
 					HRP.CFrame = CFrame.new(plr:GetMouse().Hit.X, plr:GetMouse().Hit.Y + 3, plr:GetMouse().Hit.Z, select(4, HRP.CFrame:components()))
 				end)
 			end
@@ -2246,6 +2261,7 @@ local function LUFLUDB_fake_script()
 					end
 					cr.HumanoidRootPart.CFrame = cr.HumanoidRootPart.CFrame + Vector3.new(0,999999999,0)
 					task.wait(0.1)
+					--cr:FindFirstChildOfClass("Humanoid"):ChangeState(15)
 					for i,v in pairs(getChar():GetChildren()) do
 						if v:IsA("Tool") then
 							v.Parent = workspace
@@ -2290,23 +2306,30 @@ local function LUFLUDB_fake_script()
 						getgenv().AntiFlingSystem.Stop()
 					end
 
-					local System = { Connections = {}, Running = true }
-					
+					local System = { Connections = {}, Running = true }--, SuppressUntil = 0 }
+
+					----------------------------------------------------------------
+					-- CONFIG
+					----------------------------------------------------------------
 					local Config = {
+						-- Other players
 						OtherAngular  = 25,
 						OtherLinear   = 60,
 						OtherLock     = 15,
 
-						AngularThreshold     = 12,  
+						-- Local player physical-sanity checks
+						AngularThreshold     = 12,   -- only X/Z (tumble) — yaw spin is ignored
 						HorizontalThreshold  = 90,
 						HorizontalJolt       = 45,
 						VerticalJolt         = 80,
 						MaxFallSpeed         = 300,
 						LocalLock            = 15,
 
-						HorizontalSpeedMul = 3,   
-						HorizontalJoltMul  = 2,   
-						VerticalJoltMul    = 1.5, 
+						-- Dynamic floors based on your own Humanoid settings, so
+						-- speed/jump commands don't get flagged as flings
+						HorizontalSpeedMul = 3,   -- HorizontalThreshold floor = WalkSpeed * this
+						HorizontalJoltMul  = 2,   -- HorizontalJolt floor    = WalkSpeed * this
+						VerticalJoltMul    = 1.5, -- VerticalJolt floor      = JumpPower * this
 
 						ThreatRadius   = 8,
 						ThreatVelocity = 40,
@@ -2523,6 +2546,7 @@ local function LUFLUDB_fake_script()
 						end
 					end))
 
+					----------------------------------------------------------------
 					function System.Stop()
 						RestoreCollisions()
 						for _, c in ipairs(System.Connections) do
@@ -2698,7 +2722,10 @@ local function LUFLUDB_fake_script()
 					tool.Parent = getChar()
 					task.wait()
 					repeat 
+						--glue(v, true)
 						globalLib.firetouchinterest(tool.Handle,v.Character.HumanoidRootPart,0)
+						--glue(v, false)
+						--v.Character.Humanoid.PlatformStand = true
 					until tool.Parent == v.Character or tool == nil
 					if tool ~= nil then
 						setHumState(plr.Character.Humanoid, Enum.HumanoidStateType.GettingUp, true)
@@ -2777,7 +2804,9 @@ local function LUFLUDB_fake_script()
 					tool.Parent = getChar()
 					task.wait()
 					repeat 
+						--glue(v, true)
 						globalLib.firetouchinterest(v.Character.HumanoidRootPart,tool.Handle,0)
+						--glue(v, false)
 					until tool.Parent == v.Character or tool == nil
 					if tool ~= nil then
 						destroyGrip()
@@ -2831,7 +2860,9 @@ local function LUFLUDB_fake_script()
 					task.wait()
 					tempdisableantifling = true
 					repeat 
+						--glue(v, true)
 						globalLib.firetouchinterest(v.Character.HumanoidRootPart,tool.Handle,0)
+						--glue(v, false)
 					until tool.Parent == v.Character or tool == nil
 					if tool ~= nil then
 						setHumState(getChar():FindFirstChildOfClass("Humanoid"), Enum.HumanoidStateType.GettingUp, true)
@@ -2891,7 +2922,9 @@ local function LUFLUDB_fake_script()
 					task.wait()
 					tempdisableantifling = true
 					repeat 
+						--glue(v, true)
 						globalLib.firetouchinterest(v.Character.HumanoidRootPart,tool.Handle,0)
+						--glue(v, false)
 					until tool.Parent == v.Character or tool == nil
 					if tool ~= nil then
 						setHumState(getChar():FindFirstChildOfClass("Humanoid"), Enum.HumanoidStateType.GettingUp, true)
@@ -3009,7 +3042,10 @@ local function LUFLUDB_fake_script()
 					tool.Parent = getChar()
 					task.wait()
 					repeat 
+						--glue(v, true)
 						globalLib.firetouchinterest(tool.Handle,v.Character.HumanoidRootPart,0)
+						--glue(v, false)
+						--v.Character.Humanoid.PlatformStand = true
 					until tool.Parent == v.Character or tool == nil
 					if tool ~= nil then
 						setHumState(plr.Character.Humanoid, Enum.HumanoidStateType.GettingUp, true)
@@ -3066,7 +3102,9 @@ local function LUFLUDB_fake_script()
 					tool.Parent = getChar()
 					task.wait()
 					repeat 
+						--glue(v, true)
 						globalLib.firetouchinterest(v.Character.HumanoidRootPart,tool.Handle,0)
+						--glue(v, false)
 					until tool.Parent == v.Character or tool == nil
 					if tool ~= nil then
 						destroyGrip()
@@ -3079,6 +3117,10 @@ local function LUFLUDB_fake_script()
 						getChar():FindFirstChild("HumanoidRootPart").CFrame = oldcf
 						task.wait()
 						getChar():Destroy()
+						--task.wait(2)
+						--getChar():FindFirstChild("HumanoidRootPart").AssemblyLinearVelocity = Vector3.zero
+						--getChar():FindFirstChild("HumanoidRootPart").AssemblyAngularVelocity = Vector3.zero
+						--getChar():Destroy()
 						plr.CharacterAdded:Wait(); 
 						getChar():WaitForChild("HumanoidRootPart").AssemblyLinearVelocity = Vector3.zero
 						getChar():WaitForChild("HumanoidRootPart").AssemblyAngularVelocity = Vector3.zero
@@ -3119,7 +3161,9 @@ local function LUFLUDB_fake_script()
 					task.wait()
 					tempdisableantifling = true
 					repeat 
+						--glue(v, true)
 						globalLib.firetouchinterest(v.Character.HumanoidRootPart,tool.Handle,0)
+						--glue(v, false)
 					until tool.Parent == v.Character or tool == nil
 					if tool ~= nil then
 						setHumState(getChar():FindFirstChildOfClass("Humanoid"), Enum.HumanoidStateType.GettingUp, true)
@@ -3192,6 +3236,17 @@ local function LUFLUDB_fake_script()
 						setHumState(getChar():FindFirstChildOfClass("Humanoid"), Enum.HumanoidStateType.Landed, true)
 						setHumState(getChar():FindFirstChildOfClass("Humanoid"), Enum.HumanoidStateType.Running, true)
 						getChar():Destroy()
+						--destroyGrip()
+						--setHumState(getChar():FindFirstChildOfClass("Humanoid"), Enum.HumanoidStateType.GettingUp, true)
+						--setHumState(getChar():FindFirstChildOfClass("Humanoid"), Enum.HumanoidStateType.Landed, true)
+						--setHumState(getChar():FindFirstChildOfClass("Humanoid"), Enum.HumanoidStateType.Running, true)
+						--for i = 1, 10 do
+						--	getChar():FindFirstChild("HumanoidRootPart").AssemblyLinearVelocity = Vector3.zero
+						--	getChar():FindFirstChild("HumanoidRootPart").AssemblyAngularVelocity = Vector3.zero
+						--	getChar():FindFirstChild("HumanoidRootPart").CFrame = oldcf
+						--	task.wait()
+						--end
+						--getChar():Destroy()
 						plr.CharacterAdded:Wait(); 
 						getChar():WaitForChild("HumanoidRootPart").AssemblyLinearVelocity = Vector3.zero
 						getChar():WaitForChild("HumanoidRootPart").AssemblyAngularVelocity = Vector3.zero
@@ -3414,6 +3469,7 @@ local function LUFLUDB_fake_script()
 
 				local RunService = game:GetService("RunService")
 
+				-- stop any existing stare first
 				if StareState.Connection then
 					StareState.Connection:Disconnect()
 					StareState.Connection = nil
@@ -3438,8 +3494,10 @@ local function LUFLUDB_fake_script()
 					local myPos = hrp.Position
 					local targetPos = targetHRP.Position
 
+					-- only rotate on the Y axis so your character doesn't tilt up/down
 					local lookPos = Vector3.new(targetPos.X, myPos.Y, targetPos.Z)
 
+					-- avoid errors if positions are identical
 					if (lookPos - myPos).Magnitude > 0.01 then
 						hrp.CFrame = CFrame.new(myPos, lookPos)
 					end
@@ -3482,6 +3540,7 @@ local function LUFLUDB_fake_script()
 				hum.PlatformStand = true
 				nc = true
 
+				-- input state
 				local input = {
 					W = false,
 					A = false,
@@ -3489,6 +3548,7 @@ local function LUFLUDB_fake_script()
 					D = false,
 				}
 
+				-- INPUT HANDLER
 				local UIS = game:GetService("UserInputService")
 
 				local function onBegan(inp, gp)
@@ -3523,11 +3583,15 @@ local function LUFLUDB_fake_script()
 					workspace.CurrentCamera.CameraSubject = plr.Character.Humanoid
 				end
 				workspace.CurrentCamera.CameraSubject = v.Character.Humanoid
+				-- MAIN LOOP
 				task.spawn(function()
 					while mcontroltest
 						and chechifalive(v.Character)
 						and chechifalive(character)
 					do
+						--task.wait()
+
+						-- lock target under you (carpet behavior)
 						if input.W or input.S or input.D or input.A then
 							rootPart.CFrame = v.Character.HumanoidRootPart.CFrame * CFrame.new(0, -3.495, 0) * CFrame.Angles(math.rad(-90), 0, 0)
 						else
@@ -3540,6 +3604,7 @@ local function LUFLUDB_fake_script()
 
 						local move = Vector3.zero
 
+						-- RELATIVE AXES
 						if input.W then 
 							move += cf.UpVector 
 						end
@@ -3553,6 +3618,7 @@ local function LUFLUDB_fake_script()
 							move -= cf.RightVector
 						end
 
+						-- normalize so diagonals aren't faster
 						if move.Magnitude > 1 then
 							move = move.Unit
 						end
@@ -3562,6 +3628,7 @@ local function LUFLUDB_fake_script()
 						local vel = current:Lerp(target, 0.15)
 						vel = Vector3.new(vel.X, 0, vel.Z)
 						rootPart.AssemblyLinearVelocity = vel
+						--rootPart.AssemblyLinearVelocity = move * speed
 						rootPart.AssemblyAngularVelocity = Vector3.zero
 						rootPart.CustomPhysicalProperties = PhysicalProperties.new(0.7, 0, 0, 1, 1)
 						rootPart.Massless = false
@@ -3571,6 +3638,7 @@ local function LUFLUDB_fake_script()
 					end
 
 					cleanup()
+					--plr.CharacterAdded:Wait(); 
 					getChar():WaitForChild("HumanoidRootPart").AssemblyLinearVelocity = Vector3.zero
 					getChar():WaitForChild("HumanoidRootPart").AssemblyAngularVelocity = Vector3.zero
 					getChar():WaitForChild("HumanoidRootPart").CFrame = oldcharcf
@@ -3740,6 +3808,7 @@ local function LUFLUDB_fake_script()
 				local root = getChar().HumanoidRootPart
 				if not targetChar then return end
 				glue(target, true)
+				--glue(target, false)
 			end
 		},
 		{
@@ -3803,6 +3872,7 @@ local function LUFLUDB_fake_script()
 				humanoid.Sit = true
 				HeadSitState2.Active = true
 
+				-- precompute torso offset from hrp so we position correctly
 				local torsoOffsetFromHRP = hrp.CFrame:ToObjectSpace(torso.CFrame)
 
 				local function cleanup(returnToOld)
@@ -3826,22 +3896,27 @@ local function LUFLUDB_fake_script()
 				end
 
 				HeadSitState2.Connection = RunService.Heartbeat:Connect(function()
+					-- unsit check
 					if not humanoid.Sit then
 						cleanup(true)
 						return
 					end
 
+					-- target gone check
 					if not targetHead.Parent then
 						cleanup(true)
 						return
 					end
 
+					-- directly set hrp cframe above the target's head every frame
+					-- no welds involved, pure CFrame so nothing can fling
 					glue(target, true)
 					local desiredTorsoCFrame = targetHead.CFrame * CFrame.new(0, 2, 0)
 					hrp.CFrame = desiredTorsoCFrame * torsoOffsetFromHRP:Inverse()
 					hrp.AssemblyLinearVelocity = Vector3.zero
 					hrp.AssemblyAngularVelocity = Vector3.zero
 					task.wait(0.2)
+					--glue(target, false)
 				end)
 
 				HeadSitState2.JumpConnection = humanoid.StateChanged:Connect(function(_, newState)
@@ -3878,6 +3953,7 @@ local function LUFLUDB_fake_script()
 				local root = getChar().HumanoidRootPart
 				if not targetChar then return end
 				glue(target, true)
+				--glue(target, false)
 			end
 		},
 		{
@@ -3897,7 +3973,8 @@ local function LUFLUDB_fake_script()
 				local cursor = ""
 				local servers = {}
 
-				for i = 1, 5 do 
+				-- Loop through pages of the server list until we find a valid candidate
+				for i = 1, 5 do -- limit pages to avoid infinite loops
 					local url = ("https://games.roblox.com/v1/games/%d/servers/Public?sortOrder=Asc&limit=100"):format(placeId)
 					if cursor ~= "" then
 						url = url .. "&cursor=" .. cursor
@@ -3923,7 +4000,7 @@ local function LUFLUDB_fake_script()
 						break
 					end
 
-					if #servers > 0 then break end 
+					if #servers > 0 then break end -- found some, stop early
 				end
 
 				if #servers == 0 then
@@ -3931,6 +4008,7 @@ local function LUFLUDB_fake_script()
 					return
 				end
 
+				-- pick a random one from the found servers
 				local chosen = servers[math.random(1, #servers)]
 
 				local success, err = pcall(function()
@@ -3978,7 +4056,8 @@ local function LUFLUDB_fake_script()
 			Usage = "playallsounds",
 			Arguments = {},
 			Run = function(args)
-				if SoundLoop.Running then return end 
+				if SoundLoop.Running then return end -- already running
+				-- scan once and cache (use GetDescendants to catch nested sounds too)
 				SoundLoop.Sounds = {}
 				for _, obj in ipairs(workspace:GetDescendants()) do
 					if obj:IsA("Sound") then
@@ -4011,7 +4090,8 @@ local function LUFLUDB_fake_script()
 			Usage = "spamtoolsounds",
 			Arguments = {},
 			Run = function(args)
-				if SoundLoop.Running then return end 
+				if SoundLoop.Running then return end -- already running
+				-- scan once and cache (use GetDescendants to catch nested sounds too)
 				SoundLoop.Sounds = {}
 				for _, tool in ipairs(getChar():GetDescendants()) do
 					if tool:IsA("Tool") then
@@ -4051,6 +4131,7 @@ local function LUFLUDB_fake_script()
 				if not SoundLoop.Running then return end
 				SoundLoop.Running = false
 
+				-- disconnect listeners first so Stop() doesn't trigger a restart
 				for _, conn in ipairs(SoundLoop.Connections) do
 					conn:Disconnect()
 				end
@@ -4078,6 +4159,7 @@ local function LUFLUDB_fake_script()
 				local hrp = character:FindFirstChild("HumanoidRootPart")
 				if not hrp then return end
 
+				-- stop any existing spin first
 				if SpinLoop.Connection then
 					SpinLoop.Connection:Disconnect()
 					SpinLoop.Connection = nil
@@ -4129,6 +4211,7 @@ local function LUFLUDB_fake_script()
 				local PathfindingService = game:GetService("PathfindingService")
 				local RunService = game:GetService("RunService")
 
+				-- stop any existing follow first
 				if FollowLoop.Connection then
 					FollowLoop.Connection:Disconnect()
 					FollowLoop.Connection = nil
@@ -4147,6 +4230,7 @@ local function LUFLUDB_fake_script()
 						return
 					end
 
+					-- stop conditions: character or target gone
 					if not character.Parent or not hrp.Parent then
 						FollowLoop.Active = false
 						FollowLoop.Connection:Disconnect()
@@ -4156,7 +4240,7 @@ local function LUFLUDB_fake_script()
 
 					local targetChar = targetPlayer.Character
 					if not targetChar or not targetChar:FindFirstChild("HumanoidRootPart") then
-						return 
+						return -- target has no character right now, just wait
 					end
 
 					local targetHRP = targetChar.HumanoidRootPart
@@ -4164,6 +4248,7 @@ local function LUFLUDB_fake_script()
 
 					recomputeTimer += dt
 
+					-- recompute path if we don't have one, target moved significantly, or every 1.5s
 					local needsRecompute = false
 					if not currentWaypoints then
 						needsRecompute = true
@@ -4196,6 +4281,7 @@ local function LUFLUDB_fake_script()
 						end
 					end
 
+					-- move towards current waypoint
 					if currentWaypoints and currentWaypoints[waypointIndex] then
 						local waypoint = currentWaypoints[waypointIndex]
 
@@ -4205,11 +4291,12 @@ local function LUFLUDB_fake_script()
 
 						humanoid:MoveTo(waypoint.Position)
 
+						-- check if we've reached this waypoint
 						local dist = (hrp.Position - waypoint.Position).Magnitude
 						if dist < 3 then
 							waypointIndex += 1
 							if waypointIndex > #currentWaypoints then
-								currentWaypoints = nil 
+								currentWaypoints = nil -- force recompute next tick
 							end
 						end
 					end
@@ -4230,10 +4317,11 @@ local function LUFLUDB_fake_script()
 					FollowLoop.Connection = nil
 				end
 
+				-- stop current movement
 				local character = getChar()
 				local humanoid = character and character:FindFirstChildOfClass("Humanoid")
 				if humanoid then
-					humanoid:MoveTo(humanoid.RootPart.Position) 
+					humanoid:MoveTo(humanoid.RootPart.Position) -- cancels MoveTo
 				end
 			end
 		},
@@ -4343,6 +4431,7 @@ local function LUFLUDB_fake_script()
 					local targetRoot = targetCharacter:FindFirstChild("HumanoidRootPart")
 					if not targetRoot then return end
 
+					-- ── Disable animations ────────────────────────────────────────────
 					local function disableAnimations()
 						local humanoid = character:FindFirstChildOfClass("Humanoid")
 						if humanoid then
@@ -4352,6 +4441,7 @@ local function LUFLUDB_fake_script()
 						end
 					end
 
+					-- ── Flight helpers ───────────────────────────────────────────────
 					local function enableFlight()
 						nc = true
 						
@@ -4363,7 +4453,7 @@ local function LUFLUDB_fake_script()
 						end
 
 						bodyGyro = Instance.new("BodyGyro")
-						bodyGyro.P = 12000  
+						bodyGyro.P = 12000  -- strong enough to lock rotation despite animations
 						bodyGyro.D = 500
 						bodyGyro.MaxTorque = Vector3.new(9e9, 9e9, 9e9)
 						bodyGyro.CFrame = rootPart.CFrame * CFrame.Angles(math.rad(90), 0, 0)
@@ -4387,6 +4477,7 @@ local function LUFLUDB_fake_script()
 						end
 					end
 
+					-- lay player flat facing a direction (face down, pointing toward dest)
 					local function setFlatFacing(destination)
 						if not bodyGyro then return end
 						local dir = destination - rootPart.Position
@@ -4394,10 +4485,12 @@ local function LUFLUDB_fake_script()
 						if dir.Magnitude < 0.01 then return end
 						dir = dir.Unit
 						
+						-- update rotation always, don't throttle
 						bodyGyro.CFrame = CFrame.new(rootPart.Position, rootPart.Position + dir)
 							* CFrame.Angles(math.rad(90), 0, 0)
 					end
 
+					-- ── Collision helpers ────────────────────────────────────────────
 					local targetHadCollision = targetCharacter.Head.CanCollide
 					local function setTargetCollision(state)
 						for _, part in ipairs(targetCharacter:GetDescendants()) do
@@ -4405,6 +4498,7 @@ local function LUFLUDB_fake_script()
 						end
 					end
 
+					-- ── Server character sync ────────────────────────────────────────
 					local syncConn
 					local function startSync()
 						syncConn = game:GetService("RunService").Heartbeat:Connect(function()
@@ -4412,6 +4506,7 @@ local function LUFLUDB_fake_script()
 							local fresh = targetCharacter and targetCharacter:FindFirstChild("HumanoidRootPart")
 							if fresh then targetRoot = fresh end
 							
+							-- keep stopping animations
 							disableAnimations()
 						end)
 					end
@@ -4419,6 +4514,7 @@ local function LUFLUDB_fake_script()
 						if syncConn then syncConn:Disconnect() syncConn = nil end
 					end
 
+					-- ── Smooth sin rise (fixed velocity) ──────────────────────────────
 					local function sinRise(startPos, riseHeight, riseTime)
 						local startTime = tick()
 						
@@ -4428,10 +4524,12 @@ local function LUFLUDB_fake_script()
 							local elapsed = tick() - startTime
 							if elapsed >= riseTime then break end
 							
+							-- sin curve from 0 to 1 for smooth ease in
 							local t = elapsed / riseTime
 							local smoothT = math.sin(t * math.pi / 2)
 							local targetY = startPos.Y + riseHeight * smoothT
 							
+							-- constant upward velocity, no overshooting
 							local diff = targetY - rootPart.Position.Y
 							bodyVelocity.Velocity = Vector3.new(0, math.clamp(diff * 2, -20, 20), 0)
 							
@@ -4491,6 +4589,7 @@ local function LUFLUDB_fake_script()
 							local dir = (destination - rootPart.Position).Unit
 							local targetVel = dir * CARPET_SPEED
 							
+							-- lerp velocity to smooth out direction changes
 							currentVelocity = currentVelocity:Lerp(targetVel, 0.15)
 							bodyVelocity.Velocity = currentVelocity
 							glue(target, true)
@@ -4606,6 +4705,7 @@ local function LUFLUDB_fake_script()
 					infoLabel.TextYAlignment = Enum.TextYAlignment.Top
 					infoLabel.Parent = infoGui
 					
+					-- Update loop
 					local conn
 					conn = game:GetService("RunService").Heartbeat:Connect(function()
 						if not v or not v.Character then conn:Disconnect() infoGui:Destroy() return end
@@ -4665,6 +4765,7 @@ local function LUFLUDB_fake_script()
 					chatBox.Text = table.concat(Messages, "\n")
 				end)
 				
+				-- Try to hook into other players' messages if possible
 				for _, player in pairs(game.Players:GetPlayers()) do
 					if player ~= game.Players.LocalPlayer then
 						player.Chatted:Connect(function(msg)
@@ -4707,7 +4808,7 @@ local function LUFLUDB_fake_script()
 				radarCanvas.BorderColor3 = Color3.fromRGB(0, 255, 0)
 				radarCanvas.Parent = radarGui
 				
-				local RADAR_SCALE = 0.5 
+				local RADAR_SCALE = 0.5 -- studs per pixel
 				
 				game:GetService("RunService").Heartbeat:Connect(function()
 					for _, child in pairs(radarCanvas:GetChildren()) do
@@ -4719,6 +4820,7 @@ local function LUFLUDB_fake_script()
 					local myRoot = myChar:FindFirstChild("HumanoidRootPart")
 					if not myRoot then return end
 					
+					-- Draw all players
 					for _, player in pairs(game.Players:GetPlayers()) do
 						if player ~= game.Players.LocalPlayer then
 							local char = player.Character
@@ -4824,6 +4926,7 @@ local function LUFLUDB_fake_script()
 				lighting.Ambient = Color3.fromRGB(100, 100, 100)
 				lighting.OutdoorAmbient = Color3.fromRGB(100, 100, 100)
 				
+				-- Brighten all players
 				for _, player in pairs(game.Players:GetPlayers()) do
 					if player.Character then
 						for _, part in pairs(player.Character:GetDescendants()) do
@@ -4909,7 +5012,7 @@ local function LUFLUDB_fake_script()
 						local root = char:FindFirstChild("HumanoidRootPart")
 						if not root then return end
 						
-						angle = angle + dt * 2 
+						angle = angle + dt * 2 -- speed
 						local x = math.cos(angle) * radius
 						local z = math.sin(angle) * radius
 						root.CFrame = CFrame.new(targetRoot.Position + Vector3.new(x, 0, z))
@@ -5005,6 +5108,7 @@ local function LUFLUDB_fake_script()
 					end
 				end)
 				
+				-- Command to goto death marker
 				if _G.DeathMarker then
 					local newChar = game.Players.LocalPlayer.Character
 					if newChar then
@@ -5032,6 +5136,7 @@ local function LUFLUDB_fake_script()
 					local root = char:FindFirstChild("HumanoidRootPart")
 					if not root then return end
 					
+					-- Create billboard GUI
 					local billboard = Instance.new("BillboardGui")
 					billboard.Adornee = root
 					billboard.Size = UDim2.new(0, 100, 0, 50)
@@ -5391,6 +5496,7 @@ local function LUFLUDB_fake_script()
 					local char = v.Character
 					if not char then return end
 					
+					-- Create highlight
 					for _, part in pairs(char:GetDescendants()) do
 						if part:IsA("BasePart") then
 							if not part:FindFirstChild("TargetHighlight") then
@@ -6286,6 +6392,7 @@ local function LUFLUDB_fake_script()
 					game:GetService("RunService").PreRender:Wait()
 					local Animate = Character:FindFirstChild("Animate")
 					if Animate then
+						--BlankTrack:Destroy()
 						Animate.Disabled = true
 						game:GetService("RunService").PreRender:Wait()
 						Animate.Disabled = false
@@ -6486,861 +6593,479 @@ local function LUFLUDB_fake_script()
 				if adminConnections.textchatconnect then
 					adminConnections.textchatconnect = false
 				end
-				script.Parent:Destroy()
+				AdminGUI:Destroy()
 				notice("Axiom Execution Line Has Fully Unloaded.")
 			end
 		}
 	}
-	
-	local TweenService = game:GetService("TweenService")
-	local CommandLabels = {}
-	local CommandFrames = {}
-	local CommandsGUI = script.Parent:WaitForChild("CMDLINE"):WaitForChild("Background"):WaitForChild("Commands")
-	local SUGGESTION_FADE_INFO = TweenInfo.new(0.1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
-	print("-- COMMANDS --")
-	for _, Command in ipairs(Commands) do
-		local Frame = Instance.new("Frame")
-		Frame.Size = UDim2.new(1, 0, 0, 40)
-		Frame.BackgroundColor3 = Color3.fromRGB(10, 10, 15)
-		Frame.BackgroundTransparency = 1
-		Frame.Visible = false
-		Frame.Name = Command.Name
 
-		local Label = Instance.new("TextLabel")
-		Label.Name = Command.Name
-		Label.Size = UDim2.new(1, 0, 1, 0)
-		Label.Position = UDim2.new(0, 10, 0, 0)
-		Label.BackgroundTransparency = 1
-		Label.TextTransparency = 1 
-		Label.TextXAlignment = Enum.TextXAlignment.Left
-		Label.TextColor3 = Color3.fromRGB(255, 255, 255)
-		Label.Font = Enum.Font.Code
-		Label.TextSize = 17
-		Label.Text = Command.Usage .. " | " .. Command.Description
+local CommandLabels = {}
 
-		local cmdUICorner = UICorner:Clone()
-		cmdUICorner.Parent = Frame
+for _, Command in ipairs(Commands) do
+    local CMDTEMPLATE = globalLib.CreateTextLabel(Command.Name, Command.Name, nil, nil, 1, Color3.fromRGB(255, 255, 255), 12, Enum.Font.Ubuntu, nil, nil, CMDSscrollframe)
+    CMDTEMPLATE.TextTransparency = 0.300
+    CMDTEMPLATE.TextXAlignment = Enum.TextXAlignment.Left
+    CommandLabels[Command] = CMDTEMPLATE
+	print(Command.Usage .. " | " .. Command.Description)
+end
 
-		Label.Parent = Frame
-		Frame.Parent = CommandsGUI
+local CommandLookup = {}
+for _, cmd in ipairs(Commands) do
+	for _, alias in ipairs(cmd.Aliases) do
+		CommandLookup[alias:lower()] = cmd
+	end
+end
+CMDSscrollframe.CanvasSize = UDim2.new(0, 0, 0, CMDSUIG.AbsoluteContentSize.Y)
+local SuggestionLabels = {}
+local SuggestionData = {}
 
-		CommandLabels[Command] = Label
-		CommandFrames[Command] = {
-			Frame = Frame,
-			Shown = false, 
+local GhostLabel = globalLib.CreateTextLabel(
+	"GhostLabel",
+	"",
+	Vector2.new(1, 0),
+	nil,
+	1,
+	Color3.fromRGB(255, 255, 255),
+	12,
+	Enum.Font.Ubuntu,
+	UDim2.new(1, 0, 0, 0),
+	UDim2.new(1, -20, 1, 0),
+	CMDLINEBackground
+)
+
+GhostLabel.TextXAlignment = Enum.TextXAlignment.Left
+GhostLabel.TextYAlignment = Enum.TextYAlignment.Center
+GhostLabel.RichText = true
+
+-- Put the actual TextBox above the ghost label
+GhostLabel.ZIndex = CMDLINE.ZIndex
+CMDLINE.ZIndex = GhostLabel.ZIndex + 1
+
+
+local function fadeIn(label)
+	label.Visible = true
+	label.TextTransparency = 1
+
+	TweenService:Create(
+		label,
+		TweenInfo.new(
+			0.12,
+			Enum.EasingStyle.Quad,
+			Enum.EasingDirection.Out
+		),
+		{
+			TextTransparency = 0
 		}
-		print(Command.Usage .. " | " .. Command.Description)
-	end
-	local CommandLookup = {}
+	):Play()
+end
 
-	for _, cmd in ipairs(Commands) do
-		for _, alias in ipairs(cmd.Aliases) do
-			CommandLookup[alias:lower()] = cmd
+
+local function fadeOut(label, data)
+	local tween = TweenService:Create(
+		label,
+		TweenInfo.new(
+			0.12,
+			Enum.EasingStyle.Quad,
+			Enum.EasingDirection.Out
+		),
+		{
+			TextTransparency = 1
+		}
+	)
+
+	tween:Play()
+
+	tween.Completed:Connect(function()
+		if not data.Shown then
+			label.Visible = false
 		end
-	end
-	local CommandBar = script.Parent:WaitForChild("CMDLINE"):WaitForChild("Background")
-	local FocusBar = CommandBar:WaitForChild("Input")
-	local GhostLabel = Instance.new("TextLabel")
-	GhostLabel.Name = "Ghost"
-	GhostLabel.Parent = FocusBar.Parent
-	GhostLabel.AnchorPoint = FocusBar.AnchorPoint
-	GhostLabel.Position = FocusBar.Position- UDim2.new(0, 0, 0, 3)
-	GhostLabel.Size = FocusBar.Size
-	GhostLabel.BackgroundTransparency = 1
-	GhostLabel.Font = FocusBar.Font
-	GhostLabel.TextSize = FocusBar.TextSize
-	GhostLabel.TextXAlignment = FocusBar.TextXAlignment
-	GhostLabel.TextYAlignment = FocusBar.TextYAlignment
-	GhostLabel.RichText = true
-	GhostLabel.Text = ""
-	local AdminTitle = Instance.new("TextLabel")
-	AdminTitle.Name = "AdminTitle"
-	AdminTitle.Parent = Background
-	AdminTitle.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-	AdminTitle.BackgroundTransparency = 1.000
-	AdminTitle.BorderColor3 = Color3.fromRGB(0, 0, 0)
-	AdminTitle.BorderSizePixel = 0
-	AdminTitle.Size = UDim2.new(1, 0, 0, 10)
-	AdminTitle.Font = Enum.Font.Code
-	AdminTitle.Text = "Axiom Execution Bar [CL_D Reborn]"
-	AdminTitle.Visible = false
-	AdminTitle.TextXAlignment = Enum.TextXAlignment.Left
-	AdminTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
-	AdminTitle.TextSize = 17.000
-	local AdminTitleUIS = Instance.new("UIStroke")
-	AdminTitleUIS.Parent = AdminTitle
-	AdminTitleUIS.Color = Color3.fromRGB(0, 0, 0)
-	AdminTitleUIS.Thickness = 2
-	AdminTitleUIS.ApplyStrokeMode = Enum.ApplyStrokeMode.Contextual
-
-	function loadcmdsgui()
-		if plr:FindFirstChild("PlayerGui"):FindFirstChild("AxiomCommands") then
-			plr:FindFirstChild("PlayerGui"):FindFirstChild("AxiomCommands"):Destroy()
-		end
-		local AxiomCommands = Instance.new("ScreenGui")
-		local Backgrounds = Instance.new("Frame")
-		local backguis = Instance.new("UIStroke")
-		local Top = Instance.new("Frame")
-		local Close_X = Instance.new("TextButton")
-		local Middle = Instance.new("Frame")
-		local CMDSTitle = Instance.new("TextLabel")
-		local Home = Instance.new("TextButton")
-		local UnderHome = Instance.new("Frame")
-		local Settings = Instance.new("TextButton")
-		local UnderSettings = Instance.new("Frame")
-		local CommandsPage = Instance.new("Frame")
-		local cmdsscroll = Instance.new("ScrollingFrame")
-		local UIGridLayout = Instance.new("UIGridLayout")
-		local SettingsPage = Instance.new("Frame")
-		local ScrollingFrame = Instance.new("ScrollingFrame")
-
-		AxiomCommands.Name = "AxiomCommands"
-		AxiomCommands.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
-		AxiomCommands.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
-		AxiomCommands.ResetOnSpawn = false
-
-		Backgrounds.Name = "Background"
-		Backgrounds.Parent = AxiomCommands
-		Backgrounds.BackgroundColor3 = Color3.fromRGB(10, 10, 15)
-		Backgrounds.BorderColor3 = Color3.fromRGB(0, 0, 0)
-		Backgrounds.BorderSizePixel = 0
-		Backgrounds.Position = UDim2.new(0.263819098, 0, 0.274151444, 0)
-		Backgrounds.Size = UDim2.new(0, 450, 0, 275)
-
-		local TweenService = game:GetService("TweenService")
-
-		Backgrounds.AnchorPoint = Vector2.new(0.5, 0.5)
-
-		local finalPos = UDim2.new(0.5, 0, 0.5, 0)
-		local finalSize = UDim2.new(0, 450, 0, 275)
-
-		Backgrounds.Position = finalPos
-		Backgrounds.Size = UDim2.new(0, 350, 0, 215)
-		Backgrounds.BackgroundTransparency = 1
-
-		for _, obj in ipairs(Backgrounds:GetDescendants()) do
-			if obj:IsA("TextLabel") or obj:IsA("TextButton") then
-				obj.TextTransparency = 1
-			elseif obj:IsA("Frame") then
-				obj.BackgroundTransparency = 1
-			elseif obj:IsA("UIStroke") then
-				obj.Transparency = 1
-			end
-		end
-
-		local openTween = TweenService:Create(
-			Backgrounds,
-			TweenInfo.new(
-				0.8,
-				Enum.EasingStyle.Quint,
-				Enum.EasingDirection.Out
-			),
-			{
-				Size = finalSize,
-				BackgroundTransparency = 0
-			}
-		)
-
-		openTween:Play()
-		firesound(135595810064855)
-
-		for _, obj in ipairs(Backgrounds:GetDescendants()) do
-			if obj:IsA("TextLabel") or obj:IsA("TextButton") then
-				TweenService:Create(
-					obj,
-					TweenInfo.new(0.4),
-					{TextTransparency = 0}
-				):Play()
-			elseif obj:IsA("Frame") then
-				TweenService:Create(
-					obj,
-					TweenInfo.new(0.4),
-					{BackgroundTransparency = 0}
-				):Play()
-			elseif obj:IsA("UIStroke") then
-				TweenService:Create(
-					obj,
-					TweenInfo.new(0.4),
-					{Transparency = 0}
-				):Play()
-			end
-		end
-
-		backguis.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
-		backguis.Color = Color3.fromRGB(255, 255, 255)
-		backguis.LineJoinMode = Enum.LineJoinMode.Round
-		backguis.StrokeSizingMode = Enum.StrokeSizingMode.FixedSize
-		backguis.Thickness = 3
-		backguis.Parent = Backgrounds
-
-		local backguishue = 0
-		local backguisrainbowconnection
-
-		backguisrainbowconnection = RunServicess.RenderStepped:Connect(function(dt)
-			if Backgrounds == nil then 
-				backguisrainbowconnection:Disconnect()
-				backguisrainbowconnection = nil
-				return 
-			end
-			if Backgrounds.Visible then
-				backguishue = (backguishue + dt * 0.25) % 1 
-				backguis.Color = Color3.fromHSV(backguishue, 1, 1)
-			end
-		end)
-
-		Top.Name = "Top"
-		Top.Parent = Backgrounds
-		Top.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
-		Top.BorderColor3 = Color3.fromRGB(0, 0, 0)
-		Top.BorderSizePixel = 0
-		Top.Size = UDim2.new(1, 0, 0, 20)
-
-		Close_X.Name = "Close_X"
-		Close_X.Parent = Top
-		Close_X.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-		Close_X.BackgroundTransparency = 1.000
-		Close_X.BorderColor3 = Color3.fromRGB(0, 0, 0)
-		Close_X.BorderSizePixel = 0
-		Close_X.Position = UDim2.new(0.951111138, 0, 0, 0)
-		Close_X.Size = UDim2.new(0, 20, 0, 20)
-		Close_X.Font = Enum.Font.Cartoon
-		Close_X.Text = "X"
-		Close_X.TextColor3 = Color3.fromRGB(255, 255, 255)
-		Close_X.TextSize = 14.000
-
-		Middle.Name = "Middle"
-		Middle.Parent = Backgrounds
-		Middle.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
-		Middle.BorderColor3 = Color3.fromRGB(0, 0, 0)
-		Middle.BorderSizePixel = 0
-		Middle.Position = UDim2.new(0, 0, 0.0799999982, 0)
-		Middle.Size = UDim2.new(1, 0, 0, 55)
-
-		CMDSTitle.Name = "CMDSTitle"
-		CMDSTitle.Parent = Middle
-		CMDSTitle.AnchorPoint = Vector2.new(0.5, 0)
-		CMDSTitle.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-		CMDSTitle.BackgroundTransparency = 1.000
-		CMDSTitle.BorderColor3 = Color3.fromRGB(27, 42, 53)
-		CMDSTitle.Position = UDim2.new(0, 110, 0, 5)
-		CMDSTitle.Size = UDim2.new(0, 203, 0, 18)
-		CMDSTitle.ZIndex = 2
-		CMDSTitle.Font = Enum.Font.SourceSansBold
-		CMDSTitle.Text = "AXIOM COMMANDS"
-		CMDSTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
-		CMDSTitle.TextSize = 24.000
-		CMDSTitle.TextWrapped = true
-		CMDSTitle.TextXAlignment = Enum.TextXAlignment.Left
-
-		Home.Name = "Home"
-		Home.Parent = Middle
-		Home.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-		Home.BackgroundTransparency = 1.000
-		Home.BorderColor3 = Color3.fromRGB(0, 0, 0)
-		Home.BorderSizePixel = 0
-		Home.Position = UDim2.new(0.0177777782, 0, 0.411188841, 0)
-		Home.Size = UDim2.new(0, 100, 0, 30)
-		Home.Font = Enum.Font.SourceSans
-		Home.Text = "HOME"
-		Home.TextColor3 = Color3.fromRGB(255, 255, 255)
-		Home.TextSize = 17.000
-
-		UnderHome.Name = "UnderHome"
-		UnderHome.Parent = Home
-		UnderHome.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-		UnderHome.BorderColor3 = Color3.fromRGB(0, 0, 0)
-		UnderHome.BorderSizePixel = 0
-		UnderHome.Position = UDim2.new(0, 0, 1, 0)
-		UnderHome.Size = UDim2.new(1, 0, 0, 2)
-
-		Settings.Name = "Settings"
-		Settings.Parent = Middle
-		Settings.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-		Settings.BackgroundTransparency = 1.000
-		Settings.BorderColor3 = Color3.fromRGB(0, 0, 0)
-		Settings.BorderSizePixel = 0
-		Settings.Position = UDim2.new(0.239999995, 0, 0.411188841, 0)
-		Settings.Size = UDim2.new(0, 100, 0, 30)
-		Settings.Visible = true
-		Settings.Font = Enum.Font.SourceSans
-		Settings.Text = "SETTINGS"
-		Settings.TextColor3 = Color3.fromRGB(255, 255, 255)
-		Settings.TextSize = 17.000
-
-		UnderSettings.Name = "UnderSettings"
-		UnderSettings.Parent = Settings
-		UnderSettings.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-		UnderSettings.BorderColor3 = Color3.fromRGB(0, 0, 0)
-		UnderSettings.BorderSizePixel = 0
-		UnderSettings.Visible = false
-		UnderSettings.Position = UDim2.new(0, 0, 1, 0)
-		UnderSettings.Size = UDim2.new(1, 0, 0, 2)
-		UnderSettings.Visible = false
-
-		CommandsPage.Name = "CommandsPage"
-		CommandsPage.Parent = Backgrounds
-		CommandsPage.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-		CommandsPage.BackgroundTransparency = 1.000
-		CommandsPage.BorderColor3 = Color3.fromRGB(0, 0, 0)
-		CommandsPage.BorderSizePixel = 0
-		CommandsPage.Position = UDim2.new(0, 0, 0.280000001, 0)
-		CommandsPage.Size = UDim2.new(1, 0, 0, 198)
-
-		cmdsscroll.Name = "cmdsscroll"
-		cmdsscroll.Parent = CommandsPage
-		cmdsscroll.Active = true
-		cmdsscroll.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-		cmdsscroll.BackgroundTransparency = 1.000
-		cmdsscroll.BorderColor3 = Color3.fromRGB(0, 0, 0)
-		cmdsscroll.BorderSizePixel = 0
-		cmdsscroll.Size = UDim2.new(1, 0, 1, 0)
-		cmdsscroll.BottomImage = "rbxasset://textures/ui/Scroll/scroll-middle.png"
-		cmdsscroll.ScrollBarThickness = 5
-		cmdsscroll.TopImage = "rbxasset://textures/ui/Scroll/scroll-middle.png"
-
-		UIGridLayout.Parent = cmdsscroll
-		UIGridLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
-		UIGridLayout.CellSize = UDim2.new(0.949999988, 0, 0, 100)
-
-		SettingsPage.Name = "SettingsPage"
-		SettingsPage.Parent = Backgrounds
-		SettingsPage.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-		SettingsPage.BorderColor3 = Color3.fromRGB(0, 0, 0)
-		SettingsPage.BorderSizePixel = 0
-		SettingsPage.BackgroundTransparency = 1
-		SettingsPage.Position = UDim2.new(0, 0, 0.280000001, 0)
-		SettingsPage.Size = UDim2.new(1, 0, 0, 198)
-		SettingsPage.Visible = false
-
-		ScrollingFrame.Parent = SettingsPage
-		ScrollingFrame.Active = true
-		ScrollingFrame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-		ScrollingFrame.BackgroundTransparency = 1.000
-		ScrollingFrame.BorderColor3 = Color3.fromRGB(0, 0, 0)
-		ScrollingFrame.BorderSizePixel = 0
-		ScrollingFrame.Size = UDim2.new(1, 0, 1, 0)
-		ScrollingFrame.BottomImage = "rbxasset://textures/ui/Scroll/scroll-middle.png"
-		ScrollingFrame.ScrollBarThickness = 5
-		ScrollingFrame.TopImage = "rbxasset://textures/ui/Scroll/scroll-middle.png"
-
-		local layout = UIGridLayout
-		local scroll = cmdsscroll
-
-		local function updateCanvas()
-			scroll.CanvasSize = UDim2.new(0, 0, 0, layout.AbsoluteContentSize.Y)
-		end
-
-		layout:GetPropertyChangedSignal("AbsoluteContentSize"):Connect(updateCanvas)
-
-		Home.MouseButton1Click:Connect(function()
-			UnderHome.Visible = true
-			CommandsPage.Visible = true
-
-			UnderSettings.Visible = false
-			SettingsPage.Visible = false
-		end)
-		Settings.MouseButton1Click:Connect(function()
-			UnderHome.Visible = false
-			CommandsPage.Visible = false
-
-			UnderSettings.Visible = true
-			SettingsPage.Visible = true
-		end)
-				
-
-		local function QGWHI_fake_script() 
-			local script = Instance.new('LocalScript', AxiomCommands)
-
-			local frame = script.Parent.Background
-			local userInput = game:GetService("UserInputService")
-					
-			local dragging = false
-			local dragStart
-			local startPos
-					
-			frame.InputBegan:Connect(function(input)
-				if input.UserInputType == Enum.UserInputType.MouseButton1 then
-					dragging = true
-					dragStart = input.Position
-					startPos = frame.Position
-				end
-			end)
-					
-			frame.InputEnded:Connect(function(input)
-				if input.UserInputType == Enum.UserInputType.MouseButton1 then
-					dragging = false
-				end
-			end)
-					
-			userInput.InputChanged:Connect(function(input)
-				if dragging and input.UserInputType == Enum.UserInputType.MouseMovement then
-					local delta = input.Position - dragStart
-					frame.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
-				end
-			end)
-					
-			script.Parent:WaitForChild("Background"):WaitForChild("Top"):WaitForChild("Close_X").MouseButton1Down:Connect(function()
-				script.Parent:Destroy()
-			end)
-
-			for _, Command in ipairs(Commands) do
-				local CMDHOLDERs = Instance.new("Frame")
-				local CMDNAMEs = Instance.new("TextLabel")
-				local usage = Instance.new("TextLabel")
-				local descriptions = Instance.new("TextLabel")
-				local aliases = Instance.new("TextLabel")
-				local cmdusage = Instance.new("TextLabel")
-				local cmddesc = Instance.new("TextLabel")
-				local cmdali = Instance.new("TextLabel")
-
-				CMDHOLDERs.Name = Command.Name
-				CMDHOLDERs.Parent = cmdsscroll
-				CMDHOLDERs.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
-				CMDHOLDERs.BorderColor3 = Color3.fromRGB(0, 0, 0)
-				CMDHOLDERs.BorderSizePixel = 0
-				CMDHOLDERs.Size = UDim2.new(0, 100, 0, 100)
-
-				CMDHOLDERs.BackgroundTransparency = 1
-
-				CMDHOLDERs.Position = UDim2.new(0, 0, 0, 15)
-
-				TweenService:Create(
-					CMDHOLDERs,
-					TweenInfo.new(
-						0.5,
-						Enum.EasingStyle.Quint,
-						Enum.EasingDirection.Out
-					),
-					{
-						BackgroundTransparency = 0,
-						Position = CMDHOLDERs.Position - UDim2.new(0,0,0,15)
-					}
-				):Play()
-
-				CMDNAMEs.Name = "CMDNAME"
-				CMDNAMEs.Parent = CMDHOLDERs
-				CMDNAMEs.AnchorPoint = Vector2.new(0.5, 0)
-				CMDNAMEs.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-				CMDNAMEs.BackgroundTransparency = 1.000
-				CMDNAMEs.BorderColor3 = Color3.fromRGB(0, 0, 0)
-				CMDNAMEs.BorderSizePixel = 0
-				CMDNAMEs.Position = UDim2.new(0.5, 0, 0, 0)
-				CMDNAMEs.Size = UDim2.new(0, 200, 0, 25)
-				CMDNAMEs.Font = Enum.Font.SourceSansBold
-				CMDNAMEs.Text = Command.Name
-				CMDNAMEs.TextColor3 = Color3.fromRGB(255, 255, 255)
-				CMDNAMEs.TextSize = 20.000
-
-				usage.Name = "usage"
-				usage.Parent = CMDHOLDERs
-				usage.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-				usage.BackgroundTransparency = 1.000
-				usage.BorderColor3 = Color3.fromRGB(0, 0, 0)
-				usage.BorderSizePixel = 0
-				usage.Position = UDim2.new(0.0210526325, 0, 0.25, 0)
-				usage.Size = UDim2.new(0, 50, 0, 20)
-				usage.Font = Enum.Font.SourceSansBold
-				usage.Text = "Usage:"
-				usage.TextColor3 = Color3.fromRGB(255, 255, 255)
-				usage.TextSize = 16.000
-				usage.TextXAlignment = Enum.TextXAlignment.Left
-
-				descriptions.Name = "descriptions"
-				descriptions.Parent = CMDHOLDERs
-				descriptions.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-				descriptions.BackgroundTransparency = 1.000
-				descriptions.BorderColor3 = Color3.fromRGB(0, 0, 0)
-				descriptions.BorderSizePixel = 0
-				descriptions.Position = UDim2.new(0.0210526325, 0, 0.449999988, 0)
-				descriptions.Size = UDim2.new(0, 75, 0, 20)
-				descriptions.Font = Enum.Font.SourceSansBold
-				descriptions.Text = "Description:"
-				descriptions.TextColor3 = Color3.fromRGB(255, 255, 255)
-				descriptions.TextSize = 16.000
-				descriptions.TextXAlignment = Enum.TextXAlignment.Left
-
-				aliases.Name = "aliases"
-				aliases.Parent = CMDHOLDERs
-				aliases.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-				aliases.BackgroundTransparency = 1.000
-				aliases.BorderColor3 = Color3.fromRGB(0, 0, 0)
-				aliases.BorderSizePixel = 0
-				aliases.Position = UDim2.new(0.0210526325, 0, 0.649999976, 0)
-				aliases.Size = UDim2.new(0, 50, 0, 20)
-				aliases.Font = Enum.Font.SourceSansBold
-				aliases.Text = "Aliases:"
-				aliases.TextColor3 = Color3.fromRGB(255, 255, 255)
-				aliases.TextSize = 16.000
-				aliases.TextXAlignment = Enum.TextXAlignment.Left
-
-				cmdusage.Name = "cmdusage"
-				cmdusage.Parent = CMDHOLDERs
-				cmdusage.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-				cmdusage.BackgroundTransparency = 1.000
-				cmdusage.BorderColor3 = Color3.fromRGB(0, 0, 0)
-				cmdusage.BorderSizePixel = 0
-				cmdusage.Position = UDim2.new(0.121637426, 0, 0.25, 0)
-				cmdusage.Size = UDim2.new(0.876023412, 0, 0, 20)
-				cmdusage.Font = Enum.Font.SourceSans
-				cmdusage.Text = Command.Usage
-				cmdusage.TextColor3 = Color3.fromRGB(255, 255, 255)
-				cmdusage.TextSize = 16.000
-				cmdusage.TextXAlignment = Enum.TextXAlignment.Left
-
-				cmddesc.Name = "cmddesc"
-				cmddesc.Parent = CMDHOLDERs
-				cmddesc.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-				cmddesc.BackgroundTransparency = 1.000
-				cmddesc.BorderColor3 = Color3.fromRGB(0, 0, 0)
-				cmddesc.BorderSizePixel = 0
-				cmddesc.Position = UDim2.new(0.196491227, 0, 0.449999988, 0)
-				cmddesc.Size = UDim2.new(0, 343, 0, 20)
-				cmddesc.Font = Enum.Font.SourceSans
-				cmddesc.Text = Command.Description
-				cmddesc.TextColor3 = Color3.fromRGB(255, 255, 255)
-				cmddesc.TextSize = 16.000
-				cmddesc.TextXAlignment = Enum.TextXAlignment.Left
-
-				cmdali.Name = "cmdali"
-				cmdali.Parent = CMDHOLDERs
-				cmdali.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-				cmdali.BackgroundTransparency = 1.000
-				cmdali.BorderColor3 = Color3.fromRGB(0, 0, 0)
-				cmdali.BorderSizePixel = 0
-				cmdali.Position = UDim2.new(0.13567251, 0, 0.649999976, 0)
-				cmdali.Size = UDim2.new(0, 369, 0, 20)
-				cmdali.Font = Enum.Font.SourceSans
-				local aliases = Command.Aliases
-				if aliases and #aliases > 0 then
-					cmdali.Text = table.concat(aliases, ", ")
-				else
-					cmdali.Text = "None"
-				end
-				cmdali.TextColor3 = Color3.fromRGB(255, 255, 255)
-				cmdali.TextSize = 16.000
-				cmdali.TextXAlignment = Enum.TextXAlignment.Left
-				task.wait(0.01)
-			end
-			updateCanvas()
-		end
-		coroutine.wrap(QGWHI_fake_script)()
-	end
+	end)
+end
 
 
-	local function fadeIn(frame, label)
-		frame.Visible = true
-		frame.BackgroundTransparency = 1
-		label.TextTransparency = 0
+-- Create the actual suggestions inside CMDLINEsuggestions
+for _, Command in ipairs(Commands) do
+	local SUGGESTIONTEMPLATE = globalLib.CreateTextLabel(
+		Command.Name,
+		Command.Usage .. " | " .. Command.Description,
+		nil,
+		nil,
+		1,
+		Color3.fromRGB(255, 255, 255),
+		12,
+		Enum.Font.Ubuntu,
+		nil,
+		nil,
+		CMDLINEsuggestions
+	)
 
-		TweenService:Create(frame, SUGGESTION_FADE_INFO, {BackgroundTransparency = 0}):Play()
-	end
+	SUGGESTIONTEMPLATE.TextXAlignment = Enum.TextXAlignment.Left
+	SUGGESTIONTEMPLATE.Visible = false
+	SUGGESTIONTEMPLATE.TextTransparency = 1
 
-	local function fadeOut(frame, label)
-		local bgTween = TweenService:Create(frame, SUGGESTION_FADE_INFO, {BackgroundTransparency = 1})
+	SuggestionLabels[Command] = SUGGESTIONTEMPLATE
 
-		bgTween:Play()
+	SuggestionData[Command] = {
+		Shown = false
+	}
+end
 
-		bgTween.Completed:Connect(function(playbackState)
-			if playbackState == Enum.PlaybackState.Completed then
-				frame.Visible = false
-			end
-		end)
-	end
 
-	local function UpdateSuggestions()
-		local Text = FocusBar.Text:lower()
+local function UpdateSuggestionCanvas()
+	CMDLINEsuggestions.CanvasSize = UDim2.new(
+		0,
+		0,
+		0,
+		CMDLINEUIG.AbsoluteContentSize.Y
+	)
+end
 
-		if Text == "" then
-			for Command, data in pairs(CommandFrames) do
-				if data.Shown then
-					data.Shown = false
-					fadeOut(data.Frame, CommandLabels[Command])
-				end
-			end
-			return
-		end
+CMDLINEUIG:GetPropertyChangedSignal("AbsoluteContentSize"):Connect(
+	UpdateSuggestionCanvas
+)
 
-		for Command, Label in pairs(CommandLabels) do
-			local data = CommandFrames[Command]
-			local Match = false
+UpdateSuggestionCanvas()
 
-			if Command.Name:lower():sub(1, #Text) == Text then
-				Match = true
-			end
-			if string.find(Command.Name:lower(), Text, 1, true) then
-				Match = true
-			end
 
-			if not Match then
-				for _, Alias in ipairs(Command.Aliases) do
-					if Alias:lower():sub(1, #Text) == Text then
-						Match = true
-						break
-					end
-				end
-			end
+local function UpdateSuggestions()
+	local Text = CMDLINE.Text:lower()
 
-			if Match and not data.Shown then
-				data.Shown = true
-				fadeIn(data.Frame, Label)
-			elseif not Match and data.Shown then
+	if Text == "" then
+		for Command, data in pairs(SuggestionData) do
+			if data.Shown then
 				data.Shown = false
-				fadeOut(data.Frame, Label)
+
+				fadeOut(
+					SuggestionLabels[Command],
+					data
+				)
 			end
+		end
+
+		return
+	end
+
+	-- Only check command portion
+	local commandText = Text:match("^(%S+)") or ""
+
+	for Command, Label in pairs(SuggestionLabels) do
+		local data = SuggestionData[Command]
+		local Match = false
+
+		local commandName = Command.Name:lower()
+
+		-- command name
+		if commandName:sub(1, #commandText) == commandText then
+			Match = true
+		end
+
+		if string.find(
+			commandName,
+			commandText,
+			1,
+			true
+		) then
+			Match = true
+		end
+
+		-- aliases
+		if not Match then
+			for _, Alias in ipairs(Command.Aliases) do
+				local aliasLower = Alias:lower()
+
+				if aliasLower:sub(
+					1,
+					#commandText
+				) == commandText then
+					Match = true
+					break
+				end
+			end
+		end
+
+		if Match and not data.Shown then
+			data.Shown = true
+			fadeIn(Label)
+
+		elseif not Match and data.Shown then
+			data.Shown = false
+			fadeOut(Label, data)
 		end
 	end
-	local function escapeRichText(str)
-		str = str:gsub("&", "&amp;")
-		str = str:gsub("<", "&lt;")
-		str = str:gsub(">", "&gt;")
-		str = str:gsub("\"", "&quot;")
-		return str
-	end
+end
 
-	local function findFirstPlayerSuggestion(text)
-		if text == "" then return nil end
-		local lowerText = text:lower()
 
-		local keywords = {"me", "self", "all", "everyone", "others", "random"}
-		for _, keyword in ipairs(keywords) do
-			if keyword:sub(1, #lowerText) == lowerText then
-				return keyword
-			end
-		end
+local function escapeRichText(str)
+	str = str:gsub("&", "&amp;")
+	str = str:gsub("<", "&lt;")
+	str = str:gsub(">", "&gt;")
+	str = str:gsub("\"", "&quot;")
 
-		for _, v in ipairs(players:GetPlayers()) do
-			if v.Name:lower():sub(1, #lowerText) == lowerText then
-				return v.Name
-			end
-			if v.DisplayName:lower():sub(1, #lowerText) == lowerText then
-				return v.DisplayName
-			end
-		end
+	return str
+end
 
+
+local function findFirstPlayerSuggestion(text)
+	if text == "" then
 		return nil
 	end
 
-	local function findFirstSuggestionCmd(text)
-		for _, cmd in ipairs(Commands) do
-			local nameLower = cmd.Name:lower()
-			if nameLower:sub(1, #text) == text then
-				return cmd, cmd.Name
-			end
-			for _, alias in ipairs(cmd.Aliases) do
-				local aliasLower = alias:lower()
-				if aliasLower:sub(1, #text) == text then
-					return cmd, alias
-				end
-			end
+	local lowerText = text:lower()
+
+	local keywords = {
+		"me",
+		"self",
+		"all",
+		"everyone",
+		"others",
+		"random"
+	}
+
+	for _, keyword in ipairs(keywords) do
+		if keyword:sub(
+			1,
+			#lowerText
+		) == lowerText then
+			return keyword
 		end
-		return nil, nil
 	end
 
-	local function UpdateGhostText()
-		local Text = FocusBar.Text
-
-		if Text == "" then
-			GhostLabel.Text = ""
-			return
+	for _, v in ipairs(Players:GetPlayers()) do
+		if v.Name:lower():sub(
+			1,
+			#lowerText
+		) == lowerText then
+			return v.Name
 		end
 
-		local typedColorHex = "#" .. Background.BackgroundColor3:ToHex()
-		local parts = Text:split(" ")
-		local firstWord = parts[1]
-		local lowerFirst = firstWord:lower()
+		if v.DisplayName:lower():sub(
+			1,
+			#lowerText
+		) == lowerText then
+			return v.DisplayName
+		end
+	end
 
-		if #parts == 1 then
-			local cmd, suggestion = findFirstSuggestionCmd(lowerFirst)
+	return nil
+end
 
-			if not suggestion or #suggestion <= #firstWord then
-				GhostLabel.Text = ""
-				return
+
+local function findFirstSuggestionCmd(text)
+	for _, cmd in ipairs(Commands) do
+		local nameLower = cmd.Name:lower()
+
+		if nameLower:sub(
+			1,
+			#text
+		) == text then
+			return cmd, cmd.Name
+		end
+
+		for _, alias in ipairs(cmd.Aliases) do
+			local aliasLower = alias:lower()
+
+			if aliasLower:sub(
+				1,
+				#text
+			) == text then
+				return cmd, alias
 			end
-
-			local completion = suggestion:sub(#firstWord + 1)
-
-			GhostLabel.Text = string.format(
-				'<font color="%s">%s</font><font color="#888888">%s</font>',
-				typedColorHex,
-				escapeRichText(Text),
-				escapeRichText(completion)
-			)
-			return
 		end
+	end
 
-		local cmd, _ = findFirstSuggestionCmd(lowerFirst)
+	return nil, nil
+end
 
-		if not cmd or not cmd.Arguments or cmd.Arguments[1] ~= "player" then
+
+local function UpdateGhostText()
+	local Text = CMDLINE.Text
+
+	if Text == "" then
+		GhostLabel.Text = ""
+		return
+	end
+
+	local typedColorHex =
+		"#" .. CMDLINEBackground.BackgroundColor3:ToHex()
+
+	local parts = Text:split(" ")
+
+	local firstWord = parts[1]
+	local lowerFirst = firstWord:lower()
+
+
+	-- Command completion
+	if #parts == 1 then
+		local cmd, suggestion =
+			findFirstSuggestionCmd(lowerFirst)
+
+		if not suggestion
+			or #suggestion <= #firstWord then
+
 			GhostLabel.Text = ""
 			return
 		end
 
-		local playerQuery = parts[2] or ""
-
-		local playerSuggestion = findFirstPlayerSuggestion(playerQuery)
-
-		if not playerSuggestion or #playerSuggestion <= #playerQuery then
-			GhostLabel.Text = string.format(
-				'<font color="%s">%s</font>',
-				typedColorHex,
-				escapeRichText(Text)
-			)
-			return
-		end
-
-		local playerCompletion = playerSuggestion:sub(#playerQuery + 1)
+		local completion =
+			suggestion:sub(#firstWord + 1)
 
 		GhostLabel.Text = string.format(
 			'<font color="%s">%s</font><font color="#888888">%s</font>',
 			typedColorHex,
 			escapeRichText(Text),
-			escapeRichText(playerCompletion)
+			escapeRichText(completion)
 		)
+
+		return
 	end
 
-	local function sendCMD(msg)
-		local split = msg:split(" ")
-		local cmdName = split[1]:lower()
 
-		table.remove(split, 1)
-		local args = split
+	-- Find command
+	local cmd =
+		findFirstSuggestionCmd(lowerFirst)
 
-		local command = CommandLookup[cmdName]
-		if not command then
-			notice("Unknown command:", cmdName)
-			return
-		end
+	if not cmd
+		or not cmd.Arguments
+		or cmd.Arguments[1] ~= "player" then
 
-		command.Run(args)
-	end
-
-	Background.BackgroundTransparency = 1
-	Background.Position = UDim2.new(0.5, 0, 2, 0)
-	Background.Visible = false
-
-	TopLine.Size = UDim2.new(0, 0, 0, 3)
-	TopLine.Position = UDim2.new(0.5, 0, 1, 0)
-
-	local BG_TWEEN_INFO = TweenInfo.new(0.25, Enum.EasingStyle.Quint, Enum.EasingDirection.Out)
-	local TOPLINE_OPEN_INFO = TweenInfo.new(0.35, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
-	local TOPLINE_CLOSE_INFO = TweenInfo.new(0.3, Enum.EasingStyle.Quad, Enum.EasingDirection.In)
-	local BG_CLOSE_INFO = TweenInfo.new(0.25, Enum.EasingStyle.Quint, Enum.EasingDirection.In)
-
-	local animationToken = 0 
-
-	local function playTween(obj, info, goal)
-		local tween = TweenService:Create(obj, info, goal)
-		tween:Play()
-		return tween
-	end
-
-	local function openCmdBar()
-		animationToken += 1
-		local myToken = animationToken
-
-		Background.Visible = true
-
-		Background.Position = UDim2.new(0.5, 0, 2, 0)
-		Background.BackgroundTransparency = 1
-		TopLine.Size = UDim2.new(0, 0, 0, 3)
-		TopLine.Position = UDim2.new(0.5, 0, 1, 0)
-
-		task.spawn(function()
-			game:GetService("RunService").PreRender:Wait()
-
-			if animationToken ~= myToken then return end
-
-			local bgTween = playTween(Background, BG_TWEEN_INFO, {
-				Position = UDim2.new(0.5, 0, 0.899999976, 0),
-				BackgroundTransparency = 0,
-			})
-
-			task.wait(BG_TWEEN_INFO.Time)
-			AdminTitle.Position = UDim2.new(0, 0, 1, 10)
-			AdminTitle.Visible = true
-			if animationToken ~= myToken then return end
-
-			playTween(TopLine, TOPLINE_OPEN_INFO, {
-				Size = UDim2.new(1, 0, 0, 3),
-				Position = UDim2.new(0, 0, 1, 0),
-			})
-		end)
-	end
-
-	local function closeCmdBar()
-		animationToken += 1
-		local myToken = animationToken
-
-		task.spawn(function()
-			playTween(TopLine, TOPLINE_CLOSE_INFO, {
-				Size = UDim2.new(0, 0, 0, 3),
-				Position = UDim2.new(0.5, 0, 1, 0),
-			})
-
-			task.wait(TOPLINE_CLOSE_INFO.Time)
-			AdminTitle.Visible = false
-			if animationToken ~= myToken then return end
-
-			playTween(Background, BG_CLOSE_INFO, {
-				Position = UDim2.new(0.5, 0, 2, 0),
-				BackgroundTransparency = 1,
-			})
-
-			task.wait(BG_CLOSE_INFO.Time)
-
-			if animationToken ~= myToken then return end
-
-			Background.Visible = false
-		end)
-	end
-
-	FocusBar:GetPropertyChangedSignal("Text"):Connect(UpdateSuggestions)
-	FocusBar:GetPropertyChangedSignal("Text"):Connect(UpdateGhostText)
-	FocusBar:GetPropertyChangedSignal("Text"):Connect(function()
-		firesound(133003979061644)
-	end)
-	FocusBar.Focused:connect(function()
-		openCmdBar()
-		FocusBar.Text = ""
 		GhostLabel.Text = ""
-	end)
-	FocusBar.FocusLost:connect(function(enterPressed)
-		local text = FocusBar.Text
-		FocusBar.Text = ""
-		GhostLabel.Text = ""
-		closeCmdBar()
-		if enterPressed then
-			sendCMD(text)
-		end
-		wait()
-	end)
-	adminConnections.keyconnectcheck = game:GetService("Players").LocalPlayer:GetMouse().KeyDown:connect(function(input)
-		if (input == ";") then
-			FocusBar:CaptureFocus()
-			wait()
-		end
-	end)
-	local TextChatService = game:GetService("TextChatService")
-	TextChatService.OnIncomingMessage = function(message)
-		if adminConnections.textchatconnect == false then return end
-		if not message.TextSource then return end
-
-		local senderId = message.TextSource.UserId
-		local text = message.Text
-
-		if text:sub(1, 1) ~= "!" then return end
-		text = text:sub(2):gsub("^%s+", "")
-
-		if senderId == plr.UserId then
-			if message.Status ~= Enum.TextChatMessageStatus.Success then return end
-			sendCMD(text)
-
-		elseif TempAdminUserIds[senderId] then
-			sendCMD(text)
-		end
+		return
 	end
-	notice("Axiom Execution Line Has Fully Loaded. Enjoy the premium experience of FE and RCD.")
-	notice([[Chat Prefix is !
-Whille Execution Line Prefix is ;]])
+
+
+	-- Player completion
+	local playerQuery = parts[2] or ""
+
+	local playerSuggestion =
+		findFirstPlayerSuggestion(playerQuery)
+
+	if not playerSuggestion
+		or #playerSuggestion <= #playerQuery then
+
+		GhostLabel.Text = ""
+		return
+	end
+
+	local playerCompletion =
+		playerSuggestion:sub(#playerQuery + 1)
+
+	GhostLabel.Text = string.format(
+		'<font color="%s">%s</font><font color="#888888">%s</font>',
+		typedColorHex,
+		escapeRichText(Text),
+		escapeRichText(playerCompletion)
+	)
 end
-coroutine.wrap(LUFLUDB_fake_script)()
+
+
+CMDLINE:GetPropertyChangedSignal("Text"):Connect(function()
+	UpdateSuggestions()
+	UpdateGhostText()
+end)
+
+UpdateSuggestions()
+UpdateGhostText()
+
+local function sendCMD(msg)
+	local split = msg:split(" ")
+	local cmdName = split[1]:lower()
+	table.remove(split, 1) -- remove command name
+	local args = split
+	local command = CommandLookup[cmdName]
+	if not command then
+		notice("Unknown command:", cmdName)
+		return
+	end
+	command.Run(args)
+end
+-- Command Bar -- 
+MobileButton.MouseButton1Click:Connect(function()
+	CMDLINE:CaptureFocus()
+end)
+
+local CommandBarTweenInfo = TweenInfo.new(
+	0.25,
+	Enum.EasingStyle.Quad,
+	Enum.EasingDirection.Out
+)
+
+function OpenCommandBar()
+	CommandLineBar.Visible = true
+	MobileButton.Visible = false
+
+	CommandLineBar.Position = UDim2.new(1, 0, 0, 0)
+
+	TweenService:Create(
+		CommandLineBar,
+		CommandBarTweenInfo,
+		{
+			Position = UDim2.new(0, 0, 0, 0)
+		}
+	):Play()
+end
+
+function CloseCommandBar()
+	local tween = TweenService:Create(
+		CommandLineBar,
+		TweenInfo.new(
+			0.25,
+			Enum.EasingStyle.Quad,
+			Enum.EasingDirection.In
+		),
+		{
+			Position = UDim2.new(1, 0, 0, 0)
+		}
+	)
+
+	tween:Play()
+
+	tween.Completed:Once(function()
+		CommandLineBar.Visible = false
+		MobileButton.Visible = true
+	end)
+end
+
+CloseCommandBar()
+
+CMDLINE:GetPropertyChangedSignal("Text"):Connect(UpdateSuggestions)
+CMDLINE:GetPropertyChangedSignal("Text"):Connect(UpdateGhostText)
+CMDLINE:GetPropertyChangedSignal("Text"):Connect(function()
+	firesound(133003979061644)
+end)
+CMDLINE.Focused:connect(function()
+	OpenCommandBar()
+	CMDLINE.Text = ""
+end)
+CMDLINE.FocusLost:connect(function(enterPressed)
+	local text = CMDLINE.Text
+	CMDLINE.Text = ""
+	CloseCommandBar()
+	if enterPressed then
+		sendCMD(text)
+	end
+	wait()
+end)
+adminConnections.keyconnectcheck = game:GetService("Players").LocalPlayer:GetMouse().KeyDown:connect(function(input)
+	if (input == ";") then
+		CMDLINE:CaptureFocus()
+		wait()
+	end
+end)
+local TextChatService = game:GetService("TextChatService")
+TextChatService.OnIncomingMessage = function(message)
+	if adminConnections.textchatconnect == false then return end
+	if not message.TextSource then return end
+	local senderId = message.TextSource.UserId
+	local text = message.Text
+	if text:sub(1, 1) ~= "!" then return end
+	text = text:sub(2):gsub("^%s+", "")
+	if senderId == plr.UserId then
+		if message.Status ~= Enum.TextChatMessageStatus.Success then return end
+		sendCMD(text)
+	elseif TempAdminUserIds[senderId] then
+		sendCMD(text)
+	end
+end
+notice("Axiom Execution Line Has Fully Loaded. Enjoy the premium experience of FE and RCD.")
+notice([[Chat Prefix is !
+Whille Execution Line Prefix is ;]])
