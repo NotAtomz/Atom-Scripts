@@ -1,5 +1,5 @@
 --[[
-	Axiom Admin 1.0.b
+	Axiom Admin 1.0.c
         Just Some Gui Changes
 ]]
 --[[
@@ -25,7 +25,7 @@
 ]]
 local globalLib
 local AdminGUI
-local aaver = "1.0.b"
+local aaver = "1.0.c"
 if game.Players.LocalPlayer:FindFirstChild("PlayerGui"):FindFirstChild("AxiomsAdminThing") then
 	return 
 else
@@ -61,7 +61,9 @@ end
 local adminConnections = {
 	keyconnectcheck = nil,
 	textchatconnect = true,
-	plrjoinconnect = nil
+	plrjoinconnect = nil,
+	joinlogs = nil,
+	leavelogs = nil
 }
 
 local CommandLineBar = globalLib.CreateFrame("CommandLineBar", nil, nil, 1, nil, UDim2.new(0, 0, 0, 0), UDim2.new(1, 0, 0, 75), AdminGUI)
@@ -69,29 +71,33 @@ local CMDLINEBackground = globalLib.CreateFrame("CMDLINEBackground", Vector2.new
 local Arrow = globalLib.CreateTextLabel("Arrow", ">", nil, nil, 1, Color3.fromRGB(255, 255, 255), 12, Enum.Font.Ubuntu, nil, UDim2.new(0, 20, 0, 20), CMDLINEBackground)
 local CMDLINE = globalLib.CreateTextBox("CMDLINE", "", "Axiom Command Line", Vector2.new(1, 0), nil, 1, Color3.fromRGB(255, 255, 255), nil, 12, Enum.Font.Ubuntu, UDim2.new(1, 0, 0, 0), UDim2.new(1, -20, 1, 0), nil, nil, CMDLINEBackground)
 CMDLINE.TextXAlignment = Enum.TextXAlignment.Left
-
 local CMDLINEsuggestions = globalLib.CreateScrollingFrame("CMDLINEsuggestions", Vector2.new(0, 1), nil, 1, nil, UDim2.new(0, 21, 1, 0), UDim2.new(1, -20, 1, -27), nil, 0, CommandLineBar)
 local CMDLINEUIG = globalLib.CreateUIGridLayout("CMDLINEUIG", UDim2.new(0, 0, 0, 0), UDim2.new(1, 0, 0, 12), nil, nil, nil, Enum.SortOrder.Name, CMDLINEsuggestions)
+
 local Commands = globalLib.CreateFrame("Commands", Vector2.new(0, 0.5), nil, 1, nil, UDim2.new(0, 0, 0.5, 0), UDim2.new(0, 175, 0, 200), AdminGUI)
 local CMDSBackground = globalLib.CreateFrame("CMDSBackground", Vector2.new(0.5, 0), Color3.fromRGB(0, 0, 0), 0.75, nil, UDim2.new(0.5, 0, 0, 0), UDim2.new(0, 150, 1, 0), Commands)
 local CMDStopBar = globalLib.CreateFrame("CMDStopBar", nil, nil, 1, nil, nil, UDim2.new(1, 0, 0, 20), CMDSBackground)
 local CMDSclose = globalLib.CreateTextButton("CMDSclose", "X", Vector2.new(1, 0), nil, 1, Color3.fromRGB(255, 255, 255), 12, Enum.Font.Ubuntu, UDim2.new(1, 0, 0, 0), UDim2.new(0, 20, 0, 20), nil, CMDStopBar)
 local CmdsTitle = globalLib.CreateTextLabel("CmdsTitle", "Commands", nil, nil, 1, Color3.fromRGB(255, 255, 255), 12, Enum.Font.Ubuntu, UDim2.new(0, 5, 0, 0), UDim2.new(0, 65, 0, 20), CMDStopBar)
 CmdsTitle.TextXAlignment = Enum.TextXAlignment.Left
-
-local CMDSscrollframe = globalLib.CreateScrollingFrame("CMDSscrollframe", nil, nil, 1, nil, UDim2.new(0, 5, 0, 20), UDim2.new(1, -10, 1, -20), nil, 5, CMDSBackground)
+local CMDSserachButton = globalLib.CreateImageButton("CMDSserachButton", "rbxassetid://119704868504910", Vector2.new(1, 0), nil, 1, UDim2.new(1, -20, 0, 0), UDim2.new(0, 20, 0, 20), CMDStopBar)
+local CMDSscrollframe = globalLib.CreateScrollingFrame("CMDSscrollframe", nil, nil, 1, nil, UDim2.new(0, 5, 0, 20), UDim2.new(1, -10, 1, -40), nil, 5, CMDSBackground)
+local CMDsearch = globalLib.CreateTextBox("CMDsearch", "", "", Vector2.new(0, 1), nil, 1, Color3.fromRGB(255, 255, 255), nil, 12, Enum.Font.Ubuntu, UDim2.new(0, 5, 1, 0), UDim2.new(1, -10, 0, 20), true, false, CMDSBackground)
+CMDsearch.TextXAlignment = Enum.TextXAlignment.Left
 local CMDSUIG = globalLib.CreateUIGridLayout("CMDSUIG", UDim2.new(0, 0, 0, 0), UDim2.new(1, 0, 0, 15), nil, nil, nil, Enum.SortOrder.Name, CMDSscrollframe)
-local MobileButton = globalLib.CreateImageButton("MobileButton", "rbxassetid://85232901600453", Vector2.new(0.5, 0), nil, 1, UDim2.new(0.5, 0, 0, 10), UDim2.new(0, 25, 0, 25), AdminGUI)
-Commands.Visible = false
-local TweenService = game:GetService("TweenService")
 
+local MobileButton = globalLib.CreateImageButton("MobileButton", "rbxassetid://16149179345", Vector2.new(0.5, 0), nil, 1, UDim2.new(0.5, 0, 0, 10), UDim2.new(0, 25, 0, 25), AdminGUI)
+Commands.Visible = false
+
+local TweenService = game:GetService("TweenService")
 local CommandsOpenPosition = UDim2.new(0, 0, 0.5, 0)
 local CommandsClosedPosition = UDim2.new(0, -190, 0.5, 0)
 
 function loadcmdsgui()
+	firesound(97260843549843)
 	Commands.Visible = true
 	Commands.Position = CommandsClosedPosition
-
+	task.wait(0.2)
 	TweenService:Create(
 		Commands,
 		TweenInfo.new(
@@ -106,6 +112,8 @@ function loadcmdsgui()
 end
 
 function closecmdsgui()
+	firesound(97260843549843)
+	task.wait(0.2)
 	local tween = TweenService:Create(
 		Commands,
 		TweenInfo.new(
@@ -124,9 +132,7 @@ function closecmdsgui()
 		Commands.Visible = false
 	end)
 end
-CMDSclose.MouseButton1Down:Connect(function()
-    closecmdsgui()
-end)
+
 function firesound(soundid)
 	local sound = Instance.new("Sound")
 	sound.SoundId = "rbxassetid://"..soundid..""
@@ -136,6 +142,14 @@ function firesound(soundid)
 		sound:Destroy()
 	end)
 end
+
+function preparesound(soundid)
+	local sound = Instance.new("Sound")
+	sound.SoundId = "rbxassetid://"..soundid..""
+	sound.Parent = game:GetService("SoundService")
+	return sound
+end
+
 local CoreGui = game:GetService("CoreGui")
 local TextService = game:GetService("TextService")
 local TweenService = game:GetService("TweenService")
@@ -412,7 +426,7 @@ end
 
 function notice(msg)
 	pcall(function()
-		firesound(17208372272)
+		firesound(82845990304289)
 	end)
 
 	createNotice(msg, DEFAULT_DURATION)
@@ -6566,6 +6580,44 @@ local Commands = {
 			end
 		},
 		{
+			Name = "JoinNoti",
+			Aliases = {"joinnoti", "joinlogs", "joins"},
+			Description = "Toggles join notifications to see people joining",
+			Usage = "joinnoti",
+			Arguments = {},
+			Run = function(args)
+				if adminConnections.joinlogs then
+					adminConnections.joinlogs:Disconnect()
+					adminConnections.joinlogs = nil
+					notice("Join Notifications have been disabled")
+					return
+				end
+				notice("Join Notifications have been enabled")
+				adminConnections.joinlogs = game.Players.PlayerAdded:Connect(function(newPlayer)
+					notice(newPlayer.DisplayName.." Has Joined.")
+				end)
+			end
+		},
+		{
+			Name = "LeaveNoti",
+			Aliases = {"leavenoti", "leavelogs", "leaves"},
+			Description = "Toggles leave notifications to see people leaving",
+			Usage = "leavenoti",
+			Arguments = {},
+			Run = function(args)
+				if adminConnections.leavelogs then
+					adminConnections.leavelogs:Disconnect()
+					adminConnections.leavelogs = nil
+					notice("Leave Notifications have been disabled")
+					return
+				end
+				notice("Leave Notifications have been enabled")
+				adminConnections.leavelogs = game.Players.PlayerRemoving:Connect(function(leavingPlayer)
+					notice(leavingPlayer.DisplayName.." Has Left.")
+				end)
+			end
+		},
+		{
 			Name = "placeholder",
 			Aliases = {"placeholder"},
 			Description = "placeholder",
@@ -6582,6 +6634,14 @@ local Commands = {
 			Usage = "stopadmin",
 			Arguments = {},
 			Run = function(args)
+				if adminConnections.leavelogs then
+					adminConnections.leavelogs:Disconnect()
+					adminConnections.leavelogs = nil
+				end
+				if adminConnections.joinlogs then
+					adminConnections.joinlogs:Disconnect()
+					adminConnections.joinlogs = nil
+				end
 				if adminConnections.keyconnectcheck then
 					adminConnections.keyconnectcheck:Disconnect()
 					adminConnections.keyconnectcheck = nil
@@ -6615,6 +6675,106 @@ for _, cmd in ipairs(Commands) do
 		CommandLookup[alias:lower()] = cmd
 	end
 end
+local function UpdateCommandSearch()
+	local Text = CMDsearch.Text:lower()
+
+	for Command, Label in pairs(CommandLabels) do
+		local Match = false
+
+		if Text == "" then
+			Match = true
+		else
+			local commandName = Command.Name:lower()
+
+			-- Match command name
+			if commandName:sub(1, #Text) == Text then
+				Match = true
+			end
+
+			-- Also match text anywhere in command name
+			if string.find(commandName, Text, 1, true) then
+				Match = true
+			end
+
+			-- Match aliases
+			if not Match then
+				for _, Alias in ipairs(Command.Aliases or {}) do
+					local aliasLower = Alias:lower()
+
+					if aliasLower:sub(1, #Text) == Text then
+						Match = true
+						break
+					end
+
+					if string.find(aliasLower, Text, 1, true) then
+						Match = true
+						break
+					end
+				end
+			end
+
+			-- Match usage
+			if not Match and Command.Usage then
+				if string.find(
+					Command.Usage:lower(),
+					Text,
+					1,
+					true
+				) then
+					Match = true
+				end
+			end
+
+			-- Match description
+			if not Match and Command.Description then
+				if string.find(
+					Command.Description:lower(),
+					Text,
+					1,
+					true
+				) then
+					Match = true
+				end
+			end
+		end
+
+		Label.Visible = Match
+	end
+
+	-- Update scrolling size after filtering
+	task.defer(function()
+		CMDSscrollframe.CanvasSize = UDim2.new(
+			0,
+			0,
+			0,
+			CMDSUIG.AbsoluteContentSize.Y
+		)
+	end)
+end
+
+function playtypesound()
+	local sound = preparesound(88442833509532)
+	sound.PlaybackSpeed = math.random(5,10) / 10
+	sound:Play()
+	sound.Ended:Connect(function()
+		sound:Destroy()
+	end)
+end
+CMDsearch:GetPropertyChangedSignal("Text"):Connect(playtypesound)
+CMDLINE:GetPropertyChangedSignal("Text"):Connect(playtypesound)
+CMDSclose.MouseButton1Down:Connect(function()
+    closecmdsgui()
+	firesound(116394299154002)
+end)
+CMDSserachButton.MouseButton1Down:Connect(function()
+	CMDsearch:CaptureFocus()
+	firesound(116394299154002)
+end)
+
+CMDsearch:GetPropertyChangedSignal("Text"):Connect(function()
+	UpdateCommandSearch()
+end)
+
 CMDSscrollframe.CanvasSize = UDim2.new(0, 0, 0, CMDSUIG.AbsoluteContentSize.Y)
 local SuggestionLabels = {}
 local SuggestionData = {}
@@ -6981,6 +7141,7 @@ end
 -- Command Bar -- 
 MobileButton.MouseButton1Click:Connect(function()
 	CMDLINE:CaptureFocus()
+	firesound(116394299154002)
 end)
 
 local CommandBarTweenInfo = TweenInfo.new(
@@ -6992,7 +7153,7 @@ local CommandBarTweenInfo = TweenInfo.new(
 function OpenCommandBar()
 	CommandLineBar.Visible = true
 	MobileButton.Visible = false
-
+	firesound(109445287643385)
 	CommandLineBar.Position = UDim2.new(1, 0, 0, 0)
 
 	TweenService:Create(
@@ -7029,9 +7190,7 @@ CloseCommandBar()
 
 CMDLINE:GetPropertyChangedSignal("Text"):Connect(UpdateSuggestions)
 CMDLINE:GetPropertyChangedSignal("Text"):Connect(UpdateGhostText)
-CMDLINE:GetPropertyChangedSignal("Text"):Connect(function()
-	firesound(133003979061644)
-end)
+
 CMDLINE.Focused:connect(function()
 	OpenCommandBar()
 	CMDLINE.Text = ""
@@ -7066,6 +7225,10 @@ TextChatService.OnIncomingMessage = function(message)
 		sendCMD(text)
 	end
 end
+local bootsound = preparesound(139219910523037)
+bootsound:Play()
+bootsound.Ended:Wait()
 notice("Axiom Execution Line Has Fully Loaded. Enjoy the premium experience of FE and RCD.")
+task.wait(0.1)
 notice([[Chat Prefix is !
 Whille Execution Line Prefix is ;]])
