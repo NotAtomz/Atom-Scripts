@@ -50,10 +50,7 @@ end
 function lib.readsaved(folder, dataname)
     local datatosend
     if not folder:FindFirstChild(dataname) then
-        local newsave = Instance.new("BoolValue")
-        newsave.Name = dataname
-        newsave.Parent = folder
-        datatosend = newsave.Value
+        datatosend = nil 
     else
         datatosend = folder:FindFirstChild(dataname).Value
     end
